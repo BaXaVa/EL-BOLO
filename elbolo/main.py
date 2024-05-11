@@ -5,92 +5,70 @@ from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
-from pybricks import pid
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
 
 
-# # Create your objects here.
-# ev3 = EV3Brick()
+# Create your objects here.
+ev3 = EV3Brick()
 
-# pid(91,)
-# # Write your program here.
-# ev3.speaker.beep(1)
-# ev3.screen.print("Hello World")
+# Write your program here.
 
 
-# #Configura los motores
-# left_motor = Motor(Port.C)
-# right_motor = Motor(Port.B)
-# Motor3 = Motor(Port.D)
-# motor2 = Motor(Port.A)
+def primer_paso(robot):
+    print("paso3")
+    
+    print("paso4")
+    robot.drive(-100, 0)
+    wait(1000)
+    robot.stop()
+    wait(500)
+    print("paso5")
+    robot.drive(200, 0)
+    wait(450)
+    robot.stop()
+    print("paso6")
 
-#     #mueve el motor3 media rotancion en sentido anti-horario
-# Motor3.run_angle(100, -180)
-# wait(1000)
+def avanzar_robot(robot, sensor1, sensor2):
+    robot.drive(200, 0)
+    
+    while wait(3000):
+        print(sensor1.reflection())
+        print(sensor2.reflection())
+        # quiero que imprima los valores de los sensores mientras sigue avanzando, esto por 3 segundos
 
-# #trabaja el motor a al 100% de su potencia es un elevador haz que suba y baje
-# motor2.run(-600)
-# wait(1000)
-# motor2.stop()
-# wait(1000)
+    robot.stop()
+    
 
-# #haz que retroceda el robot 5 cm 
-# robot = DriveBase(left_motor, right_motor, 100,100)
-# robot.drive(-1000, 0)
-# wait(1000)
-# robot.stop()
-
-# #haz que avance para adelante 15 cm
-# robot.drive(1000, 0)
-# wait(1000)
-# robot.stop()
-
-# #haz que se mueva hacia la izquierda 90 grados
-# robot.turn(200)
-# wait(1000)
+def main():
+    ev3.speaker.beep(1)
+    ev3.screen.print("Hello World")
 
 
-# #haz que baje la garra ahora de nuevo
-# motor2.run(350)
-# wait(1000)
-# motor2.stop()
+    #Configura los motores
+    print("paso2")
+    left_motor = Motor(Port.C)
+    right_motor = Motor(Port.B)
+    elveador = Motor(Port.A)
+    garra = Motor(Port.D)
 
-# #motor3 haz que abra la garra ahora de nuevo
-# Motor3.run_angle(100, 180)
-# wait(1000)
+    sensor1 = ColorSensor(Port.S1)
+    sensor2 = ColorSensor(Port.S2)
 
-# #avance en linea recta 
-# robot = DriveBase(left_motor, right_motor, 80, 80)
-
-
-# #Escribe lineas de codigo para que el robot avance y line recta 10 metros
-# #con una velocidad de 100 mm/s
-# # robot.drive(100, 0)
-# # wait(10000)
-# # robot.stop()
-
-# #cambia los sensonres para que detecte colores
-# sensor1 = ColorSensor(Port.S1)
-# sensor2 = ColorSensor(Port.S2)
-# sensor3 = ColorSensor(Port.S3)
-
-# #detener si el snesor 1 y 3 detectan color amarillo 
-# # #while True:
-# #     if sensor1.color() == Color.YELLOW and sensor3.color() == Color.YELLOW:
-# #         robot.stop()
-# #         break
-# #     robot.drive(100, 0)
-# #     wait(100)
-# #     robot.stop()
-# #     wait(100)
-  
-#   #cambiar un sensor inflarojo a un sensor de color
-# sensor4 = ColorSensor(Port.S3)
-
-
-
+    sensor1.reflection()
+    sensor2.reflection()
+    
+    robot = DriveBase(left_motor, right_motor, 67,250)
+    
+    primer_paso(robot)
+    #quiero que solo el motor izquierdo se mueva, para que el robot quede girado
+    #a la derecha
+    left_motor.run(100)
+    wait(3750)
+    left_motor.stop()
+    avanzar_robot(robot, sensor1, sensor2)
+main()
 
 
 
