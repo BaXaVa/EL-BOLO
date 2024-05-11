@@ -25,20 +25,22 @@ motor2 = Motor(Port.A)
 
 #hacer que el robot avance 23 cm
 robot = DriveBase(left_motor, right_motor, 50,50)
-robot.drive(325, 0)
+robot.drive(295, 0)
 wait(1000)
+robot.stop()
 
 #hacer que haga un giro de 0 grados hacia la izquierda del robot
-robot.turn(-220)
+robot.turn(-190)
 wait(1000)
+robot.stop()
 
 #hacer que avance 14 cm
-robot.drive(20, 0)
+robot.drive(38, 0)
 wait(1000)
 robot.stop()
 
 #cerrar garra de motor3 
-motor3.run_angle(150 ,-180)
+motor3.run_angle(150 ,-280)
 wait(1000)
 motor3.stop()
 
@@ -49,16 +51,16 @@ motor2.stop()
 
 #hace que el robot se haga para atras 
 robot = DriveBase(left_motor, right_motor, 50,50)
-robot.drive(-130, 0)
+robot.drive(-70, 0)
 wait(1000)
 robot.stop()
 
 #haz que se mueva hacia la derecha 200 grados
-robot.turn(220)
+robot.turn(200)
 wait(1000)
 
 #haz que avance para adelante 15 cm
-robot.drive(150, 0)
+robot.drive(400, 0)
 wait(1000)
 robot.stop()
 
