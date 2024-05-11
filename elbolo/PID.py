@@ -1,34 +1,19 @@
-left_motor = Motor(Port.B)
-right_motor = Motor(Port.C)
-
-# Initialize the color sensor.
-line_sensor = ColorSensor(Port.S3)
-
-
-robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
-
-BLACK = 9
-WHITE = 85
-threshold = (BLACK + WHITE) / 2
-
-
-DRIVE_SPEED = 100
-
-
-PROPORTIONAL_GAIN = 1.2
-
-
-while True:
-    # Calculate the deviation from the threshold.
-    deviation = line_sensor.reflection() - threshold
-
-    # Calculate the turn rate.
-    turn_rate = PROPORTIONAL_GAIN * deviation
-
-    # Set the drive base speed and turn rate.
-    robot.drive(DRIVE_SPEED, turn_rate)
-
-    # You can wait for a short time or do other things in this loop.
-    wait(10)
-  
-   
+def PID(robot, sensor1, sensor2):
+    #Haz un PID que siga la linea con dos sensores
+    #El PID debe ser capaz de seguir la linea negra
+    ki=0.1
+    kp=0.1
+    kd=0.1
+    integral=0
+    last_error=0
+    derivative=0
+    error=0
+    while wait(3000):
+        error=sensor1.reflection()-sensor2.reflection()
+        integral+=error
+        derivative=error-last_error
+        last_error=error
+        robot.drive(250+kp*error+ki*integral+kd*derivative, 0)
+        print(sensor1.reflection())
+        print(sensor2.reflection())
+       
