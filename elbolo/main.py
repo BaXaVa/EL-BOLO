@@ -25,33 +25,40 @@ motor2 = Motor(Port.A)
 
 #hacer que el robot avance 23 cm
 robot = DriveBase(left_motor, right_motor, 50,50)
-robot.drive(250, 0)
+robot.drive(325, 0)
 wait(1000)
 
-#hacer que haga un giro de 120 grados hacia la izquierda del robot
-robot.turn(-120)
+#hacer que haga un giro de 0 grados hacia la izquierda del robot
+robot.turn(-220)
 wait(1000)
 
-#cerrar garra de motor3 
-motor3.run_angle(200 ,-180)
-wait(1000)
-
-#trabaja el motor a al 100% de su potencia es un elevador haz que suba 
-motor2.run(-1000)
-wait(1000)
-
-#hace que el robot se haga para atras 
-robot = DriveBase(left_motor, right_motor, 50,50)
-robot.drive(-150, 0)
+#hacer que avance 14 cm
+robot.drive(20, 0)
 wait(1000)
 robot.stop()
 
-#haz que se mueva hacia la derecha 90 grados
-robot.turn(-150)
+#cerrar garra de motor3 
+motor3.run_angle(150 ,-180)
+wait(1000)
+motor3.stop()
+
+#haz que el motor trabaje el 100% de su potencia 
+motor2.run(-700)
+wait(1000)
+motor2.stop()
+
+#hace que el robot se haga para atras 
+robot = DriveBase(left_motor, right_motor, 50,50)
+robot.drive(-130, 0)
+wait(1000)
+robot.stop()
+
+#haz que se mueva hacia la derecha 200 grados
+robot.turn(220)
 wait(1000)
 
-#haz que avance para adelante 5 cm
-robot.drive(120, 0)
+#haz que avance para adelante 15 cm
+robot.drive(150, 0)
 wait(1000)
 robot.stop()
 
@@ -61,9 +68,9 @@ wait(1000)
 motor2.stop()
 
 #motor3 haz que abra la garra ahora de nuevo
-motor3.run_angle(100, 180)
+motor3.run_angle(150, 280)
 wait(1000)
-
+motor3.stop()
 
 #cambia los sensonres para que detecte colores
 sensor1 = ColorSensor(Port.S1)
