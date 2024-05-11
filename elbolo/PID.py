@@ -32,3 +32,28 @@ while True:
     wait(10)
   
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   #Configura los motores
+left_motor = Motor(Port.C)
+right_motor = Motor(Port.B)
+motor3 = Motor(Port.D)
+motor2 = Motor(Port.A)
+
+#hacer que el robot avance 38 cm
+robot = DriveBase(left_motor, right_motor, 50,50)
+distancia_avance_cm = 42
+robot.drive(500, 0)
+velocidad = 50 
+tiempo = (distancia_avance_cm / velocidad) * 1000
+
+#hacer avanzar al robot 38 cm
+wait(tiempo)
+robot.stop()
