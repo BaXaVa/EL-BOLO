@@ -27,17 +27,17 @@ ev3.speaker.beep(1)
 ev3.screen.print("Hello UAM, Welcome to Robotics Class")
 
 #Configura los motores
-left_motor = Motor(Port.C)
-right_motor = Motor(Port.B)
-motor3 = Motor(Port.D)
-motor2 = Motor(Port.A)
+leftWheel = Motor(Port.C)
+rightWheel = Motor(Port.B)
+claw = Motor(Port.D)
+elevator = Motor(Port.A)
 
 #hacer que el robot avance 42 cm
-robot = DriveBase(left_motor, right_motor, 50,50)
-distancia_avance_cm = 60
+robot = DriveBase(leftWheel, rightWheel, 50,50)
+distanciaAvanceCm = 60
 robot.drive(1000, 0)
 velocidad = 50
-tiempo = (distancia_avance_cm / velocidad) * 1000
+tiempo = (distanciaAvanceCm / velocidad) * 1000
 
 #hacer avanzar al robot 38 cm
 wait(tiempo)
@@ -58,16 +58,16 @@ wait(1000)
 robot.stop()
 
 #cerrar garra de motor3 
-motor3.run_angle(150 ,-220)
+claw.run_angle(150 ,-220)
 wait(1000)
 
 #haz que el motor trabaje el 100% de su potencia 
-motor2.run(-700)
+elevator.run(-700)
 wait(1000)
-motor2.stop()
+elevator.stop()
 
 #hace que el robot se haga para atras 
-robot = DriveBase(left_motor, right_motor, 50,50)
+robot = DriveBase(leftWheel, rightWheel, 50,50)
 robot.drive(-69, 0)
 wait(1000)
 robot.stop()
@@ -82,12 +82,12 @@ wait(1000)
 robot.stop()
 
 #haz que baje la garra ahora de nuevo
-motor2.run(700)
+elevator.run(700)
 wait(1000)
-motor2.stop()
+elevator.stop()
 
 #motor3 haz que abra la garra ahora de nuevo
-motor3.run_angle(150, 220)
+claw.run_angle(150, 220)
 wait(1000)
-motor3.stop()
+claw.stop()
 
