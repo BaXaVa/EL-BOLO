@@ -5,7 +5,7 @@ from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
-
+from PID import pid 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
 
@@ -60,14 +60,17 @@ def main():
     sensor2.reflection()
     
     robot = DriveBase(left_motor, right_motor, 67,250)
+    print("paso3")
+    pid(robot, sensor1, sensor2)
+    print("paso4")
     
-    primer_paso(robot)
-    #quiero que solo el motor izquierdo se mueva, para que el robot quede girado
-    #a la derecha
-    left_motor.run(100)
-    wait(3750)
-    left_motor.stop()
-    avanzar_robot(robot, sensor1, sensor2)
+    # primer_paso(robot)
+    # #quiero que solo el motor izquierdo se mueva, para que el robot quede girado
+    # #a la derecha
+    # left_motor.run(100)
+    # wait(3750)
+    # left_motor.stop()
+    # avanzar_robot(robot, sensor1, sensor2)
 main()
 
 
