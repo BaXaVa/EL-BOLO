@@ -14,7 +14,7 @@ ev3 = EV3Brick()
 left_motor = Motor(Port.C)
 right_motor = Motor(Port.B)
 elveador = Motor(Port.A)
-garra = Motor(Port.D)
+# garra = Motor(Port.D)
 
 sensor1 = ColorSensor(Port.S1)
 sensor2 = ColorSensor(Port.S2)
@@ -35,13 +35,13 @@ def retroceder_robot(robot, tiempo = 1):
     wait(tiempo)
     robot.stop()
 def girar_180_grados(robot):
-    robot.drive(0, 180)
-    wait(500)
+    robot.drive(0, 90)
+    wait(892)
     robot.stop()
 
 def girar_derecha(robot):
-    robot.drive(0, 90)
-    wait(495)
+    robot.drive(0, 85)
+    wait(488)
     robot.stop()
 
 def girar_izquierda(robot):
@@ -71,7 +71,8 @@ def main():
 
     print("paso1")
 
-    primer_paso(robot)
+    # primer_paso(robot)
+    girar_derecha(robot)
 main()
 
 
