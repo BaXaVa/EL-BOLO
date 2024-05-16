@@ -10,7 +10,6 @@ ev3 = EV3Brick()
 ev3.speaker.beep(1)
 ev3.screen.print("Hello UAM, Welcome to Robotics Class")
 
-<<<<<<< HEAD
 # Configuración de los motores y sensores
 left_motor = Motor(Port.C)
 right_motor = Motor(Port.B)
@@ -21,20 +20,6 @@ sensor_2 = ColorSensor(Port.S2)
 
 # Inicialización del robot
 robot = DriveBase(left_motor, right_motor, 50, 50)
-=======
-#Configura los motores
-leftWheel = Motor(Port.C)
-rightWheel = Motor(Port.B)
-claw = Motor(Port.D)
-elevator = Motor(Port.A)
-
-#hacer que el robot avance 42 cm
-robot = DriveBase(leftWheel, rightWheel, 50,50)
-distanciaAvanceCm = 60
-robot.drive(1000, 0)
-velocidad = 50
-tiempo = (distanciaAvanceCm / velocidad) * 1000
->>>>>>> 7c778c5fafa4aa7a2c6607e2cfaf34d46304a57d
 
 # Función para avanzar el robot una distancia específica
 def avanzar(distancia_cm, velocidad):
@@ -59,7 +44,6 @@ def abrir_garra():
     motor3.run_angle(150, 220)
     wait(1000)
 
-<<<<<<< HEAD
 # Función para mover la garra hacia arriba o abajo
 def mover_garra(velocidad, angulo):
     motor2.run(velocidad)
@@ -119,41 +103,6 @@ try:
     
     # Girar hacia la izquierda
     girar(-220)
-=======
-#cerrar garra de motor3 
-claw.run_angle(150 ,-220)
-wait(1000)
-
-#haz que el motor trabaje el 100% de su potencia 
-elevator.run(-700)
-wait(1000)
-elevator.stop()
-
-#hace que el robot se haga para atras 
-robot = DriveBase(leftWheel, rightWheel, 50,50)
-robot.drive(-69, 0)
-wait(1000)
-robot.stop()
-
-#haz que se mueva hacia la derecha 200 grados
-robot.turn(180)
-wait(1000)
-
-#haz que avance para adelante 15 cm
-robot.drive(600, 0)
-wait(1000)
-robot.stop()
-
-#haz que baje la garra ahora de nuevo
-elevator.run(700)
-wait(1000)
-elevator.stop()
-
-#motor3 haz que abra la garra ahora de nuevo
-claw.run_angle(150, 220)
-wait(1000)
-claw.stop()
->>>>>>> 7c778c5fafa4aa7a2c6607e2cfaf34d46304a57d
 
 except KeyboardInterrupt:
     robot.stop()
