@@ -1,59 +1,69 @@
-left_motor = Motor(Port.B)
-right_motor = Motor(Port.C)
+from pybricks.hubs import EV3Brick
+from pybricks.pupdevices import Motor, ColorSensor
+from pybricks.parameters import Port
+from pybricks.tools import wait
+import pandas as pd
+import time
 
-# Initialize the color sensor.
-line_sensor = ColorSensor(Port.S3)
-
-
-robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
-
-BLACK = 9
-WHITE = 85
-threshold = (BLACK + WHITE) / 2
-
-
-DRIVE_SPEED = 100
-
-
-PROPORTIONAL_GAIN = 1.2
-
-
-while True:
-    # Calculate the deviation from the threshold.
-    deviation = line_sensor.reflection() - threshold
-
-    # Calculate the turn rate.
-    turn_rate = PROPORTIONAL_GAIN * deviation
-
-    # Set the drive base speed and turn rate.
-    robot.drive(DRIVE_SPEED, turn_rate)
-
-    # You can wait for a short time or do other things in this loop.
-    wait(10)
-  
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   #Configura los motores
-left_motor = Motor(Port.C)
-right_motor = Motor(Port.B)
-motor3 = Motor(Port.D)
-motor2 = Motor(Port.A)
-
-#hacer que el robot avance 38 cm
-robot = DriveBase(left_motor, right_motor, 50,50)
-distancia_avance_cm = 42
-robot.drive(500, 0)
-velocidad = 50 
-tiempo = (distancia_avance_cm / velocidad) * 1000
-
-#hacer avanzar al robot 38 cm
-wait(tiempo)
-robot.stop()
+def line_follower():
+    #declarar motores
+    left_motor = Motor(Port.A, positive_direction=True)
+    right_motor = Motor (Port.B, positive_direction=True)
+    
+    left_sensor = ColorSensor(Port.S1)#iniciar los sensores
+    right_sensor = ColorSensor(Port.S2)
+    
+    #iniciar el dataframe para guardar datos
+    df = pd.DataFrame(columns=['time', 'left_light', 'right_light', 'left_speed', 'right_speed', 'error', 'turn'])
+    
+    luz_negra = 15 #lo usaremos para hacer que el robot pare cuando ambos detecten menos de 15.
+    speed = 200 #velocidad para los motores
+    kp = 132 #preguntar a alexander. 
+    
+    #Usar un Error para saber hacia donde se esta desviando el robot y corregir.
+    
+    #Robot en la linea
+    #Si left_light = right_light, error = 0, robot esta recto
+    
+    #Robot desviado a la derecha
+    #left_light > rigth_light, error>0, robot debe girar a la izquierda
+    
+    #Robot desviado a la izquierda
+    #left_light<right_light, error<0, robot debe girar a la derecha. 
+    
+    while True:
+        #obtener valores de la luz
+        timestamp = time.time()#obtener un timestamp
+        left_light = left_sensor.reflection()
+        right_light = right_sensor.reflection()
+        
+        #si ambos sensores estan en linea negra, entonces se acabo la linea y se detiene
+        if left_light < 15 and right_light < 15:
+            left_motor.brake()
+            right_motor.brake()
+            break 
+        
+        #para calcular el error
+        error = left_light - right_light
+    
+        #calcular ajuste proporcional. Control proporcional.
+        turn = kp * error #propagacion del error. 
+    
+        #ajustar motores
+        left_motor.run(speed + turn) #speed en grados/s. 200 grados por segundo
+        right_motor.run(speed - turn)
+        
+        #meter los datos en el dataframe.  
+        df = df.append({
+            'time': timestamp, 
+            'left_light': left_light,
+            'right_light': right_light,
+            'left_speed': left_motor.speed(),
+            'right_speed': right_motor.speed(),
+            'error': error,
+            'turn': turn,
+            # podemos anadir mas datos si los necesitamos. Esto es una recopilacion de datos para analisis. 
+            }, ignore_index= True) 
+        wait(100) #pausar el programa por 50ms
+    
+    df.to_csv("datos_Bolo.csv", index=False)
