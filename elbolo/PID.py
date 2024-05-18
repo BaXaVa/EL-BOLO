@@ -12,7 +12,7 @@ def line_follower():
     
     left_sensor = ColorSensor(Port.S1)#iniciar los sensores
     right_sensor = ColorSensor(Port.S2)
-    archivo = open("datos_Bolo.csv", "a")
+    archivo = open("datos_Bolo.txt", "a")
     
     #iniciar el dataframe para guardar datos
     # df = pd.DataFrame(columns=['time', 'left_light', 'right_light', 'left_speed', 'right_speed', 'error', 'turn'])
@@ -66,9 +66,21 @@ def line_follower():
         #     # podemos anadir mas datos si los necesitamos. Esto es una recopilacion de datos para analisis. 
         #     }, ignore_index= True) 
          #pausar el programa por 50ms
-
-        archivo.write(f"\n{timestamp},{left_light},{right_light},{left_motor.speed()},{right_motor.speed()},{error},{turn}")
+        archivo.write("\n")
+        archivo.write(str(timestamp))
+        archivo.write(",")
+        archivo.write(str(left_light) )
+        archivo.write(", ")
+        archivo.write(str(right_light))
+        archivo.write(", ")
+        archivo.write(str(left_motor.speed()))
+        archivo.write(", ")
+        archivo.write(str(right_motor.speed()))
+        archivo.write(", ")
+        archivo.write(str(error))
+        archivo.write(", ")
+        archivo.write(str(turn))
         wait(25)
-        archivo.close()
+    archivo.close()
         
     # df.to_csv("datos_Bolo.csv", index=False)
