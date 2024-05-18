@@ -18,13 +18,13 @@ elveador = Motor(Port.A)
 #Configura el robot
 # garra = Motor(Port.D)
 
-sensor1 = ColorSensor(Port.S1)
-sensor2 = ColorSensor(Port.S2)
+izquierdo = ColorSensor(Port.S1) #Sensor derecho
+derecho = ColorSensor(Port.S2)
 
-sensor1.reflection()
-sensor2.reflection()
+izquierdo.reflection()
+derecho.reflection()
 
-def pid(left_motor, right_motor, sensor1, sensor2):
+def pid(left_motor, right_motor, izquierdo, derecho):
     ki = 1
     kp = 0.1
     kd = 0.1
@@ -34,30 +34,37 @@ def pid(left_motor, right_motor, sensor1, sensor2):
     error = 0
     start_time = time.time()
 
-    while time.time() - start_time < 4:  # Run for 4 seconds (adjust as needed)
-        error = sensor1.reflection() - sensor2.reflection()
+    while time.time() - start_time < 2:  # Run for 4 seconds (adjust as needed)
+        error = izquierdo.reflection() - derecho.reflection()
         integral += error
         derivative = error - last_error
         last_error = error
 
         # Calculate motor speed using PID formula
-        motor_speed = 250 + kp * error + ki * integral + kd * derivative
+        motor_speed = 50 + kp * error + ki * integral + kd * derivative
 
         # Apply motor speed to control robot movement
         left_motor.dc(motor_speed)
         right_motor.dc(motor_speed)
 
-        print(sensor1.reflection())
-        print(sensor2.reflection())
+        print(izquierdo.reflection(), end = " ")
+        print(derecho.reflection()) 
         wait(10)  # Wait for 10 milliseconds
+        if izquierdo.reflection() < 50 and derecho.reflection() < 50:
+            break
 
 # Initialize EV3 brick, motors, and sensors
 ev3 = EV3Brick()
 left_motor = Motor(Port.B)
 right_motor = Motor(Port.C)
-sensor1 = ColorSensor(Port.S1)
-sensor2 = ColorSensor(Port.S2)
-
+izquierdo = ColorSensor(Port.S1)
+derecho = ColorSensor(Port.S2)
+def tirarDatos(izquierdo, derecho):
+    while True:
+        print("Sensor left: ", izquierdo.reflection(), end = " ")
+        print("sensor right: ", derecho.reflection())
+        wait(1000)
+        
 def avanzar_robot(robot, tiempo = 1):
     tiempo *= 1000
     robot.drive(200, 0)
@@ -75,7 +82,7 @@ def girar_180_grados(robot):
     robot.stop()
 
 def girar_derecha(robot):
-    robot.drive(0, 85)
+    robot.drive(0, -85)
     wait(488)
     robot.stop()
 
@@ -99,7 +106,7 @@ def main():
     # ev3.speaker.beep(1)
     # ev3.screen.print("Hello World")
     
-    # robot = DriveBase(left_motor, right_motor, 68.8,250)
+    robot = DriveBase(left_motor, right_motor, 68.8,250)
     
     # left_motor.reset_angle(0)
     # right_motor.reset_angle(0)
@@ -107,11 +114,8 @@ def main():
     # print("paso1")
 
     # primer_paso(robot)
-    # pid(left_motor, right_motor, sensor1, sensor2)
-    while True:
-        print(sensor1.reflection())
-        print(sensor2.reflection())
-        
+    
+    
     
 if __name__ == "__main__":  
     main()
