@@ -31,6 +31,7 @@ def line_follower():
     
     #Robot desviado a la izquierda
     #left_light<right_light, error<0, robot debe girar a la derecha. 
+    starTime = time.time()
     
     while True:
         #obtener valores de la luz
@@ -40,9 +41,9 @@ def line_follower():
         
         #si ambos sensores estan en linea negra, entonces se acabo la linea y se detiene
         if left_light < 15 and right_light < 15:
-            left_motor.brake()
-            right_motor.brake()
-            break 
+             left_motor.brake()
+             right_motor.brake()
+             break 
         
         #para calcular el error
         error = left_light - right_light
@@ -66,21 +67,22 @@ def line_follower():
         #     # podemos anadir mas datos si los necesitamos. Esto es una recopilacion de datos para analisis. 
         #     }, ignore_index= True) 
          #pausar el programa por 50ms
-        archivo.write("\n")
-        archivo.write(str(timestamp))
-        archivo.write(",")
-        archivo.write(str(left_light) )
-        archivo.write(", ")
-        archivo.write(str(right_light))
-        archivo.write(", ")
-        archivo.write(str(left_motor.speed()))
-        archivo.write(", ")
-        archivo.write(str(right_motor.speed()))
-        archivo.write(", ")
-        archivo.write(str(error))
-        archivo.write(", ")
-        archivo.write(str(turn))
-        wait(25)
+        # archivo.write("\n")
+        # archivo.write(str(timestamp))
+        # archivo.write(",")
+        # archivo.write(str(left_light) )
+        # archivo.write(", ")
+        # archivo.write(str(right_light))
+        # archivo.write(", ")
+        # archivo.write(str(left_motor.speed()))
+        # archivo.write(", ")
+        # archivo.write(str(right_motor.speed()))
+        # archivo.write(", ")
+        # archivo.write(str(error))
+        # archivo.write(", ")
+        # archivo.write(str(turn))
+        wait(8)
+    
     archivo.close()
         
     # df.to_csv("datos_Bolo.csv", index=False)
