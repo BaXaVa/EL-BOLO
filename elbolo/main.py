@@ -26,4 +26,4 @@ ev3 = EV3Brick()
 # derecho = ColorSensor(Port.S2)
 # robot = DriveBase(left_motor, right_motor, 68.8, 250)
 
-line_follower()
+line_follower(1000)
