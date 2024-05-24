@@ -1,8 +1,10 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import Motor, ColorSensor
+from pybricks.ev3devices import Motor, ColorSensor, GyroSensor
+from pybricks.tools import wait
 from pybricks.parameters import Port, Color
 from pybricks.tools import wait
+from pybricks.robotics import DriveBase
 from pybricks.robotics import DriveBase
 
 # Inicialización del brick EV3
@@ -17,6 +19,7 @@ motor3 = Motor(Port.D)
 motor2 = Motor(Port.A)
 sensor_1 = ColorSensor(Port.S1)
 sensor_2 = ColorSensor(Port.S2)
+giroscopio = GyroSensor(Port.S3)
 
 # Inicialización del robot
 robot = DriveBase(left_motor, right_motor, 50, 50)
@@ -58,18 +61,21 @@ def retroceder(distancia_cm, velocidad):
     robot.stop()
 
 
+
+
+
+
 # Programa principal
 try:
-   
     
     # Avanzar una distancia específica
-    avanzar(588, 100)
+    avanzar(582, 100)
     
     # Girar hacia la izquierda
-    girar(-170)
+    girar(-168)
     
     # Avanzar agarrar el bloque, se avanzara poco para que no lo empuje
-    avanzar(45, 40)
+    avanzar(54, 40)
     
     # Cierra la garra
     cerrar_garra()
@@ -78,22 +84,22 @@ try:
     mover_garra(-800, 1000)
     
     # Retroceder
-    retroceder (60, 40)
+    retroceder (52, 40)
     
     # Girar hacia la iq\zquierda 170 grados
-    girar(-165)
+    girar(-160)
     
     # Avanzar nuevamente en linea recta
-    avanzar(145, 100)
+    avanzar(162, 100)
     
     #girar de nuevo para pegar ambos bloques
-    girar(170)
+    girar(168)
     
     #avanzar de nuevo para segundo bloque
-    avanzar(33, 40)
+    avanzar(54, 40)
     
     #bajar elevador para agarrar bloque 2
-    mover_garra(300,1000)
+    mover_garra(270,1000)
     
     #abre garra para agar ambos bloques 
     abrir_garra()
@@ -106,7 +112,17 @@ try:
     cerrar_garra()
     
     #subir elevador para no arrastrar bloques
-    mover_garra(-900,1000)
+    mover_garra(-800,1000)
+    
+    
 
 except KeyboardInterrupt:
     robot.stop()
+
+
+
+#mueve la garra para no arrastrar bloques
+while True:
+    print(giroscopio.angle())
+    wait(1000)
+    
