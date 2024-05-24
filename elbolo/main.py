@@ -1,9 +1,11 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import Motor, ColorSensor
+from pybricks.ev3devices import Motor, ColorSensor, GyroSensor
 from pybricks.parameters import Port, Color
+import time
 from pybricks.tools import wait
 from pybricks.robotics import DriveBase
+from PID import line_follower
 
 # Inicialización del brick EV3
 ev3 = EV3Brick()
@@ -17,6 +19,7 @@ motor3 = Motor(Port.D)
 motor2 = Motor(Port.A)
 sensor_1 = ColorSensor(Port.S1)
 sensor_2 = ColorSensor(Port.S2)
+giroscopio = GyroSensor(Port.S3)
 
 # Inicialización del robot
 robot = DriveBase(left_motor, right_motor, 50, 50)
@@ -90,33 +93,61 @@ def girar_180_grados(robot):
     robot.stop()
 
 def girar_derecha(robot):
-    print("RIGHT")
-    robot.drive(0, 130)
-    print("RIGHT")
-    wait(7000)
+    print('0')
+    # giroscopio.mode = 'GYRO-ANG'
+    print('1')
+    giroscopio.reset_angle(0)
+    print('2')
+    wait(100)
+    robot.drive(0, 90)
+    print('3')
+    while True:
+        if abs(giroscopio.angle()) >= 90:
+            break
+        
+
     robot.stop()
-    wait(7000)
+    
+def girar_180(robot):
+    robot.drive(0, 90)
+    while True:
+        if abs(giroscopio.angle()) >= 270:
+            break
+        print(giroscopio.angle())
+    robot.stop()
     print("done right")
 
 def girar_izquierda(robot):
-    robot.drive(0, -90)
-    wait(495)
+    giroscopio.reset_angle(0)
+    robot.drive(0, 90)
+    while True:
+        if abs(giroscopio.angle()) >= 90:
+            break
+
     robot.stop()
 
 def primer_paso(robot):
     print("backing")
     retroceder_robot(robot, 1) # El 1 representa 1 segundo
-    wait(800)
+    wait(500)
     print("foward")
     avanzar_robot(robot, 0.55)
-    wait(800)
+    wait(500)
     print("turn")
     girar_derecha(robot)
-    wait(5000)
+    wait(1000)
     print("foward")
-    avanzar_robot(robot, 0.5)
+    avanzar_robot(robot, 0.6)
     ev3.speaker.beep(2)
-    girar_180_grados(robot) #Gira 180 grados
+    line_follower()
+    ev3.speaker.beep(3)
+    wait(1000)
+    girar_180(robot)
+    ev3.speaker.beep(4)
+
+    # avanzar_robot(robot, 0.5)
+    
+    
 
 def main_alexander():
     ev3.speaker.beep(1)
@@ -135,8 +166,9 @@ try:
 
 ### Codigo Alenxader empieza
     primer_paso(robot)
+    # line_follower(1000
 
-
+ 
 ### Codigo Alenxader termina
 
 
