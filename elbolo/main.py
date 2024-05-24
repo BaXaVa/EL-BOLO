@@ -59,47 +59,44 @@ def retroceder(distancia_cm, velocidad):
     robot.drive(-velocidad, 0)
     wait(tiempo_ms)
     robot.stop()
-
-
-
-
+    
 
 
 # Programa principal
 try:
     
     # Avanzar una distancia específica
-    avanzar(582, 100)
+    avanzar(570, 100)
     
     # Girar hacia la izquierda
     girar(-168)
     
     # Avanzar agarrar el bloque, se avanzara poco para que no lo empuje
-    avanzar(54, 40)
+    avanzar(42, 40)
     
     # Cierra la garra
     cerrar_garra()
     
     # sube la garra, elevador, dejar en negativo por que negativo sube, positivo baja
-    mover_garra(-800, 1000)
+    mover_garra(-950, 1000)
     
     # Retroceder
-    retroceder (52, 40)
+    retroceder (54, 40)
     
     # Girar hacia la iq\zquierda 170 grados
-    girar(-160)
+    girar(-162)
     
     # Avanzar nuevamente en linea recta
-    avanzar(162, 100)
+    avanzar(156, 100)
     
     #girar de nuevo para pegar ambos bloques
-    girar(168)
+    girar(159)
     
     #avanzar de nuevo para segundo bloque
-    avanzar(54, 40)
+    avanzar(37, 45)
     
     #bajar elevador para agarrar bloque 2
-    mover_garra(270,1000)
+    mover_garra(250,1000)
     
     #abre garra para agar ambos bloques 
     abrir_garra()
@@ -108,11 +105,35 @@ try:
     #bajar elevador completamente para agarrar ambos bloques
     mover_garra(800,1000)
     
-    #cerrar garra para agar ambos bloques
+    #cerrar garra para agarrar ambos bloques
     cerrar_garra()
     
     #subir elevador para no arrastrar bloques
     mover_garra(-800,1000)
+    
+    #hacerse hacia atras 
+
+    retroceder(50,40)
+    #retroceder(40,40)
+    
+    #girar hacia la derecha
+    girar(160)
+    
+    #avanzar 170 cm para llegar a la zona de deposito
+    avanzar(215,30)
+    
+    #girar hacia la derecha
+    girar(180)
+    
+    #avance 40 cm 
+    avanzar(65,40)
+    
+    #bajar garra la derecha
+    mover_garra(800,1000)
+    wait(2000)
+    
+    #abrir garra para soltar bloques
+    abrir_garra()
     
     
 
