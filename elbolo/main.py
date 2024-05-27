@@ -93,19 +93,17 @@ def girar_180_grados(robot):
     robot.stop()
 
 def girar_derecha(robot):
-    print('0')
-    # giroscopio.mode = 'GYRO-ANG'
-    print('1')
+
     giroscopio.reset_angle(0)
     print('2')
-    wait(100)
+    print(giroscopio.angle())
+    wait(4000)
     robot.drive(0, 90)
     print('3')
     while True:
+        print(giroscopio.angle())
         if abs(giroscopio.angle()) >= 90:
             break
-        
-
     robot.stop()
     
 def girar_180(robot):
@@ -149,15 +147,6 @@ def primer_paso(robot):
     
     
 
-def main_alexander():
-    ev3.speaker.beep(1)
-    robot = DriveBase(left_motor, right_motor, 68.8,250)
-    left_motor.reset_angle(0)
-    right_motor.reset_angle(0)
-    print("paso1")
-
-    # primer_paso(robot)
-    girar_derecha(robot)
 
 #######################################################
 
