@@ -22,7 +22,8 @@ sensor_2 = ColorSensor(Port.S2)
 giroscopio = GyroSensor(Port.S3)
 
 # Inicialización del robot
-robot = DriveBase(left_motor, right_motor, 50, 50)
+robot = DriveBase(left_motor, right_motor, 68.8, 180)
+
 
 # Función para avanzar el robot una distancia específica
 def avanzar(distancia_cm, velocidad):
