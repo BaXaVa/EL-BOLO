@@ -2,8 +2,7 @@
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, GyroSensor
 from pybricks.tools import wait
-from pybricks.parameters import Port, Color
-from pybricks.tools import wait
+from pybricks.parameters import Port
 from pybricks.robotics import DriveBase
 from pybricks.robotics import DriveBase
 
@@ -87,13 +86,13 @@ try:
     girar(-162)
     
     # Avanzar nuevamente en linea recta
-    avanzar(156, 100)
+    avanzar(157, 100)
     
     #girar de nuevo para pegar ambos bloques
-    girar(159)
+    girar(160)
     
     #avanzar de nuevo para segundo bloque
-    avanzar(37, 45)
+    avanzar(34, 45)
     
     #bajar elevador para agarrar bloque 2
     mover_garra(250,1000)
@@ -114,19 +113,22 @@ try:
     #hacerse hacia atras 
 
     retroceder(50,40)
+
     #retroceder(40,40)
     
-    #girar hacia la derecha
+    #girar hacia la derecha con el motor trabajando al 30% de su capacidad
+    left_motor.run(30)
+    right_motor.run(-30)
     girar(160)
     
     #avanzar 170 cm para llegar a la zona de deposito
-    avanzar(215,30)
+    avanzar(225,60)
     
     #girar hacia la derecha
     girar(180)
     
     #avance 40 cm 
-    avanzar(65,40)
+    avanzar(75,40)
     
     #bajar garra la derecha
     mover_garra(800,1000)
