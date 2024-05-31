@@ -6,7 +6,7 @@ import time
 from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 from PID import line_follower
-
+from math import pi
 # Inicialización del brick EV3
 ev3 = EV3Brick()
 ev3.speaker.beep(1)
@@ -94,7 +94,6 @@ def girar_180_grados(robot):
 
 def girar_derecha(robot):
 
-    giroscopio.reset_angle(0)
     print('2')
     print(giroscopio.angle())
     wait(4000)
@@ -124,20 +123,37 @@ def girar_izquierda(robot):
 
     robot.stop()
 
+def acelerar(robot, distancia, condicional = False, follow_distance = 0):
+    initial_speed = 0
+    final_speed = 140
+    tiempo = (distancia*(18/7))/(68.8*pi)
+    tiempo -= 5
+    while initial_speed < final_speed:
+        print(initial_speed)
+        robot.drive(initial_speed, 0)
+        initial_speed += final_speed /tiempo
+        wait(100)
+    if condicional:
+        line_follower(follow_distance)
+    robot.stop()
+    
+
 def primer_paso(robot):
     print("backing")
     retroceder_robot(robot, 1) # El 1 representa 1 segundo
     wait(500)
     print("foward")
-    avanzar_robot(robot, 0.55)
-    wait(500)
-    print("turn")
+    giroscopio.reset_angle(0)
+
+    acelerar(robot, 1700)
+
+    print("turn right")
     girar_derecha(robot)
     wait(1000)
-    print("foward")
-    avanzar_robot(robot, 0.6)
+    print("acelerate and follow line")
+    acelerar(robot, 850,True, 800)
     ev3.speaker.beep(2)
-    line_follower()
+    
     ev3.speaker.beep(3)
     wait(1000)
     girar_180(robot)
@@ -155,7 +171,6 @@ try:
 
 ### Codigo Alenxader empieza
     primer_paso(robot)
-    # line_follower(1000
 
  
 ### Codigo Alenxader termina

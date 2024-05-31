@@ -2,7 +2,7 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, ColorSensor,)
 from pybricks.parameters import Port
 from pybricks.tools import wait
-# import pandas as pd
+from math import pi
 import time
 
 left_motor = Motor(Port.C)
@@ -11,40 +11,21 @@ right_motor = Motor (Port.B)
 left_sensor = ColorSensor(Port.S1)#iniciar los sensores
 right_sensor = ColorSensor(Port.S2)
 
-def corregir_mismo_punto():
-    #Esta funcion lo que hara, sera que lea los valores de los sensores que se corriga
-    pass
+def line_follower(distancia=None):
 
-def line_follower(distancia=0):
-
-    #declarar motores
-
-    
-    #iniciar el dataframe para guardar datos
-    # df = pd.DataFrame(columns=['time', 'left_light', 'right_light', 'left_speed', 'right_speed', 'error', 'turn'])
-    
     luz_negra = 15 #lo usaremos para hacer que el robot pare cuando ambos detecten menos de 15.
-    speed = 120 #velocidad para los motores, 100mm/s
-    kp = 0.06 #preguntar a alexander. 
-    
-    #Usar un Error para saber hacia donde se esta desviando el robot y corregir.
-    
-    #Robot en la linea
-    #Si left_light = right_light, error = 0, robot esta recto
-    
-    #Robot desviado a la derecha
-    #left_light > rigth_light, error>0, robot debe girar a la izquierda
-    
-    #Robot desviado a la izquierda
-    #left_light<right_light, error<0, robot debe girar a la derecha. 
+    speed = 140 #velocidad para los motores, 100mm/s
+    kp = 0.09 #preguntar a alexander. 
+
     starTime = time.time()
-    #tiempo = speed/distancia
-    if distancia == 0:
+    
+    if distancia == None:
         condicional = False
     else:
+        print("iniciando")
         condicional = True
     
-    tiempo = distancia/speed
+    tiempo = (distancia*(18/7))/(68.8*pi)
     
     timeW = time.time()
     while True:
