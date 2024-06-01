@@ -87,16 +87,13 @@ def retroceder_robot(robot, tiempo = 1):
     robot.drive(-100, 0)
     wait(tiempo)
     robot.stop()
+     
 def girar_180_grados(robot):
     robot.drive(0, 90)
     wait(892)
     robot.stop()
 
 def girar_derecha(robot):
-
-    print('2')
-    print(giroscopio.angle())
-    wait(4000)
     robot.drive(0, 90)
     print('3')
     while True:
@@ -104,7 +101,18 @@ def girar_derecha(robot):
         if abs(giroscopio.angle()) >= 90:
             break
     robot.stop()
+
+def girar_derecha_180(robot):
+    print('2')
+    print(giroscopio.angle())
     
+    robot.drive(0, 90)
+    print('3')
+    while True:
+        print(giroscopio.angle())
+        if abs(giroscopio.angle()) >= 180:
+            break
+    robot.stop()     
 def girar_180(robot):
     robot.drive(0, 90)
     while True:
@@ -142,21 +150,26 @@ def primer_paso(robot):
     print("backing")
     retroceder_robot(robot, 1) # El 1 representa 1 segundo
     wait(500)
+
     print("foward")
     giroscopio.reset_angle(0)
-
     acelerar(robot, 1700)
-
+    wait(1000)
     print("turn right")
     girar_derecha(robot)
     wait(1000)
+
     print("acelerate and follow line")
-    acelerar(robot, 850,True, 800)
+    acelerar(robot, 1500)
+    # line_follower(200)
+    wait(5000)
+    line_follower(200)
     ev3.speaker.beep(2)
     
     ev3.speaker.beep(3)
     wait(1000)
-    girar_180(robot)
+    girar_derecha_180(robot)
+
     ev3.speaker.beep(4)
 
     # avanzar_robot(robot, 0.5)
@@ -171,6 +184,8 @@ try:
 
 ### Codigo Alenxader empieza
     primer_paso(robot)
+    # robot.drive()
+    
 
  
 ### Codigo Alenxader termina
