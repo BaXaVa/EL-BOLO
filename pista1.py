@@ -21,6 +21,7 @@ sensor_2 = ColorSensor(Port.S2)
 # Inicialización del robot
 robot = DriveBase(left_motor, right_motor, 50, 50)
 
+
 # Función para avanzar el robot una distancia específica
 def avanzar(distancia_cm, velocidad):
     tiempo_ms = (distancia_cm / velocidad) * 1000
@@ -48,55 +49,61 @@ def abrir_garra():
 def mover_garra(velocidad, angulo):
     motor2.run(velocidad)
     wait(angulo)
-    motor2.stop()
-    
-   #hacer una funcion q retroceda 
-def retroceda(velocidad, angulo):
-    robot.drive(velocidad, 0)
-    wait(angulo)
+    stop_motor(motor2)
+
+# Función para seguir la línea con condiciones específicas para los sensores
+def seguir_linea():
+    while True:
+        color_1 = sensor_1.color
+        color_2 = sensor_2.color
+        
+        if color_1 == Color.WHITE:
+            robot.drive(20, 0)
+        else:
+            robot.stop()
+            break
+        
+        if color_2 == Color.BLACK:
+            robot.drive(20, 0)
+        else:
+            robot.stop()
+            break
+
+def avanzar_robot(robot, tiempo = 1):
+    tiempo *= 1000
+    robot.drive(200, 0)
+    wait(tiempo)
     robot.stop()
 
-# Programa principal
-try:
-    
-    
-    # Avanzar una distancia específica
-    avanzar(150, 100)
-    
-    # Girar hacia la izquierda
-    girar(180)
-    
-    # Avanzar agarrar el bloque, se avanzara poco para que no lo empuje
-    avanzar(60, 40)
-    
-    # Cierra la garra
-    cerrar_garra()
-    
-    # sube la garra, elevador, dejar en negativo por que negativo sube, positivo baja
-    mover_garra(-800, 1000)
-    
-    # Retroceder
-    retroceder (-150,100)
-    
-    # Girar hacia la derecha 170 grados
-    girar(-120)
-    
-    # Avanzar nuevamente en linea recta
-    avanzar(200, 100)
-    
-    # Girar hacia la izquierda
-    girar(-140)
-    
-    #avanzar para apilar el segundo bloque
-    avanzar(56 ,40)
-    
-    #bajar elevador para
-    mover_garra(300, 1000)
-    wait(300)
-    mover_garra(800, 1000)
-    cerrar_garra()
-    mover_garra(-800, 1000)
-    
-
-except KeyboardInterrupt:
+def retroceder_robot(robot, tiempo = 1):
+    tiempo *= 1000
+    robot.drive(-100, 0)
+    wait(tiempo)
     robot.stop()
+     
+def girar_180_grados(robot):
+    robot.drive(0, 90)
+    wait(892)
+    robot.stop()
+
+    try:
+        #avanzar al bloque en recta
+        avanzar(30,50)
+        #giar hacia la derecha 
+        girar(90)
+        #avanzar para recoger el bloque 
+        avanzar(30,50)
+        #retroceder el robot 
+        retroceder(30,50)
+        #girar hacia la izquierda
+        girar(-90)
+        #avanzar para dejar ir por el otro bloque 
+        avanzar(50,50)  
+        #girar hacia la derecha 
+        girar(90)
+        #bajar la garra un 50%
+        mover_garra(50,50)
+        wait(300)
+        
+        
+              
