@@ -1,17 +1,15 @@
 from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (Motor, ColorSensor,)
+from pybricks.ev3devices import (Motor, ColorSensor)
 from pybricks.parameters import Port
-from pybricks.tools import wait
 from math import pi
 import time
 
-left_motor = Motor(Port.C)
-right_motor = Motor (Port.B)
+
 
 left_sensor = ColorSensor(Port.S1)#iniciar los sensores
 right_sensor = ColorSensor(Port.S2)
 
-def line_follower(distancia=None):
+def line_follower(left_motor, right_motor,distancia=None):
 
     luz_negra = 15 #lo usaremos para hacer que el robot pare cuando ambos detecten menos de 15.
     speed = 140 #velocidad para los motores, 100mm/s
@@ -51,7 +49,7 @@ def line_follower(distancia=None):
         turn = kp * error #propagacion del error. 
     
         #ajustar motores
-        left_motor.run(speed + turn) #speed en grados/s. 200 grados por segundo
+        left_motor.run(speed + turn) 
         right_motor.run(speed - turn)
         timeWFinal= time.time()
         print(timeWFinal-timeW)
