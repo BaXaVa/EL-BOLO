@@ -94,7 +94,7 @@ def girar_izquierda(angulo):
 def acelerar(robot, distancia, condicional = False, follow_distance = 0):
     initial_speed = 0
     final_speed = 140
-    tiempo = (distancia*(18/7))/(68.8*pi)
+    tiempo = abs((distancia*(18/7))/(68.8*pi))
     tiempo -= 5
     while initial_speed < final_speed:
         print(initial_speed)
@@ -122,7 +122,7 @@ def subir_garra():
     print("finish bajar garra")
 
 def reposar_bloque():
-    motor2.reset_angle()
+    motor2.reset_angle(0)
     motor2.run_target(100,180,Stop.HOLD, True)
     print("finish reposar bloque")
 
@@ -172,7 +172,7 @@ def segundo_paso():
 
     #El robot gira y se acerca al siguiente bloque
     girar_izquierda(87)
-    avanzar(90,40)
+    avanzar(80,40)
     girar(176)
     avanzar(45,40)
     #///////////////
