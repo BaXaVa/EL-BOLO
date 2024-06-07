@@ -40,12 +40,19 @@ def girar(angulo):
     
 # Función para cerrar la garra
 def cerrar_garra():
+<<<<<<< HEAD
     motor3.run_angle(200, -220)
     wait(1000)
     
 def cerrar_garra_littler():
     motor3.run_angle(105, -130)
     wait(3000)
+=======
+    # motor3.run_angle(150, -220)
+    motor3.run(-150)
+    wait(1500)
+
+>>>>>>> 412db48abc6c95645e44d59689908ee0097b7ca9
 # Función para abrir la garra
 def abrir_garra():
     motor3.run_angle(100, 220)
@@ -55,6 +62,7 @@ def abrir_garra():
 def subirElevador(velocidad, angulo):
     motor2.run(velocidad)
     wait(angulo)
+<<<<<<< HEAD
 
 # Programa principal
 try:
@@ -96,3 +104,155 @@ try:
     girar(-220)
 except KeyboardInterrupt:
     robot.stop()
+=======
+    
+
+# Función para seguir la línea con condiciones específicas para los sensores
+def seguir_linea():
+    while True:
+        color_1 = sensor_1.color
+        color_2 = sensor_2.color
+        
+        if color_1 == Color.WHITE:
+            robot.drive(20, 0)
+        else:
+            robot.stop()
+            break
+        
+        if color_2 == Color.BLACK:
+            robot.drive(20, 0)
+        else:
+            robot.stop()
+            break
+
+################################################
+#Funciones Alexander
+
+def avanzar_robot(robot, tiempo = 1):
+    tiempo *= 1000
+    robot.drive(200, 0)
+    wait(tiempo)
+    robot.stop()
+
+def retroceder_robot(robot, tiempo = 1):
+    tiempo *= 1000
+    robot.drive(-100, 0)
+    wait(tiempo)
+    robot.stop()
+def girar_180_grados(robot):
+    robot.drive(0, 90)
+    wait(892)
+    robot.stop()
+
+def girar_derecha(robot):
+
+    print('2')
+    print(giroscopio.angle())
+    wait(100)
+    robot.drive(0, 90)
+    print('3')
+    while True:
+        print(giroscopio.angle())
+        if abs(giroscopio.angle()) >= 87:
+            break
+    robot.stop()
+    
+def girar_180(robot):
+    robot.drive(0, 90)
+    while True:
+        if abs(giroscopio.angle()) >= 177:
+            break
+        print(giroscopio.angle())
+    robot.stop()
+    print("done right")
+
+def girar(angulo):
+    left_motor.run(90)
+    right_motor.run(-90)
+    while True:
+        if abs(giroscopio.angle()) >= angulo:
+            left_motor.brake()
+            right_motor.brake()
+            break
+        print(giroscopio.angle())
+    
+
+
+def girar_izquierda(robot):
+    giroscopio.reset_angle(0)
+    robot.drive(0, 90)
+    while True:
+        if abs(giroscopio.angle()) >= 90:
+            break
+
+    robot.stop()
+
+def acelerar(robot, distancia, condicional = False, follow_distance = 0):
+    initial_speed = 0
+    final_speed = 140
+    tiempo = (distancia*(18/7))/(68.8*pi)
+    tiempo -= 5
+    while initial_speed < final_speed:
+        print(initial_speed)
+        robot.drive(initial_speed, 0)
+        initial_speed += final_speed /tiempo
+        wait(100)
+    if condicional:
+        line_follower(follow_distance)
+    robot.stop()
+    
+
+def primer_paso(robot):
+    print("backing")
+    retroceder_robot(robot, 1) # El 1 representa 1 segundo
+    wait(500)
+    print("foward")
+    giroscopio.reset_angle(0)
+
+    acelerar(robot, 1700)
+
+    print("turn right")
+    girar(87)
+    wait(1000)
+    print("acelerate and follow line")
+    # robot.drive(200, 0)
+    # wait(770)
+    # robot.stop()
+    acelerar(robot, 2200)
+    ev3.speaker.beep(2)
+    
+    ev3.speaker.beep(3)
+    wait(1000)
+    girar(177)
+    ev3.speaker.beep(4)
+    avanzar(50,40)
+    cerrar_garra()
+    mover_garra(-800,1000)
+
+    avanzar(50,-40)
+    
+
+
+
+    # avanzar_robot(robot, 0.5)
+    
+    
+
+
+#######################################################
+
+# Programa principal
+try:
+
+### Codigo Alenxader empieza
+    primer_paso(robot)
+
+ 
+### Codigo Alenxader termina
+
+
+except:
+    print()
+#except KeyboardInterrupt:
+#    robot.stop()
+>>>>>>> 412db48abc6c95645e44d59689908ee0097b7ca9
