@@ -40,45 +40,41 @@ def girar(angulo):
     
 # Función para cerrar la garra
 def cerrar_garra():
-    motor3.run_angle(200, -220)
+    motor3.run_angle(150, -220)
     wait(1000)
-    
-def cerrar_garra_littler():
-    motor3.run_angle(105, -130)
-    wait(3000)
+
 # Función para abrir la garra
 def abrir_garra():
-    motor3.run_angle(100, 220)
+    motor3.run_angle(150, 220)
     wait(1000)
 
 # Función para mover la garra hacia arriba o abajo
 def subirElevador(velocidad, angulo):
     motor2.run(velocidad)
     wait(angulo)
+    motor2.stop()
 
 # Programa principal
 try:
-    #cerrar poco la garra
-    cerrar_garra_littler()
-     
-     # Avanzar una distancia específica
-    avanzar(80, 100)
     
-    # Girar hacia la derecha 
-    girar(165)
+    # Avanzar una distancia específica
+    avanzar(58, 100)
+    
+    # Girar hacia la izquierda
+    girar(-175)
     
     # Avanzar agarrar el bloque, se avanzara poco para que no lo empuje
-    avanzar(165, 30)
+    avanzar(80, 40)
     
     #girar al bloque, se avanzara poco para que no lo empuje
-    girar(165)
-    avanzar(49, 40)
+    girar(-175)
+    avanzar(40, 40)
     
     # Cierra la garra
     cerrar_garra()
     
     # sube la garra, elevador, dejar en negativo por que negativo sube, positivo baja
-    subirElevador(-1000, 800)
+    subirElevador(-800, 1000)
     
     # Retroceder
     robot.drive(-62, 40)
@@ -94,5 +90,6 @@ try:
     
     # Girar hacia la izquierda
     girar(-220)
+
 except KeyboardInterrupt:
     robot.stop()
