@@ -48,11 +48,6 @@ def cerrar_garra():
     wait(1500)
 
 # Función para abrir la garra
-def abrir_garra():
-    motor3.stop()
-    motor3.run_angle(150, 220)
-    wait(1000)
-    motor3.stop()
 
 # Función para mover la garra hacia arriba o abajo
 def mover_garra(velocidad, angulo):
@@ -129,7 +124,13 @@ def reposar_bloque():
 
 #Esta funcion lo que hace es posicionar la garra en un punto de referencia, para que no choque cuando vaya agarrar bloques
 def posicionar_garra_desde_cero():
+    motor3.reset_angle(0)
+
     motor3.run_target(150, -152, Stop.HOLD, True)
+
+def abrir_garra():
+    motor3.run_target(150, 0, Stop.HOLD, True)
+    print("finish abrir garra")
 
 def primer_paso():
     posicionar_garra_desde_cero()
@@ -151,7 +152,7 @@ def primer_paso():
     
 def segundo_paso():
     print("acelerar robot")
-    acelerar(robot, 2400)
+    acelerar(robot, 2440)
     ev3.speaker.beep(2)
     
     wait(500)
@@ -174,7 +175,7 @@ def segundo_paso():
     girar_izquierda(87)
     avanzar(80,40)
     girar(176)
-    avanzar(45,40)
+    avanzar(40,40)
     #///////////////
 
     #Deja reposar el bloque, baja la garra y se aleja
@@ -184,12 +185,15 @@ def segundo_paso():
     wait(5000)
     print("abrir garra")
     abrir_garra()
+    posicionar_garra_desde_cero()
     print("bajar garra")
     bajar_garra() 
     print("retroceder")
 
     cerrar_garra()
-    avanzar(45,-40)
+    avanzar(300,-40)
+    girar(270)
+    avanzar(80,40)
     
     
 
