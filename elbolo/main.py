@@ -129,6 +129,7 @@ def posicionar_garra_desde_cero():
     motor3.run_target(150, -152, Stop.HOLD, True)
 
 def abrir_garra():
+    motor3.stop()
     motor3.run_target(150, 0, Stop.HOLD, True)
     print("finish abrir garra")
 
@@ -152,7 +153,7 @@ def primer_paso():
     
 def segundo_paso():
     print("acelerar robot")
-    acelerar(robot, 2440)
+    acelerar(robot, 2430)
     ev3.speaker.beep(2)
     
     wait(500)
@@ -182,18 +183,20 @@ def segundo_paso():
     print(motor2.angle())
     print("reposa bloque")
     reposar_bloque()
-    wait(5000)
+    wait(1000)
     print("abrir garra")
-    abrir_garra()
+    abrir_garra() 
     posicionar_garra_desde_cero()
     print("bajar garra")
     bajar_garra() 
     print("retroceder")
 
     cerrar_garra()
-    avanzar(300,-40)
-    girar(270)
+    avanzar(270,-40)
+    girar(240)
     avanzar(80,40)
+    abrir_garra()
+    avanzar(80,-40)
     
     
 
