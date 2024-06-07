@@ -1,7 +1,7 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, GyroSensor
-from pybricks.parameters import Port, Color
+from pybricks.parameters import Port, Color, Stop
 import time
 from pybricks.tools import wait
 from pybricks.robotics import DriveBase
@@ -28,51 +28,37 @@ robot = DriveBase(left_motor, right_motor, 50, 50)
 #Funciones Bayardo
 # Función para avanzar el robot una distancia específica
 def avanzar(distancia_cm, velocidad):
-    tiempo_ms = (distancia_cm / velocidad) * 1000
+
+    tiempo_ms = abs((distancia_cm / velocidad) * 1000)
     robot.drive(velocidad, 0)
     wait(tiempo_ms)
     robot.stop()
 
 # Función para girar el robot un ángulo específico
-def girar(angulo):
-    robot.turn(angulo)
-    wait(1000)
-    robot.stop()
+# def girar(angulo):
+#     robot.turn(angulo)
+#     wait(1000)
+#     robot.stop()
 
 # Función para cerrar la garra
 def cerrar_garra():
+    print("Cerrando garra")
     # motor3.run_angle(150, -220)
     motor3.run(-150)
     wait(1500)
 
 # Función para abrir la garra
 def abrir_garra():
+    motor3.stop()
     motor3.run_angle(150, 220)
     wait(1000)
+    motor3.stop()
 
 # Función para mover la garra hacia arriba o abajo
 def mover_garra(velocidad, angulo):
     motor2.run(velocidad)
     wait(angulo)
     
-
-# Función para seguir la línea con condiciones específicas para los sensores
-def seguir_linea():
-    while True:
-        color_1 = sensor_1.color
-        color_2 = sensor_2.color
-        
-        if color_1 == Color.WHITE:
-            robot.drive(20, 0)
-        else:
-            robot.stop()
-            break
-        
-        if color_2 == Color.BLACK:
-            robot.drive(20, 0)
-        else:
-            robot.stop()
-            break
 
 ################################################
 #Funciones Alexander
@@ -88,32 +74,6 @@ def retroceder_robot(robot, tiempo = 1):
     robot.drive(-100, 0)
     wait(tiempo)
     robot.stop()
-def girar_180_grados(robot):
-    robot.drive(0, 90)
-    wait(892)
-    robot.stop()
-
-def girar_derecha(robot):
-
-    print('2')
-    print(giroscopio.angle())
-    wait(100)
-    robot.drive(0, 90)
-    print('3')
-    while True:
-        print(giroscopio.angle())
-        if abs(giroscopio.angle()) >= 87:
-            break
-    robot.stop()
-    
-def girar_180(robot):
-    robot.drive(0, 90)
-    while True:
-        if abs(giroscopio.angle()) >= 177:
-            break
-        print(giroscopio.angle())
-    robot.stop()
-    print("done right")
 
 def girar(angulo):
     left_motor.run(90)
@@ -124,18 +84,13 @@ def girar(angulo):
             right_motor.brake()
             break
         print(giroscopio.angle())
-    
+def girar_izquierda(angulo):
 
-
-def girar_izquierda(robot):
-    giroscopio.reset_angle(0)
-    robot.drive(0, 90)
+    robot.drive(0, -90)
     while True:
-        if abs(giroscopio.angle()) >= 90:
+        if abs(giroscopio.angle()) <= angulo:
+            robot.stop()
             break
-
-    robot.stop()
-
 def acelerar(robot, distancia, condicional = False, follow_distance = 0):
     initial_speed = 0
     final_speed = 140
@@ -149,36 +104,93 @@ def acelerar(robot, distancia, condicional = False, follow_distance = 0):
     if condicional:
         line_follower(follow_distance)
     robot.stop()
-    
 
-def primer_paso(robot):
+# def bajar_garra():
+#     motor2.stop()
+#     motor2.run_angle(150, 800)
+#     wait(1000)
+    
+# def estado_de_garra_semicerrada():
+# Función para subir la garra
+def bajar_garra():
+    motor2.run_target(100,350,Stop.HOLD, True)
+    print("finish subir garra")
+
+# Función para bajar la garra
+def subir_garra():
+    motor2.run_target(100,-350,Stop.HOLD, True)
+    print("finish bajar garra")
+
+def reposar_bloque():
+    motor2.reset_angle()
+    motor2.run_target(100,180,Stop.HOLD, True)
+    print("finish reposar bloque")
+
+
+#Esta funcion lo que hace es posicionar la garra en un punto de referencia, para que no choque cuando vaya agarrar bloques
+def posicionar_garra_desde_cero():
+    motor3.run_target(150, -152, Stop.HOLD, True)
+
+def primer_paso():
+    posicionar_garra_desde_cero()
     print("backing")
     retroceder_robot(robot, 1) # El 1 representa 1 segundo
     wait(500)
     print("foward")
     giroscopio.reset_angle(0)
 
-    acelerar(robot, 1700)
+    acelerar(robot, 1800)
 
     print("turn right")
-    girar(87)
+    girar(86)
     wait(1000)
     print("acelerate and follow line")
     # robot.drive(200, 0)
     # wait(770)
     # robot.stop()
-    acelerar(robot, 2200)
+    
+def segundo_paso():
+    print("acelerar robot")
+    acelerar(robot, 2400)
     ev3.speaker.beep(2)
     
-    ev3.speaker.beep(3)
-    wait(1000)
+    wait(500)
+    #El robot gira y se acerca a los bloques
+    print("girar hacia los bloques")
     girar(177)
     ev3.speaker.beep(4)
-    avanzar(50,40)
-    cerrar_garra()
-    mover_garra(-800,1000)
+    avanzar(45,40)
+    #///////////////
 
-    avanzar(50,-40)
+    #El robot agarra el bloque, lo sube y se aleja
+    cerrar_garra()
+    subir_garra()
+    print("paso 3")
+    ev3.speaker.beep(3)
+    avanzar(45,-40)
+    #///////////////
+
+    #El robot gira y se acerca al siguiente bloque
+    girar_izquierda(87)
+    avanzar(90,40)
+    girar(176)
+    avanzar(45,40)
+    #///////////////
+
+    #Deja reposar el bloque, baja la garra y se aleja
+    print(motor2.angle())
+    print("reposa bloque")
+    reposar_bloque()
+    wait(5000)
+    print("abrir garra")
+    abrir_garra()
+    print("bajar garra")
+    bajar_garra() 
+    print("retroceder")
+
+    cerrar_garra()
+    avanzar(45,-40)
+    
     
 
 
@@ -190,17 +202,8 @@ def primer_paso(robot):
 
 #######################################################
 
-# Programa principal
 try:
-
-### Codigo Alenxader empieza
-    primer_paso(robot)
-
- 
-### Codigo Alenxader termina
-
-
-except:
-    print()
-#except KeyboardInterrupt:
-#    robot.stop()
+    primer_paso()
+    segundo_paso()
+except Exception as e:
+    print("Error: ", e)
