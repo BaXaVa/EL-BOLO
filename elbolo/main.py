@@ -7,6 +7,8 @@ from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 from PID import line_follower
 from math import pi
+from aceleration import aceleracion_recta
+
 # Inicialización del brick EV3
 ev3 = EV3Brick()
 ev3.speaker.beep(1)
@@ -108,7 +110,7 @@ def acelerar(robot, distancia, condicional = False, follow_distance = 0):
         line_follower(follow_distance)
     robot.stop()
 
-# Función para subir la garra
+# Función para bajar la garra
 def bajar_garra():
     motor2.run_target(100,0,Stop.HOLD, True)
     print("finish bajar garra")
@@ -119,9 +121,8 @@ def subir_garra():
     motor2.run_target(100,-350,Stop.HOLD, True)
     print("finish subir garra")
     print(motor2.angle())
-
+#F Funcion para dejar un bloque sobre el otro
 def reposar_bloque():
-    
     motor2.run_target(100,-180,Stop.HOLD, True)
     print("finish reposar bloque")
     print(motor2.angle())
@@ -129,14 +130,14 @@ def reposar_bloque():
 
 #Esta funcion lo que hace es posicionar la garra en un punto de referencia, para que no choque cuando vaya agarrar bloques
 def posicionar_garra_desde_cero():
-    motor3.reset_angle(0)
+    motor3.reset_angle(0) #Creo que esta linea de codigo no es necesaria
 
     motor3.run_target(150, -152, Stop.HOLD, True)
 
 def abrir_garra():
     motor3.stop()
     motor3.run_target(150, 0, Stop.HOLD, True)
-    print("finish abrir garra")
+    
 
 def enderezar(angulo):
     if giroscopio.angle() < angulo :
@@ -153,30 +154,19 @@ def enderezar(angulo):
             if giroscopio.angle() < angulo:
                 robot.stop()
                 break
-
-
-
 def primer_paso():
+    #Posiciona la garra en un punto de referencia y retrocede hasta chocar con la pared, para despues avanzar 
     posicionar_garra_desde_cero()
-    print("backing")
     retroceder_robot(robot, 3) # El 1 representa 1 segundo
-    wait(500)
-    print("foward")
     giroscopio.reset_angle(0)
-
     acelerar(robot, 1800)
-
-    print("turn right")
     girar(86)
-    wait(1000)
-    print("acelerate and follow line")
     
 def agarrar_bloques():
+    #El robot avanza y se alinea con el primer bloque
     print("acelerar robot")
     acelerar(robot, 2430-300)
     ev3.speaker.beep(2)
-    
-    wait(500)
 
     #El robot gira y se acerca a los bloques
     print("girar hacia los bloques")
@@ -185,7 +175,7 @@ def agarrar_bloques():
     avanzar(45,40)
     #///////////////
 
-    #El robot agarra el bloque, lo sube y se aleja
+    #El robot agarra el primer bloque rojo, lo sube y retrocede
     cerrar_garra()
     subir_garra()
     print("paso 3")
@@ -193,102 +183,74 @@ def agarrar_bloques():
     avanzar(45,-40)
     #///////////////
 
-    #El robot gira y se acerca al siguiente bloque
+    #El robot gira y se alinea con el siguiente bloque
     girar_izquierda(90)
     avanzar(80,40)
     girar(180)
     avanzar(40,40)
     #///////////////
 
-    #Deja reposar el bloque, baja la garra y se aleja
-    print(motor2.angle())
-    print("reposa bloque")
+    #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
     reposar_bloque()
-    wait(1000)
-    print("abrir garra")
     abrir_garra() 
-    posicionar_garra_desde_cero()
-    print("bajar garra")
+    
+    posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
     bajar_garra() 
-    print("retroceder")
     avanzar(10,20)
     cerrar_garra()
+    #///////////////
+
+    #El robot retrocede hasta el area amarilla, gira deja los bloques y retrocede
     avanzar(270,-40)
     girar(262)
     enderezar(270)
     avanzar(65,40)
     abrir_garra()
     avanzar(65,-40)
+    #///////////////
 
 def recoger_escombro_1():
+    #El robot retrocede hasta chocar con la pared para despues avanzar hacia el primer escombro
     retroceder_robot(robot, 1)
     acelerar(robot,3000)
     cerrar_garra()
+    #///////////////
+
+    #El robot retrocede hasta un punto de ref, gira y avanza hacia la primera pipa
     avanzar(78,-40)
-
-
     wait(500)
     girar_izquierda(-88)
     acelerar(robot, 4500)
+    #///////////////
+
+    #El robot se endereza para que quede bien posicionado, sube el elevador y gira para activar la pipa
     enderezar(-87)
     subir_garra()
     girar(-47)
     wait(500)
+    #///////////////
+
+    #Gira hacia la izquierda, deja caer el primer escombro y termina de girar para llegar al punto de inicio
     girar_izquierda(-177)
     avanzar(50,20)
-
-
     abrir_garra()
     avanzar(50,-20)
     girar_izquierda(-267)
+    #///////////////
 
-    #Cambie la aceleracion de 4500 a 4470
+    #El robot avanza hacia el punto de inicio y se endereza
+    
     acelerar(robot, 4350)
     wait(500)
     girar_izquierda(-357)
     enderezar(-360)
     bajar_garra()
+    #///////////////
     
-    
 
-
-#######################################################
-
-# try:
-#     primer_paso()
-#     agarrar_bloques()
-# except Exception as e:
-#     print("Error: ", e)
-
-recoger_escombro_1()
-print("finish")
-giroscopio.reset_angle(0)
-primer_paso()
-agarrar_bloques()
-
-def probarGiro():
-    robot.drive(0, 90)
-    while True:
-        print(giroscopio.angle())
-        if giroscopio.angle() == 90:
-            robot.stop()
-            break
-    wait(5000)
-
-    robot.drive(0, -90)
-    while True:
-        print(giroscopio.angle())
-        if giroscopio.angle() == 0:
-            robot.stop()
-            break
-    wait(5000)
-    robot.drive(0, 90)
-    while True:
-        print(giroscopio.angle())
-        if giroscopio.angle() == 180:
-            robot.stop()
-            break
-
-# girar(80)
-# enderezar(90)
+# recoger_escombro_1()
+# giroscopio.reset_angle(0)
+# primer_paso()
+# agarrar_bloques()
+aceleracion_recta(motor_b = right_motor, motor_c = left_motor, left_sensor = sensor_1, right_sensor = sensor_2)
 
