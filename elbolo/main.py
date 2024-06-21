@@ -5,9 +5,9 @@ from pybricks.parameters import Port, Color, Stop
 import time
 from pybricks.tools import wait
 from pybricks.robotics import DriveBase
-from PID import line_follower
 from math import pi
-from aceleration import aceleracion_recta
+from aceleration import moviemiento_recto, avanzar3
+from girar import girar_90_grados
 
 # Inicialización del brick EV3
 ev3 = EV3Brick()
@@ -158,6 +158,20 @@ def enderezar(angulo):
             if giroscopio.angle() < angulo:
                 robot.stop()
                 break
+def girar_rad(cuarto_de_circunferencia, dir = 0):
+    radio_robot = 12.95  # Ajusta según el radio real de tu robot
+    radio_rueda = 6.88   # Ajusta según el radio real de las ruedas
+    if dir == 0:
+        girar_90_grados(radio_robot, radio_rueda,right_motor, left_motor,cuarto_de_circunferencia)
+    else:
+        girar_90_grados(radio_robot, radio_rueda,right_motor, left_motor,cuarto_de_circunferencia, velocidad=-100)
+    # Detén los motores después del giro
+    left_motor.stop()
+    right_motor.stop()
+    wait(100)
+    ev3.speaker.beep(2)
+
+
 def primer_paso():
     #Posiciona la garra en un punto de referencia y retrocede hasta chocar con la pared, para despues avanzar 
     posicionar_garra_desde_cero()
@@ -216,45 +230,57 @@ def agarrar_bloques():
 def recoger_escombro_1():
     #El robot retrocede hasta chocar con la pared para despues avanzar hacia el primer escombro
     retroceder_robot(robot, 1)
-    acelerar(robot,3000)
+    # acelerar(robot,3000)
+    moviemiento_recto(right_motor, left_motor, 31)
+    ev3.speaker.beep(2)
+    wait(100)
     cerrar_garra()
     #///////////////
 
     #El robot retrocede hasta un punto de ref, gira y avanza hacia la primera pipa
-    avanzar(70,-40)
+    avanzar(72,-40)
     wait(500)
-    girar_izquierda(-85)
-    acelerar(robot, 4520)
+    girar_rad(4)
+    moviemiento_recto(right_motor, left_motor, 47)
     #///////////////
 
     #El robot se endereza para que quede bien posicionado, sube el elevador y gira para activar la pipa
-    enderezar(-87)
     subir_garra()
-    girar(-47)
+    girar_rad(8, 1)
     wait(500)
     #///////////////
 
     #Gira hacia la izquierda, deja caer el primer escombro y termina de girar para llegar al punto de inicio
-    girar_izquierda(-175)
+    girar_rad(8)
+    girar_rad(4)
     avanzar(50,20)
     abrir_garra()
     avanzar(50,-20)
-    girar_izquierda(-260)
+    girar_rad(4)
     #///////////////
 
     #El robot avanza hacia el punto de inicio y se endereza
     
-    acelerar(robot, 4350)
+    moviemiento_recto(right_motor, left_motor, 47)
     wait(500)
-    girar_izquierda(-350)
+    girar_rad(4)
     bajar_garra()
     #///////////////
+
 def giro_con_ruedas():
-     
+     pass
 
-# recoger_escombro_1()
-# giroscopio.reset_angle(0)
-# primer_paso()
-# agarrar_bloques()
-aceleracion_recta(motor_b = right_motor, motor_c = left_motor, left_sensor = sensor_1, right_sensor = sensor_2)
+recoger_escombro_1()
+giroscopio.reset_angle(0)
+primer_paso()
+agarrar_bloques()
 
+
+# //////////////////////////////////////////
+# SECCION DE PRUEBA DE FUNCIONES:
+# //////////////////////////////////////////
+# Llama a la función para girar 90 grados
+
+#El robot con esta funcion puede girar 90 grados
+
+# moviemiento_recto(right_motor,left_motor)
