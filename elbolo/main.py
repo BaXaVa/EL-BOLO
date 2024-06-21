@@ -6,7 +6,7 @@ import time
 from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 from math import pi
-from aceleration import moviemiento_recto, avanzar3
+from aceleration import moviemiento_recto, retrocede_recto
 from girar import girar_90_grados
 
 # Inicialización del brick EV3
@@ -159,7 +159,7 @@ def enderezar(angulo):
                 robot.stop()
                 break
 def girar_rad(cuarto_de_circunferencia, dir = 0):
-    radio_robot = 12.95  # Ajusta según el radio real de tu robot
+    radio_robot = 12.93  # Ajusta según el radio real de tu robot
     radio_rueda = 6.88   # Ajusta según el radio real de las ruedas
     if dir == 0:
         girar_90_grados(radio_robot, radio_rueda,right_motor, left_motor,cuarto_de_circunferencia)
@@ -175,22 +175,33 @@ def girar_rad(cuarto_de_circunferencia, dir = 0):
 def primer_paso():
     #Posiciona la garra en un punto de referencia y retrocede hasta chocar con la pared, para despues avanzar 
     posicionar_garra_desde_cero()
-    retroceder_robot(robot, 3) # El 1 representa 1 segundo
+    # retroceder_robot(robot, 3) # El 1 representa 1 segundo
+
+    retrocede_recto(right_motor, left_motor, 32)
     giroscopio.reset_angle(0)
-    acelerar(robot, 1800)
-    girar(86)
+    moviemiento_recto(right_motor, left_motor, 18)
+
+    # acelerar(robot, 1800)
+    # girar(86)
+    wait(100)
+    girar_rad(4,1)
+
     
 def agarrar_bloques():
     #El robot avanza y se alinea con el primer bloque
     print("acelerar robot")
-    acelerar(robot, 2440-300)
+    moviemiento_recto(right_motor, left_motor, 25)
+    # acelerar(robot, 2440-300)
     ev3.speaker.beep(2)
 
     #El robot gira y se acerca a los bloques
     print("girar hacia los bloques")
-    girar(177)
+    # girar(177)
+    wait(100)
+    girar_rad(4,1)
     ev3.speaker.beep(4)
-    avanzar(45,40)
+    wait(100)
+    avanzar(50,40)
     #///////////////
 
     #El robot agarra el primer bloque rojo, lo sube y retrocede
@@ -198,13 +209,19 @@ def agarrar_bloques():
     subir_garra()
     print("paso 3")
     ev3.speaker.beep(3)
-    avanzar(45,-40)
+    avanzar(50,-40)
     #///////////////
 
     #El robot gira y se alinea con el siguiente bloque
-    girar_izquierda(90)
-    avanzar(80,40)
-    girar(180)
+    # girar_izquierda(90)
+    wait(100)
+    girar_rad(4)
+    wait(100)
+    avanzar(65,40)
+    wait(100)
+    # girar(180)
+    girar_rad(4,1)
+    wait(100)
     avanzar(45,40)
     #///////////////
 
@@ -220,8 +237,8 @@ def agarrar_bloques():
 
     #El robot retrocede hasta el area amarilla, gira deja los bloques y retrocede
     avanzar(270,-40)
-    girar(262)
-    enderezar(270)
+    # girar(262)
+    girar_rad(4,1)
     avanzar(65,40)
     abrir_garra()
     avanzar(65,-40)
@@ -238,10 +255,12 @@ def recoger_escombro_1():
     #///////////////
 
     #El robot retrocede hasta un punto de ref, gira y avanza hacia la primera pipa
-    avanzar(72,-40)
+    # avanzar(70,-40)
+    retrocede_recto(right_motor, left_motor, 10.5)
     wait(500)
     girar_rad(4)
-    moviemiento_recto(right_motor, left_motor, 47)
+    moviemiento_recto(right_motor, left_motor, 47.5)
+    wait(10000)
     #///////////////
 
     #El robot se endereza para que quede bien posicionado, sube el elevador y gira para activar la pipa
@@ -266,9 +285,6 @@ def recoger_escombro_1():
     girar_rad(4)
     bajar_garra()
     #///////////////
-
-def giro_con_ruedas():
-     pass
 
 recoger_escombro_1()
 giroscopio.reset_angle(0)
