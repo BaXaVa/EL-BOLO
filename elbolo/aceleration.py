@@ -6,7 +6,17 @@ from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 from PID import line_follower
 from math import pi
-
+"""The formula of an PID controller is the next one:
+    Target(gyro value) = 0degrees
+    Kp, ki, kd are constants
+    
+    value_motorA = Gyro Angles
+    value_motorB = Gyro Angles
+    error = target - value
+    integral = integral + error 
+    derivative = error - last_error
+    
+    correction = (error*Kp) + (integral*ki) + (derivative*kd)"""
 def aceleracion_recta(motor_b, motor_c, left_sensor, right_sensor):
     motor_b.reset_angle(0)
     motor_c.reset_angle(0)

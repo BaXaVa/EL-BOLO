@@ -67,13 +67,17 @@ def retroceder_robot(robot, tiempo = 1):
     robot.stop()
 
 def girar(angulo):
+    ev3.speaker.beep(2)
+    left_motor.reset_angle(0)
+    angulo_initial_motor = abs(left_motor.angle())
     robot.drive(0, 90)
+    
     while True:
         if giroscopio.angle() >= angulo:
             robot.stop()
             break
         print(giroscopio.angle())
-
+    ev3.speaker.beep(2)
 def girar_izquierda(angulo):
     robot.drive(0, -90)
     
@@ -102,7 +106,7 @@ def acelerar(robot, distancia, condicional = False, follow_distance = 0):
     tiempo = abs((distancia*(18/7))/(68.8*pi))
     tiempo -= 5
     while initial_speed < final_speed:
-        print(initial_speed)
+        
         robot.drive(initial_speed, 0)
         initial_speed += final_speed /tiempo
         wait(100)
@@ -165,7 +169,7 @@ def primer_paso():
 def agarrar_bloques():
     #El robot avanza y se alinea con el primer bloque
     print("acelerar robot")
-    acelerar(robot, 2430-300)
+    acelerar(robot, 2440-300)
     ev3.speaker.beep(2)
 
     #El robot gira y se acerca a los bloques
@@ -187,7 +191,7 @@ def agarrar_bloques():
     girar_izquierda(90)
     avanzar(80,40)
     girar(180)
-    avanzar(40,40)
+    avanzar(45,40)
     #///////////////
 
     #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
@@ -217,10 +221,10 @@ def recoger_escombro_1():
     #///////////////
 
     #El robot retrocede hasta un punto de ref, gira y avanza hacia la primera pipa
-    avanzar(78,-40)
+    avanzar(70,-40)
     wait(500)
-    girar_izquierda(-88)
-    acelerar(robot, 4500)
+    girar_izquierda(-85)
+    acelerar(robot, 4520)
     #///////////////
 
     #El robot se endereza para que quede bien posicionado, sube el elevador y gira para activar la pipa
@@ -231,22 +235,22 @@ def recoger_escombro_1():
     #///////////////
 
     #Gira hacia la izquierda, deja caer el primer escombro y termina de girar para llegar al punto de inicio
-    girar_izquierda(-177)
+    girar_izquierda(-175)
     avanzar(50,20)
     abrir_garra()
     avanzar(50,-20)
-    girar_izquierda(-267)
+    girar_izquierda(-260)
     #///////////////
 
     #El robot avanza hacia el punto de inicio y se endereza
     
     acelerar(robot, 4350)
     wait(500)
-    girar_izquierda(-357)
-    enderezar(-360)
+    girar_izquierda(-350)
     bajar_garra()
     #///////////////
-    
+def giro_con_ruedas():
+     
 
 # recoger_escombro_1()
 # giroscopio.reset_angle(0)
