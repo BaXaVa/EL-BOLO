@@ -256,10 +256,10 @@ def recoger_escombro_1():
 
     #El robot retrocede hasta un punto de ref, gira y avanza hacia la primera pipa
     # avanzar(70,-40)
-    retrocede_recto(right_motor, left_motor, 10.5)
+    retrocede_recto(right_motor, left_motor, 9)
     wait(500)
     girar_rad(4)
-    moviemiento_recto(right_motor, left_motor, 47.5)
+    moviemiento_recto(right_motor, left_motor, 48)
     wait(10000)
     #///////////////
 
