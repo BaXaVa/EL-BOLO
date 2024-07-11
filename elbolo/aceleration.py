@@ -70,9 +70,9 @@ def movimiento_recto(motor_b, motor_c, distancia):
     desired = 0
     motor_b.reset_angle(0)
     motor_c.reset_angle(0)
-    ki = 0.001
-    kp = 0.3
-    kd = 0.2
+    ki = 0.012
+    kp = 0.00182
+    kd = 0.000190
     target_angle = ( distancia / (21.6) ) *360
     print(target_angle)
     integral = 0

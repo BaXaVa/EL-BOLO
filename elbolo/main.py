@@ -349,8 +349,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     abrir_garra() 
     
     posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
-    mover_garra_angulo(-23)
-    movimiento_recto(right_motor, left_motor, 0.6)
+    mover_garra_angulo(-20)
     cerrar_garra()
     subir_garra()
     #///////////////
@@ -371,14 +370,14 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
 
     mover_garra_angulo(-25)
     # movimiento_recto(right_motor, left_motor, 0.35)
-    retrocede_recto(right_motor, left_motor, 0.24)
+    # retrocede_recto(right_motor, left_motor, 0.24)
     cerrar_garra()
     
     retrocede_recto(right_motor, left_motor, 35)
     wait(100)
     girar_rad(4,1)
-    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
-    retrocerder_recto(right_motor, left_motor, 1)
+    # retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
+    retrocede_recto(right_motor, left_motor, 2)
     abrir_garra()
 
 
@@ -390,12 +389,13 @@ def segundo_escombro():
     girar_rad(2)
 
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.GREEN)
+
     movimiento_recto(right_motor, left_motor, 2)
 
     cerrar_garra()
     subir_garra()
 
-    movimiento_recto(right_motor, left_motor, 55)
+    movimiento_recto(right_motor, left_motor, 52)
     girar_rad(4)
     mover_garra_angulo(-15)
 
@@ -423,12 +423,41 @@ def segundo_escombro():
     abrir_garra()
     retrocede_recto(right_motor, left_motor, 6.5)
 
-def endererzar():
-    #left_motor()
-    #right_motor()
-    pass
+def segundo_escombro_por_linea_roja():
+    girar_rad(2)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.GREEN)
+    movimiento_recto(right_motor, left_motor, 2)
 
+    cerrar_garra()
+    
+    girar_rad(4,1)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    girar_rad(4)
 
+    movimiento_recto(right_motor, left_motor, 30) # ajustar distancia 45.5
+    subir_garra()
+    movimiento_recto(right_motor, left_motor, 5)
+    
+    reposar_bloque()
+    abrir_garra()
+    mover_garra_angulo(-25)
+    cerrar_garra()
+
+    movimiento_recto(right_motor, left_motor, 21.5)
+    abrir_garra()
+
+    subir_garra()
+    girar_rad(4,1)
+    bajar_garra()
+    movimiento_recto(right_motor, left_motor, 3)
+
+    subir_garra()
+    movimiento_recto(right_motor, left_motor, 6)
+
+    retrocede_recto(right_motor, left_motor, 9)
+
+    girar_rad(4)
+     
 
 
 
@@ -437,9 +466,9 @@ def endererzar():
 
 # recoger_escombro_1()
 # giroscopio.reset_angle(0)
-primer_paso()
-apilar_tres_bloques()
-segundo_escombro()
+# primer_paso()
+# apilar_tres_bloques()
+# segundo_escombro()
 
 # retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK) 
 
@@ -456,6 +485,8 @@ segundo_escombro()
 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
+
+segundo_escombro_por_linea_roja()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
