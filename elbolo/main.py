@@ -424,12 +424,15 @@ def segundo_escombro():
     retrocede_recto(right_motor, left_motor, 6.5)
 
 def segundo_escombro_por_linea_roja():
-    girar_rad(2)
+    girar_rad(4,1)
+    girar_rad(4,1)
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.GREEN)
     movimiento_recto(right_motor, left_motor, 2)
 
     cerrar_garra()
     
+    movimiento_recto(right_motor, left_motor, 3)
+
     girar_rad(4,1)
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
     girar_rad(4)
@@ -443,21 +446,29 @@ def segundo_escombro_por_linea_roja():
     mover_garra_angulo(-25)
     cerrar_garra()
 
-    movimiento_recto(right_motor, left_motor, 21.5)
+    girar_rad(4,1)
+
+    movimiento_recto(right_motor, left_motor, 7)
     abrir_garra()
 
     subir_garra()
-    girar_rad(4,1)
-    bajar_garra()
-    movimiento_recto(right_motor, left_motor, 3)
-
-    subir_garra()
-    movimiento_recto(right_motor, left_motor, 6)
-
-    retrocede_recto(right_motor, left_motor, 9)
-
     girar_rad(4)
-     
+
+    bajar_garra()
+    
+    motor3.angle(0)
+    motor3.run_target(150, -200, Stop.HOLD, True)
+    
+    movimiento_recto(right_motor, left_motor, 16.5)
+    subir_garra()
+    girar_rad(8,1)
+    wait(100)
+    girar_rad(8)
+
+    retrocede_recto(right_motor, left_motor, 16.5)
+    girar_rad(4,1)
+
+
 
 
 
@@ -487,6 +498,7 @@ def segundo_escombro_por_linea_roja():
 # SECCION DE PRUEBA DE FUNCIONES:
 
 segundo_escombro_por_linea_roja()
+
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
