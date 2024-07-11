@@ -48,7 +48,8 @@ def retroceder_hasta_color(motor_b,motor_c,sensor_1, sensor_2 , target_color):
     speed = -10
     while sensor_1.color() != target_color and sensor_2.color() != target_color:
         # print(motor_b.angle(), motor_c.angle())
-        print(motor_b.angle(), motor_c.angle())
+        # print(motor_b.angle(), motor_c.angle())
+        print("speed 1 =", speed)
         actual = abs(motor_b.angle()) - abs(motor_c.angle())
 
         error = desired - actual
@@ -56,10 +57,10 @@ def retroceder_hasta_color(motor_b,motor_c,sensor_1, sensor_2 , target_color):
         derivative = error - actual
         correcion = (error*kp) + (integral*ki) + (derivative*kd)
 
-        motor_b.run(speed + correcion)
-        motor_c.run(speed - correcion)
-
-        if speed < -140: 
+        motor_b.run(speed - correcion)
+        motor_c.run(speed + correcion)
+        print("Speed 2 = ", speed)
+        if speed > -140: 
             speed -= 10
     motor_b.stop()
     motor_c.stop() 

@@ -144,7 +144,8 @@ def mover_garra_angulo(angulo_buscado):
 def posicionar_garra_desde_cero():
     motor3.reset_angle(0) #Creo que esta linea de codigo no es necesaria
 
-    motor3.run_target(150, -152, Stop.HOLD, True)
+    motor3.run_target(150, -130, Stop.HOLD, True)
+
 
 def abrir_garra():
     motor3.stop()
@@ -167,7 +168,7 @@ def enderezar(angulo):
                 robot.stop()
                 break
 def girar_rad(cuarto_de_circunferencia, dir = 0):
-    radio_robot = 12.83  # Ajusta según el radio real de tu robot
+    radio_robot = 12.864 # de 12.83 cm a 18 cm , de 18 a 14
     radio_rueda = 6.88   # Ajusta según el radio real de las ruedas
     if dir == 0:
         girar_90_grados(radio_robot, radio_rueda,right_motor, left_motor,cuarto_de_circunferencia)
@@ -189,7 +190,7 @@ def primer_paso():
     retrocede_recto(right_motor, left_motor, 27)
     giroscopio.reset_angle(0)
     wait(100)
-    movimiento_recto(right_motor, left_motor, 18.3) 
+    movimiento_recto(right_motor, left_motor, 18.1) 
 
     # acelerar(robot, 1800)
     # girar(86)
@@ -317,7 +318,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     girar_rad(4,1)
     ev3.speaker.beep(4)
     wait(100)
-    movimiento_recto(right_motor, left_motor, 6.25)
+    movimiento_recto(right_motor, left_motor, 6.23)
     #///////////////
 
     #El robot agarra el primer bloque rojo, lo sube y retrocede
@@ -325,21 +326,22 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     subir_garra()
     print("paso 3")
     ev3.speaker.beep(3)
-    retrocede_recto(right_motor, left_motor, 6.25)
-
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
     #///////////////
 
     #El robot gira y se alinea con el siguiente bloque
     # girar_izquierda(90)
-    wait(100)
+    wait(200)
+    ev3.speaker.beep(4)
     girar_rad(4,1)
-    wait(100)
-    movimiento_recto(right_motor, left_motor, 9.15)
-    wait(100)
+    wait(200)
+    ev3.speaker.beep(4)
+    movimiento_recto(right_motor, left_motor, 9.30)
+    wait(200)
 
     girar_rad(4)
-    wait(100)
-    movimiento_recto(right_motor, left_motor, 6.25)
+    wait(200)
+    movimiento_recto(right_motor, left_motor, 2.5)
     #///////////////
 
     #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
@@ -347,32 +349,36 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     abrir_garra() 
     
     posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
-    mover_garra_angulo(-27)
-    movimiento_recto(right_motor, left_motor, 0.35)
+    mover_garra_angulo(-23)
+    movimiento_recto(right_motor, left_motor, 0.6)
     cerrar_garra()
     subir_garra()
     #///////////////
 
     #El robot retrocede hasta el area amarilla, gira deja los bloques y retrocede
-    retrocede_recto(right_motor, left_motor, 6.25)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    wait(100)
     girar_rad(4,1)
     movimiento_recto(right_motor, left_motor, 9.10)
+    wait(100)
     girar_rad(4)
-    movimiento_recto(right_motor, left_motor, 6.28)
+    wait(100)
+    movimiento_recto(right_motor, left_motor, 2.5)
 
     reposar_bloque()
     abrir_garra()
     posicionar_garra_desde_cero()
 
-    mover_garra_angulo(-27)
+    mover_garra_angulo(-25)
     # movimiento_recto(right_motor, left_motor, 0.35)
-    retrocede_recto(right_motor, left_motor, 0.25)
+    retrocede_recto(right_motor, left_motor, 0.24)
     cerrar_garra()
     
     retrocede_recto(right_motor, left_motor, 35)
-
+    wait(100)
     girar_rad(4,1)
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
+    retrocerder_recto(right_motor, left_motor, 1)
     abrir_garra()
 
 
@@ -429,16 +435,15 @@ def endererzar():
 
 
 
-
-
-
-
-recoger_escombro_1()
-giroscopio.reset_angle(0)
+# recoger_escombro_1()
+# giroscopio.reset_angle(0)
 primer_paso()
 apilar_tres_bloques()
 segundo_escombro()
-# for i in range(4):
+
+# retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK) 
+
+# for i in range(16):
 #     girar_rad(4)
 #     wait(100)
 
