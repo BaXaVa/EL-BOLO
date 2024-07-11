@@ -146,6 +146,9 @@ def posicionar_garra_desde_cero():
 
     motor3.run_target(150, -130, Stop.HOLD, True)
 
+def posicionar_angulo(angle):
+    motor3.angle(0)
+    motor3.run_target(150, angle, Stop.HOLD, True)
 
 def abrir_garra():
     motor3.stop()
@@ -435,6 +438,7 @@ def segundo_escombro_por_linea_roja():
 
     girar_rad(4,1)
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    wait(200)
     girar_rad(4)
 
     movimiento_recto(right_motor, left_motor, 30) # ajustar distancia 45.5
@@ -456,8 +460,7 @@ def segundo_escombro_por_linea_roja():
 
     bajar_garra()
     
-    motor3.angle(0)
-    motor3.run_target(150, -200, Stop.HOLD, True)
+
     
     movimiento_recto(right_motor, left_motor, 16.5)
     subir_garra()
@@ -496,9 +499,11 @@ def segundo_escombro_por_linea_roja():
 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
+def main():
+    segundo_escombro_por_linea_roja()
 
-segundo_escombro_por_linea_roja()
-
+try: if __main__()  == main:
+    main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
