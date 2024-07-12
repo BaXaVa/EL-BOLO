@@ -15,6 +15,7 @@ ev3.speaker.beep(1)
 ev3.screen.print("Hello UAM, Welcome to Robotics Class")
 
 # Configuración de los motores y sensores
+
 left_motor = Motor(Port.C)
 right_motor = Motor(Port.B)
 motor3 = Motor(Port.D)
@@ -146,8 +147,8 @@ def posicionar_garra_desde_cero():
 
     motor3.run_target(150, -130, Stop.HOLD, True)
 
-def posicionar_angulo(angle):
-    motor3.angle(0)
+def posicionar_garra_angulo(angle):
+    motor3.reset_angle(0)
     motor3.run_target(150, angle, Stop.HOLD, True)
 
 def abrir_garra():
@@ -387,44 +388,6 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     
     #///////////////
 
-def segundo_escombro():
-    retrocede_recto(right_motor, left_motor, 7)
-    girar_rad(2)
-
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.GREEN)
-
-    movimiento_recto(right_motor, left_motor, 2)
-
-    cerrar_garra()
-    subir_garra()
-
-    movimiento_recto(right_motor, left_motor, 52)
-    girar_rad(4)
-    mover_garra_angulo(-15)
-
-    movimiento_recto(right_motor, left_motor, 15.1)
-    girar_rad(4,1)   
-    subir_garra()
-
-    girar_rad(8,1)
-    wait(200)
-    girar_rad(8)
-    girar_rad(4)
-    reposar_bloque()
-    abrir_garra()
-    mover_garra_angulo(-25)
-    cerrar_garra()
-    girar_rad(4)
-
-
-    movimiento_recto(right_motor, left_motor, 97)
-    girar_rad(4)
-    movimiento_recto(right_motor, left_motor, 47)
-    girar_rad(4,1)
-    movimiento_recto(right_motor, left_motor, 100)
-    girar_rad(4)
-    abrir_garra()
-    retrocede_recto(right_motor, left_motor, 6.5)
 
 def segundo_escombro_por_linea_roja():
     girar_rad(4,1)
@@ -439,11 +402,14 @@ def segundo_escombro_por_linea_roja():
     girar_rad(4,1)
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
     wait(200)
+    #mods nuevas
+    movimiento_recto(right_motor, left_motor, 3)
+    wait(100)
     girar_rad(4)
 
     movimiento_recto(right_motor, left_motor, 30) # ajustar distancia 45.5
     subir_garra()
-    movimiento_recto(right_motor, left_motor, 5)
+    movimiento_recto(right_motor, left_motor, 7)
     
     reposar_bloque()
     abrir_garra()
@@ -460,7 +426,7 @@ def segundo_escombro_por_linea_roja():
 
     bajar_garra()
     
-
+    posicionar_garra_angulo(-150) # Especificar angulo
     
     movimiento_recto(right_motor, left_motor, 16.5)
     subir_garra()
@@ -500,10 +466,11 @@ def segundo_escombro_por_linea_roja():
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
 def main():
-    segundo_escombro_por_linea_roja()
-
-try: if __main__()  == main:
-    main()
+    # segundo_escombro_por_linea_roja()
+   for i in range(16):
+    girar_rad(4)
+    wait(100)
+main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
