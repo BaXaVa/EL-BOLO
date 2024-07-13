@@ -443,13 +443,18 @@ def segundo_escombro_por_linea_roja():
     #suponiendo que el bobo quedo enfrente de los escombros
 
 def escombros_punto_de_control ():
-    movimiento_recto(right_motor,left_motor,0.2)
+    #en la funcion anterior bajar toda la garra
+    motor3.reset_angle(-200)#se establece el amgul interno de 0 a -350
+    motor2.reset_angle(-350)
+    abrir_garra()#abrir hasta q llegue a 0
+    wait(100)
+    movimiento_recto(right_motor,left_motor,3)
+    wait(100)
     bajar_garra()
-    abrir_garra()
+    wait(100)
     cerrar_garra()
     girar_rad(4,1)#4 es 1 es   2 mitad 4 es framento de 90 1 360 2 180 4 90 8 45
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
-    wait(100)
     girar_rad(4) #4 izquierda y 4 1 derecha
     #detectar negro
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
@@ -474,7 +479,7 @@ def escombros_punto_de_control ():
     #:D
 
     #mods 13 julio
-def blocks():
+# def blocks():
 
 # recoger_escombro_1()
 # giroscopio.reset_angle(0)
@@ -501,9 +506,10 @@ def blocks():
 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
-    def main():
-        def escombros_punto_de_control ():
-            main()
+def main():
+    escombros_punto_de_control ()
+
+main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
