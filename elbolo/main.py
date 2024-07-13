@@ -437,11 +437,7 @@ def segundo_escombro_por_linea_roja():
     retrocede_recto(right_motor, left_motor, 16.5)
     girar_rad(4,1)
 
-    #mods 7 de julio
-    #despues del giro
-    #no me acuerdo donde quedo 
-    #suponiendo que el bobo quedo enfrente de los escombros
-
+    #mods bobo 12 y 13 julio
 def escombros_punto_de_control ():
     #en la funcion anterior bajar toda la garra
     motor3.reset_angle(-200)#se establece el amgul interno de 0 a -350
@@ -464,9 +460,8 @@ def escombros_punto_de_control ():
     girar_rad(4)
     movimiento_recto(right_motor,left_motor,2)
     abrir_garra()
-    retrocede_recto(right_motor,left_motor,8)
-    
-    #volviedno al punto de control
+    #volviendo al punto de control
+    retrocede_recto(right_motor,left_motor,7)
     girar_rad(4)
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
     movimiento_recto(right_motor,left_motor,10)
@@ -474,11 +469,8 @@ def escombros_punto_de_control ():
     retrocede_recto(right_motor, left_motor, 9.3)
     wait(500)
     ev3.speaker.beep(4)
-    
     #fin mods hoy
     #:D
-
-    #mods 13 julio
 # def blocks():
 
 # recoger_escombro_1()
