@@ -447,29 +447,34 @@ def escombros_punto_de_control ():
     bajar_garra()
     abrir_garra()
     cerrar_garra()
-    girar_rad(4)#probar hacia donde gira 4 es 1 es   2 mitad 4 es framento de 90 1 360 2 180 4 90 8 45
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)#comprobar 
+    girar_rad(4,1)#4 es 1 es   2 mitad 4 es framento de 90 1 360 2 180 4 90 8 45
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
     wait(100)
-    girar_rad(4,1) #4 derecha y 4 1 izquierda
+    girar_rad(4) #4 izquierda y 4 1 derecha
+    #detectar negro
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    girar_rad(4,1)#gira ala derecha
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    movimiento_recto(right_motor,left_motor,60)
+    girar_rad(4)
     movimiento_recto(right_motor,left_motor,2)
-    girar_rad(4,1)
-    movimiento_recto(right_motor,left_motor,5)
-    girar_rad(4,1)
-    movimiento_recto(right_motor,left_motor,0.2)
     abrir_garra()
-    retrocede_recto(right_motor,left_motor,1)
+    retrocede_recto(right_motor,left_motor,8)
         
-    #posicionarse hasta 2do bloque
-    wait(200)
-    girar_rad(4,1)
-    wait(200)
-    movimiento_recto(right_motor, left_motor, 9.30)
-    wait(200)
-    girar_rad(4,1)
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
-    wait(100)
+    # #regresar a yellow
+    # wait(200)
+    # girar_rad(4,1)
+    # wait(200)
+    # movimiento_recto(right_motor, left_motor, 4)
+    # wait(200)
+    # girar_rad(4,1)
+    # avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
+    # wait(100)
     #fin mods hoy
     #:D
+
+    #mods 13 julio
+def blocks():
 
 # recoger_escombro_1()
 # giroscopio.reset_angle(0)
@@ -496,9 +501,9 @@ def escombros_punto_de_control ():
 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
-def main():
- segundo_escombro_por_linea_roja()
-main()
+    def main():
+        def escombros_punto_de_control ():
+            main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
