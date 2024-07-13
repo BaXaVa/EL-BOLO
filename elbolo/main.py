@@ -448,7 +448,7 @@ def escombros_punto_de_control ():
     motor2.reset_angle(-350)
     abrir_garra()#abrir hasta q llegue a 0
     wait(100)
-    movimiento_recto(right_motor,left_motor,3)
+    movimiento_recto(right_motor,left_motor,0.5)
     wait(100)
     bajar_garra()
     wait(100)
@@ -460,21 +460,21 @@ def escombros_punto_de_control ():
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
     girar_rad(4,1)#gira ala derecha
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
-    movimiento_recto(right_motor,left_motor,60)
+    movimiento_recto(right_motor,left_motor,35)
     girar_rad(4)
     movimiento_recto(right_motor,left_motor,2)
     abrir_garra()
     retrocede_recto(right_motor,left_motor,8)
-        
-    # #regresar a yellow
-    # wait(200)
-    # girar_rad(4,1)
-    # wait(200)
-    # movimiento_recto(right_motor, left_motor, 4)
-    # wait(200)
-    # girar_rad(4,1)
-    # avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
-    # wait(100)
+    
+    #volviedno al punto de control
+    girar_rad(4)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    movimiento_recto(right_motor,left_motor,10)
+    girar_rad(4)
+    retrocede_recto(right_motor, left_motor, 9.3)
+    wait(500)
+    ev3.speaker.beep(4)
+    
     #fin mods hoy
     #:D
 
