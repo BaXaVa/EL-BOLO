@@ -441,34 +441,35 @@ def segundo_escombro_por_linea_roja():
     #despues del giro
     #no me acuerdo donde quedo 
     #suponiendo que el bobo quedo enfrente de los escombros
-    def escombros_punto_de_control ():
-        movimiento_recto(right_motor,left_motor,0.2)
-        bajar_garra()
-        abrir_garra()
-        cerrar_garra()
-        girar_rad(4,1)#probar hacia donde gira
-        avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)#comprobar 
-        wait(100)
-        girar_rad(4,1)
-        movimiento_recto(right_motor,left_motor,2)
-        girar_rad(4,1)
-        movimiento_recto(right_motor,left_motor,5)
-        girar_rad(4,1)
-        movimiento_recto(right_motor,left_motor,0.2)
-        abrir_garra()
-        retrocede_recto(right_motor,left_motor,1)
+
+def escombros_punto_de_control ():
+    movimiento_recto(right_motor,left_motor,0.2)
+    bajar_garra()
+    abrir_garra()
+    cerrar_garra()
+    girar_rad(4)#probar hacia donde gira 4 es 1 es   2 mitad 4 es framento de 90 1 360 2 180 4 90 8 45
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)#comprobar 
+    wait(100)
+    girar_rad(4,1) #4 derecha y 4 1 izquierda
+    movimiento_recto(right_motor,left_motor,2)
+    girar_rad(4,1)
+    movimiento_recto(right_motor,left_motor,5)
+    girar_rad(4,1)
+    movimiento_recto(right_motor,left_motor,0.2)
+    abrir_garra()
+    retrocede_recto(right_motor,left_motor,1)
         
-        #posicionarse hasta 2do bloque
-        wait(200)
-        girar_rad(4,1)
-        wait(200)
-        movimiento_recto(right_motor, left_motor, 9.30)
-        wait(200)
-        girar_rad(4,1)
-        avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
-        wait(100)
-        #fin mods hoy
-        #:D
+    #posicionarse hasta 2do bloque
+    wait(200)
+    girar_rad(4,1)
+    wait(200)
+    movimiento_recto(right_motor, left_motor, 9.30)
+    wait(200)
+    girar_rad(4,1)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
+    wait(100)
+    #fin mods hoy
+    #:D
 
 # recoger_escombro_1()
 # giroscopio.reset_angle(0)
