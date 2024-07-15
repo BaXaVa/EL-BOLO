@@ -476,14 +476,15 @@ def escombros_punto_de_control ():
 
     #mods 15 julio
 def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
-    movimiento_recto(right_motor,left_motor,10)
+    movimiento_recto(right_motor,left_motor,14)
     girar_rad(4,1)
-    movimiento_recto(right_motor,left_motor,50)
+    movimiento_recto(right_motor,left_motor,71)
     girar_rad(4,1)
     ev3.speaker.beep(4)
     wait(100)
     motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
     motor2.reset_angle(-350)
+    abrir_garra()
     bajar_garra()
     movimiento_recto(right_motor,left_motor,3)
     cerrar_garra()
@@ -518,12 +519,13 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     cerrar_garra()
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
     wait(100)
-    girar_rad(8,1)#giro completo? #verificar con alexander
+    girar_rad(4,1)
     movimiento_recto(right_motor,left_motor,21)
     girar_rad(4,1)#derecha
     movimiento_recto(right_motor,left_motor,18)
     bajar_garra()
     abrir_garra()
+    #girar_rad(8,1)#giro completo? #verificar con alexander
     #sensor 4 para detectar color de bloque depnedecia de azul o verde
     #falta colocar sensor 4 al bobo
     #por si acaso
@@ -550,7 +552,7 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
 
     #def siguiente_paso :
     #fin mods hoy :D
-    
+
     # recoger_escombro_1()
     # giroscopio.reset_angle(0)
     # primer_paso()
@@ -582,4 +584,5 @@ main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 #El robot con esta funcion puede girar 90 grados
-# movimiento_recto(right_motor,left_motor)
+# movimi
+# ento_recto(right_motor,left_motor)
