@@ -461,7 +461,7 @@ def escombros_punto_de_control ():
     girar_rad(4)
     movimiento_recto(right_motor,left_motor,2)
     abrir_garra()
-    #volviendo al punto de control
+    print("volviendo al punto de control")
     retrocede_recto(right_motor,left_motor,7)
     girar_rad(4)
     avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
@@ -470,6 +470,7 @@ def escombros_punto_de_control ():
     retrocede_recto(right_motor, left_motor, 9.3)
     wait(500)
     ev3.speaker.beep(4)
+    print("bobo llego al punto de control")
     #fin mods hoy
     #:D
 
@@ -483,20 +484,48 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     wait(100)
     motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
     motor2.reset_angle(-350)
-    wait(100)
     bajar_garra()
     movimiento_recto(right_motor,left_motor,3)
     cerrar_garra()
-    retrocede_recto(right_motor, left_motor,3)
+    subir_garra()
+    print("en camino al block 2")
+    print("bloque verde o azul capturado")
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    wait(100)
     girar_rad(4,1)#der
-    #girar_rad(8,1)#giro completo?
     movimiento_recto(right_motor, left_motor,3)
     girar_rad(4)#izquierda en frente del sig bloque
     movimiento_recto(right_motor, left_motor,3)
-    #apilar bloque 2
-    #apilar bloque 3
-#sensor 4 para detectar color de bloque depnedecia de azul o verde
-#falta colocar sensor 4 al bobo
+    #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
+    reposar_bloque()
+    abrir_garra() 
+    posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
+    mover_garra_angulo(-20)
+    cerrar_garra()
+    subir_garra()
+    #apilar bloque 3 
+    print("en camino al block amarillo")
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    wait(100)
+    girar_rad(4,1)#der
+    movimiento_recto(right_motor, left_motor,3)
+    girar_rad(4)#izquierda en frente del sig bloque
+    movimiento_recto(right_motor, left_motor,3)#aqui
+    reposar_bloque()
+    abrir_garra()
+    posicionar_garra_desde_cero()
+    mover_garra_angulo(-25)
+    cerrar_garra()
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    wait(100)
+    girar_rad(8,1)#giro completo? #verificar con alexander
+    movimiento_recto(right_motor,left_motor,21)
+    girar_rad(4,1)#derecha
+    movimiento_recto(right_motor,left_motor,18)
+    bajar_garra()
+    abrir_garra()
+    #sensor 4 para detectar color de bloque depnedecia de azul o verde
+    #falta colocar sensor 4 al bobo
     #por si acaso
     #bucle para ver si el primer block es azul o verde
     # if :
@@ -519,35 +548,34 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     #     abrir_garra()
     #     #fin
 
+    #def siguiente_paso :
     #fin mods hoy :D
+    
+    # recoger_escombro_1()
+    # giroscopio.reset_angle(0)
+    # primer_paso()
+    # apilar_tres_bloques()
+    # segundo_escombro()
 
-#def siguiente_paso :
+    # retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK) 
 
-# recoger_escombro_1()
-# giroscopio.reset_angle(0)
-# primer_paso()
-# apilar_tres_bloques()
-# segundo_escombro()
+    # for i in range(16):
+    #     girar_rad(4)
+    #     wait(100)
 
-# retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK) 
+    # for i in range(4):
+    #     girar_rad(4)
+    #     wait(100)
 
-# for i in range(16):
-#     girar_rad(4)
-#     wait(100)
-
-# for i in range(4):
-#     girar_rad(4)
-#     wait(100)
-
+        #    for i in range(16):
+        #     girar_rad(4)
+        #     wait(100)
     #    for i in range(16):
     #     girar_rad(4)
     #     wait(100)
-#    for i in range(16):
-#     girar_rad(4)
-#     wait(100)
 
-# //////////////////////////////////////////
-# SECCION DE PRUEBA DE FUNCIONES:
+    # //////////////////////////////////////////
+    # SECCION DE PRUEBA DE FUNCIONES:
 def main():
     blocks_amarillo_verdeoazul_azuloverde_lado_derecho()#probar
 main()
