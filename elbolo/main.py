@@ -476,17 +476,19 @@ def escombros_punto_de_control ():
 
     #mods 15 julio
 def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
-    movimiento_recto(right_motor,left_motor,14)
+    subir_garra()
+    movimiento_recto(right_motor,left_motor,12)
     girar_rad(4,1)
-    movimiento_recto(right_motor,left_motor,71)
+    movimiento_recto(right_motor,left_motor,74)
     girar_rad(4,1)
     ev3.speaker.beep(4)
     wait(100)
-    motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
-    motor2.reset_angle(-350)
-    abrir_garra()
+    # motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
+    # motor2.reset_angle(-350)
+    # abrir_garra()
     bajar_garra()
-    movimiento_recto(right_motor,left_motor,3)
+    wait(100)
+    movimiento_recto(right_motor,left_motor,1.5)
     cerrar_garra()
     subir_garra()
     print("en camino al block 2")
@@ -494,9 +496,9 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
     wait(100)
     girar_rad(4,1)#der
-    movimiento_recto(right_motor, left_motor,3)
+    movimiento_recto(right_motor, left_motor,8)
     girar_rad(4)#izquierda en frente del sig bloque
-    movimiento_recto(right_motor, left_motor,3)
+    movimiento_recto(right_motor, left_motor,1.5)
     #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
     reposar_bloque()
     abrir_garra() 
@@ -509,7 +511,7 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
     wait(100)
     girar_rad(4,1)#der
-    movimiento_recto(right_motor, left_motor,3)
+    movimiento_recto(right_motor, left_motor,8)
     girar_rad(4)#izquierda en frente del sig bloque
     movimiento_recto(right_motor, left_motor,3)#aqui
     reposar_bloque()
@@ -526,6 +528,8 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     bajar_garra()
     abrir_garra()
     #girar_rad(8,1)#giro completo? #verificar con alexander
+    #todos los giros estan mal
+    #necesito ajustar al bajar la garra
     #sensor 4 para detectar color de bloque depnedecia de azul o verde
     #falta colocar sensor 4 al bobo
     #por si acaso
