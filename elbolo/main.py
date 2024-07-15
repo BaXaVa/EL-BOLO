@@ -438,9 +438,10 @@ def segundo_escombro_por_linea_roja():
     girar_rad(4,1)
 
     #mods bobo 12 y 13 julio
+    #funcion para llevar escombor amarillo y gris a la vez
 def escombros_punto_de_control ():
     #en la funcion anterior bajar toda la garra
-    motor3.reset_angle(-200)#se establece el amgul interno de 0 a -350
+    motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
     motor2.reset_angle(-350)
     abrir_garra()#abrir hasta q llegue a 0
     wait(100)
@@ -471,7 +472,56 @@ def escombros_punto_de_control ():
     ev3.speaker.beep(4)
     #fin mods hoy
     #:D
-# def blocks():
+
+    #mods 15 julio
+def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
+    movimiento_recto(right_motor,left_motor,10)
+    girar_rad(4,1)
+    movimiento_recto(right_motor,left_motor,50)
+    girar_rad(4,1)
+    ev3.speaker.beep(4)
+    wait(100)
+    motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
+    motor2.reset_angle(-350)
+    wait(100)
+    bajar_garra()
+    movimiento_recto(right_motor,left_motor,3)
+    cerrar_garra()
+    retrocede_recto(right_motor, left_motor,3)
+    girar_rad(4,1)#der
+    #girar_rad(8,1)#giro completo?
+    movimiento_recto(right_motor, left_motor,3)
+    girar_rad(4)#izquierda en frente del sig bloque
+    movimiento_recto(right_motor, left_motor,3)
+    #apilar bloque 2
+    #apilar bloque 3
+#sensor 4 para detectar color de bloque depnedecia de azul o verde
+#falta colocar sensor 4 al bobo
+    #por si acaso
+    #bucle para ver si el primer block es azul o verde
+    # if :
+    #     print("El bloque es verde")
+    #     #apilar block 2 y 3
+    #     movimiento_recto(right_motor, left_motor,17)
+    #     wait(100)
+    #     reposar_bloque()
+    #     abrir_garra()
+    #     #fin
+    # else:
+    #     print("El bloque es azul")
+    #     #apilar block 2 y 3
+    #     girar_rad(4)#izq
+    #     movimiento_recto(right_motor, left_motor,3)
+    #     girar_rad(4,1)#der
+    #     movimiento_recto(right_motor, left_motor,17)
+    #     wait(100)
+    #     reposar_bloque()
+    #     abrir_garra()
+    #     #fin
+
+    #fin mods hoy :D
+
+#def siguiente_paso :
 
 # recoger_escombro_1()
 # giroscopio.reset_angle(0)
@@ -499,12 +549,9 @@ def escombros_punto_de_control ():
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
 def main():
-    escombros_punto_de_control ()
-
+    blocks_amarillo_verdeoazul_azuloverde_lado_derecho()#probar
 main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
-
 #El robot con esta funcion puede girar 90 grados
-
 # movimiento_recto(right_motor,left_motor)
