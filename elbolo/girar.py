@@ -25,7 +25,15 @@ def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_moto
  
     right_motor.run_angle(velocidad, grados_giro_motor, wait=False)  # Gira en una dirección (derecha
     left_motor.run_angle(-velocidad, grados_giro_motor, wait=True)  # Gira en la dirección opuesta
+    angulo_final_del_motor_d = right_motor.angle()
+    angulo_final_del_motor_i = left_motor.angle()
     
+    print("####################################### Primer giro #######################################")
+    print("El motor debe de girar: ", grados_giro_motor, " El motor ha girado derecho: ", angulo_final_del_motor_d, " El motor ha girado izquierdo: ", angulo_final_del_motor_i)
+    print("####################################### Final primer Giro #######################################")
+    
+    # Esta es la nueva parte agregada, para corregir el giro de los motores al finalizar.
+
     if right_motor != grados_giro_motor or left_motor != grados_giro_motor:
         
         correccion_derecha = grados_giro_motor - right_motor.angle()
@@ -35,10 +43,14 @@ def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_moto
         left_motor.reset_angle(0)
 
         right_motor.run_angle(50, correccion_derecha, wait=False)
-        left_motor.run_angle(-50, correccion_izquierda, wait=True)    
+        left_motor.run_angle(-50, correccion_izquierda, wait=True)
 
-    print("####################################### ############ #######################################")
-    print("El motor debe de girar: ", grados_giro_motor, " El motor ha girado derecho: ", right_motor.angle(), " El motor ha girado izquierdo: ", left_motor.angle())
-    print("####################################### girar 90 grados #######################################")
+        # Actualiza los angulos finales de los motores  
+        angulo_final_del_motor_d += correccion_derecha
+        angulo_final_del_motor_i += correccion_izquierda    
+
+    print("####################################### Giro Corregido #######################################")
+    print("El motor debe de girar: ", grados_giro_motor, " El motor ha girado derecho: ", angulo_final_del_motor_d, " El motor ha girado izquierdo: ", angulo_final_del_motor_i)
+    print("####################################### Final de giro corregido #######################################")
     
 
