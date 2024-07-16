@@ -49,25 +49,25 @@ def retroceder_robot(robot, tiempo = 1):
 # Función para bajar la garra
 def bajar_garra():
     grua.run_target(100,0,Stop.HOLD, True)
-    print("finish bajar garra")
-    print(grua.angle())    
+    # print("finish bajar garra")
+    # print(grua.angle())    
 
 # Función para bajar la garra
 def subir_garra():
     grua.run_target(100,-350,Stop.HOLD, True)
-    print("finish subir garra")
-    print(grua.angle())
+    # print("finish subir garra")
+    # print(grua.angle())
 
 #F Funcion para dejar un bloque sobre el otro
 def reposar_bloque():
     grua.run_target(100,-180,Stop.HOLD, True)
-    print("finish reposar bloque")
-    print(grua.angle())
+    # print("finish reposar bloque")
+    # print(grua.angle())
 
 def mover_grua_angulo(angulo_buscado):
     grua.run_target(100,angulo_buscado,Stop.HOLD, True) 
-    print("finish subir garra")
-    print(grua.angle())
+    # print("finish subir garra")
+    # print(grua.angle())
 
 #Esta funcion lo que hace es posicionar la garra en un punto de referencia, para que no choque cuando vaya agarrar bloques
 def posicionar_garra_desde_cero():
@@ -84,7 +84,7 @@ def abrir_garra():
     garra.run_target(150, 0, Stop.HOLD, True)
 
 def girar_rad(cuarto_de_circunferencia, dir = 0):
-    radio_robot = 12.864 # de 12.83 cm a 18 cm , de 18 a 14
+    radio_robot = 12.1 # de de 12.864 a 12.3
     radio_rueda = 6.88   # Ajusta según el radio real de las ruedas
     if dir == 0:
         girar_90_grados(radio_robot, radio_rueda,right_motor, left_motor,cuarto_de_circunferencia)
@@ -162,16 +162,16 @@ def recoger_escombro_1():
     girar_rad(4)
     # bajar_garra()
     #///////////////
-
+print
     
 def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde el amarillo hasta el rojo
     #El robot avanza y se alinea con el primer bloque
-    print("acelerar robot")
+    # print("acelerar robot")
     movimiento_recto(right_motor, left_motor, 45.5)
     ev3.speaker.beep(2)
 
     #El robot gira y se acerca a los bloques
-    print("girar hacia los bloques")
+    # print("girar hacia los bloques")
     
     wait(100)
     girar_rad(4,1)
@@ -183,7 +183,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     #El robot agarra el primer bloque rojo, lo sube y retrocede
     cerrar_garra()
     subir_garra()
-    print("paso 3")
+    # print("paso 3")
     ev3.speaker.beep(3)
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
     #///////////////
@@ -299,22 +299,30 @@ def segundo_escombro_por_linea_roja():
 
 
 
-# recoger_escombro_1()
-# giroscopio.reset_angle(0)
-# primer_paso()
-# apilar_tres_bloques()
-# segundo_escombro()
 
 
+
+def encontrar_angulo():
+    pass     
 
 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
-def main():
-   
+def main(): 
+    recoger_escombro_1()
+    giroscopio.reset_angle(0)
+    primer_paso()
+    apilar_tres_bloques()
     segundo_escombro_por_linea_roja()
-    
-main()
+
+    # for i in range(16):
+    #     girar_rad(4,1)
+
+right_motor.reset_angle(0)
+right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
+print(right_motor.angle())
+
+# main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
