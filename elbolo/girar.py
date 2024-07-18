@@ -6,7 +6,7 @@ from math import pi
 
 # Define la velocidad constante
 velocidad = 100  # Velocidad en grados por segundo
-
+ev3 = EV3Brick()
 def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_motor,division_del_circulo, velocidad = 100):
     right_motor.reset_angle(0)
     left_motor.reset_angle(0)
@@ -19,18 +19,18 @@ def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_moto
     circunferencia_rueda =  pi * diametro_de_rueda
 
     grados_giro_motor = (distancia_a_recorrer / circunferencia_rueda) * 360  # Convertir a grados
-    grados_giro_motor = int(grados_giro_motor)  # Convertir a entero
+    # grados_giro_motor = int(grados_giro_motor)  # Convertir a entero
 
     # Inicializa los motores para el giro
- 
+  
     right_motor.run_angle(velocidad, grados_giro_motor, wait=False)  # Gira en una dirección (derecha
     left_motor.run_angle(-velocidad, grados_giro_motor, wait=True)  # Gira en la dirección opuesta
     angulo_final_del_motor_d = right_motor.angle()
     angulo_final_del_motor_i = left_motor.angle()
-    
+
     print("####################################### Primer giro #######################################")
     print("El motor debe de girar: ", grados_giro_motor, " El motor ha girado derecho: ", angulo_final_del_motor_d, " El motor ha girado izquierdo: ", angulo_final_del_motor_i)
-    print("####################################### Final primer Giro #######################################")
+    print("###########################################################################################")
     
     # Esta es la nueva parte agregada, para corregir el giro de los motores al finalizar.
 
@@ -42,7 +42,7 @@ def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_moto
         right_motor.reset_angle(0)
         left_motor.reset_angle(0)
 
-        right_motor.run_angle(50, correccion_derecha, wait=False)
+        right_motor.run_angle(-50, correccion_derecha, wait=False)
         left_motor.run_angle(-50, correccion_izquierda, wait=True)
 
         # Actualiza los angulos finales de los motores  
@@ -51,6 +51,8 @@ def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_moto
 
     print("####################################### Giro Corregido #######################################")
     print("El motor debe de girar: ", grados_giro_motor, " El motor ha girado derecho: ", angulo_final_del_motor_d, " El motor ha girado izquierdo: ", angulo_final_del_motor_i)
-    print("####################################### Final de giro corregido #######################################")
+    print("##############################################################################################")
     
-
+    wait(200)
+    ev3.speaker.beep(2)
+    

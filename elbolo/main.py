@@ -84,7 +84,7 @@ def abrir_garra():
     garra.run_target(150, 0, Stop.HOLD, True)
 
 def girar_rad(cuarto_de_circunferencia, dir = 0):
-    radio_robot = 12.1 # de de 12.864 a 12.3
+    radio_robot = 12.15  # de de 12.15 a 
     radio_rueda = 6.88   # Ajusta según el radio real de las ruedas
     if dir == 0:
         girar_90_grados(radio_robot, radio_rueda,right_motor, left_motor,cuarto_de_circunferencia)
@@ -309,20 +309,29 @@ def encontrar_angulo():
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
 def main(): 
-    recoger_escombro_1()
+    # recoger_escombro_1()
+    # giroscopio.reset_angle(0)
+    # primer_paso()
+    # apilar_tres_bloques()
+    # segundo_escombro_por_linea_roja()
+    # girar_rad(4,1)
     giroscopio.reset_angle(0)
-    primer_paso()
-    apilar_tres_bloques()
-    segundo_escombro_por_linea_roja()
 
-    # for i in range(16):
-    #     girar_rad(4,1)
+    for i in range(16):
+        print(giroscopio.angle())
+        movimiento_recto(right_motor, left_motor, 10)
+        wait(100)
+        girar_rad(4,1)
+        
 
-right_motor.reset_angle(0)
-right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
-print(right_motor.angle())
 
-# main()
+# right_motor.reset_angle(0)
+# right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
+# print(right_motor.angle())
+
+
+
+main()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 

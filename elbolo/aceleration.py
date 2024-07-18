@@ -76,7 +76,7 @@ def movimiento_recto(motor_b, motor_c, distancia):
     target_angle = ( distancia / (21.6) ) *360
     # print(target_angle)
     integral = 0
-    speed = 10
+    speed = 1
     while motor_b.angle() < target_angle:
         # print(motor_b.angle(), motor_c.angle())
         # print(motor_b.angle(), motor_c.angle())
