@@ -86,6 +86,7 @@ def abrir_garra():
 def girar_rad(cuarto_de_circunferencia, dir = 0):
     radio_robot = 12.15  # de de 12.15 a 
     radio_rueda = 6.88   # Ajusta según el radio real de las ruedas
+    
     if dir == 0:
         girar_90_grados(radio_robot, radio_rueda,right_motor, left_motor,cuarto_de_circunferencia)
     else:
