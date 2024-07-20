@@ -4,73 +4,70 @@ from pybricks.parameters import Port
 from pybricks.tools import wait
 from math import pi
 
-# Define la velocidad constante
-velocidad = 100  # Velocidad en grados por segundo
+# Define the constant speed
+velocidad = 100  # Speed in degrees per second
 ev3 = EV3Brick()
 
 giroscopio = GyroSensor(Port.S3)
 
-def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_motor,division_del_circulo, velocidad = 100):
+def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_motor, division_del_circulo, velocidad = 100):
     right_motor.reset_angle(0)
     left_motor.reset_angle(0)
 
-    # Calcula la distancia que cada rueda debe recorrer para girar 90 grados
+    # Calculate the distance each wheel needs to travel to turn 90 degrees
     circunferencia_robot = pi * diametro_de_robot
-    distancia_a_recorrer = circunferencia_robot / division_del_circulo  # 90 grados es un cuarto de la circunferencia
+    distancia_a_recorrer = circunferencia_robot / division_del_circulo  # 90 degrees is a quarter of the circumference
     
-    # Calcula los grados que debe girar cada motor para recorrer la distancia_a_recorrer
+    # Calculate the degrees each motor needs to turn to cover the distance_a_recorrer
     circunferencia_rueda =  pi * diametro_de_rueda
 
-    threshold = 0.1
-    grados_giro_motor = round((distancia_a_recorrer / circunferencia_rueda) * 360)  # Convertir a grados
-    # grados_giro_motor = int(grados_giro_motor)  # Convertir a entero
+    threshold = 0.05  # Smaller threshold for finer correction
+    grados_giro_motor = round((distancia_a_recorrer / circunferencia_rueda) * 360)  # Convert to degrees
 
-    # Inicializa los motores para el giro
-  
-    right_motor.run_angle(velocidad, grados_giro_motor, wait=False)  # Gira en una dirección (derecha
-    left_motor.run_angle(-velocidad, grados_giro_motor, wait=True)  # Gira en la dirección opuesta
+    # Initialize motors for turning
+    right_motor.run_angle(velocidad, grados_giro_motor, wait=False)  # Turn in one direction (right)
+    left_motor.run_angle(-velocidad, grados_giro_motor, wait=True)  # Turn in the opposite direction
     angulo_final_del_motor_d = right_motor.angle()
     angulo_final_del_motor_i = left_motor.angle()
 
-    print("####################################### INICIACION GIRO #######################################")
-    print("El motor debe de girar: ", grados_giro_motor, " El motor ha girado derecho: ", angulo_final_del_motor_d, " El motor ha girado izquierdo: ", angulo_final_del_motor_i)
-    print("###########################################################################################")
+    print("####################################### INITIATING TURN #######################################")
+    print("Motor should turn: ", grados_giro_motor, " Right motor turned: ", angulo_final_del_motor_d, " Left motor turned: ", angulo_final_del_motor_i)
+    print("#############################################################################################")
     angd = right_motor.angle()
     angi = left_motor.angle()
 
-    velocidad_correccion = 50
+    velocidad_correccion = 30  # Slower correction speed
     i = 0
-    # Esta es la nueva parte agregada, para corregir el giro de los motores al finalizar.
+    # New part added for correcting motor turn at the end.
     while(abs(angulo_final_del_motor_d) != grados_giro_motor or abs(angulo_final_del_motor_i) != grados_giro_motor):
         i += 1
         if right_motor.angle() != grados_giro_motor or left_motor.angle() != -grados_giro_motor:
-            #angulo_final_del_motor_d = angd
-            #angulo_final_del_motor_i = angi
-
             correccion_derecha = (-grados_giro_motor) - angulo_final_del_motor_d
             correccion_izquierda = grados_giro_motor - abs(angulo_final_del_motor_i)
 
-            print("------------------- Correccion #", i, " -------------------")
-            print("- Correccion derecha: ", correccion_derecha, ", Correcion izquierda: ", correccion_izquierda)
+            print("------------------- Correction #", i, " -------------------")
+            print("- Right correction: ", correccion_derecha, ", Left correction: ", correccion_izquierda)
 
             right_motor.reset_angle(0)
             left_motor.reset_angle(0)
 
-            if(abs(correccion_derecha) >= threshold): right_motor.run_angle(velocidad_correccion, correccion_derecha, wait=False)
-            else: print("!: La correccion derecha no se ha aplicado")
+            if(abs(correccion_derecha) >= threshold): 
+                right_motor.run_angle(velocidad_correccion, correccion_derecha, wait=False)
+            else: 
+                print("!: Right correction not applied")
 
-            if(abs(correccion_izquierda) >= threshold): left_motor.run_angle(velocidad_correccion, correccion_izquierda, wait=True)
-            else: print("!: La correcion izquierda no se ha aplicado")
+            if(abs(correccion_izquierda) >= threshold): 
+                left_motor.run_angle(velocidad_correccion, correccion_izquierda, wait=True)
+            else: 
+                print("!: Left correction not applied")
             
-            # Actualiza los angulos finales de los motores  
+            # Update final angles of motors  
             angulo_final_del_motor_d += right_motor.angle()
             angulo_final_del_motor_i += left_motor.angle()  
 
-        print("####################################### Giro Corregido #######################################\n")
-        print("El motor debio girar: ", grados_giro_motor, " El motor ha girado derecho: ", angulo_final_del_motor_d, " El motor ha girado izquierdo: ", angulo_final_del_motor_i)
-        print("\n##############################################################################################")
+        print("####################################### Corrected Turn #######################################\n")
+        print("Motor should turn: ", grados_giro_motor, " Right motor turned: ", angulo_final_del_motor_d, " Left motor turned: ", angulo_final_del_motor_i)
+        print("\n#############################################################################################")
     
     wait(200)
     ev3.speaker.beep(2)
-
-    
