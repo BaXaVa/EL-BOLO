@@ -164,7 +164,6 @@ def recoger_escombro_1():
     robot.turn(-90)
     # bajar_garra()
     #///////////////
-print
     
 def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde el amarillo hasta el rojo
     #El robot avanza y se alinea con el primer bloque
@@ -294,6 +293,8 @@ def segundo_escombro_por_linea_roja():
     retrocede_recto(right_motor, left_motor, 16.5)
     robot.turn(90)
 
+    #mods bobo 12 y 13 julio
+    #funcion para llevar escombor amarillo y gris a la vez
 def escombros_punto_de_control ():
     #en la funcion anterior bajar toda la garra
     motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
@@ -329,7 +330,8 @@ def escombros_punto_de_control ():
     #fin mods hoy
     #:D
 
-    #mods 15 julio
+#mods 15 julio
+#modificar la 2do apilacion con el lado opuesto
 def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     print("subimos la garra")
     subir_garra()
@@ -384,20 +386,17 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     movimiento_recto(right_motor,left_motor,16)
     bajar_garra()
     abrir_garra()
-                    #GIROS
-    #girar_rad(8,1)#45 grados a la derecha
-    #girar_rad(4,1)#90 grados derecha
-    #girar_rad(4)#90 grados izquierda
-    #girar_rad(2,1)#180 grados derecha
-    #girar_rad(2)#180 grados izquierda
-    #girar_rad(1)#360 grados izquierda
-    #girar_rad(1,1)#360 grados derecha
 
-    #Ajustes
+def encontrar_angulo():
+    pass     
+
+
+#Ajustes
     #necesito ajustar al bajar la garra
     #motor3.run_target(150,-)x
 
-    #////////////////////////////////////////////////////////////////////////////////////////
+#Sensor 4
+ #////////////////////////////////////////////////////////////////////////////////////////
     #                                        SENSOR 4
     #sensor 4 para detectar color de bloque depnedecia de azul o verde
     #falta colocar sensor 4 al bobo
@@ -424,19 +423,21 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     #     #fin
     #////////////////////////////////////////////////////////////////////////////////////////
 
+    #def siguiente_paso : 17 JULY
+    #fin mods hoy :D
 
-
-
-
-
-
-
-
-
-
-def encontrar_angulo():
-    pass     
-
+                    #GIROS
+    #girar_rad(8,1)#45 grados a la derecha
+    #girar_rad(4,1)#90 grados derecha
+    #girar_rad(4)#90 grados izquierda
+    #girar_rad(2,1)#180 grados derecha
+    #girar_rad(2)#180 grados izquierda
+    #girar_rad(1)#360 grados izquierda
+    #girar_rad(1,1)#360 grados derecha
+    # Giro 360
+    #    for i in range(16):
+    #     girar_rad(4)
+    #     wait(100)
 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
@@ -447,15 +448,12 @@ def main():
     apilar_tres_bloques()
     segundo_escombro_por_linea_roja()
     giroscopio.reset_angle(0)
-    
-
+    blocks_amarillo_verdeoazul_azuloverde_lado_derecho()#probar
 
 
 # right_motor.reset_angle(0)
 # right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
 # print(right_motor.angle())
-
-
 
 main()
 # //////////////////////////////////////////
