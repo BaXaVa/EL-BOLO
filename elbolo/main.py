@@ -337,20 +337,18 @@ def escombros_punto_de_control ():
 
 def segundo_apilar():
     movimiento_recto(right_motor,left_motor,13)#avanza un poco haia adelante
-    girar_rad(4,1)#derecha
-    movimiento_recto(right_motor,left_motor,34)
-    girar_rad(4)#izquierda
-    movimiento_recto(right_motor,left_motor,35)
-    girar_rad(4,1)#derecha
-    movimiento_recto(right_motor,left_motor,20)
-    girar_rad(4)#izquierda
+    girar_rad(4)#derecha
+    movimiento_recto(right_motor,left_motor,31)
+    girar_rad(4,1)#izquierda
+    movimiento_recto(right_motor,left_motor,52)
+    girar_rad(4)#derecha
+    movimiento_recto(right_motor,left_motor,29)
+    girar_rad(4,1)#izquierda
     movimiento_recto(right_motor,left_motor,15)#esta de frente al bloque rojo 2
-    subir_garra()
     movimiento_recto(right_motor,left_motor,0.5)#bobo se acerca un poco
     wait(100)
     garra.reset_angle(-200)#se establece el angulo interno de 0 a -350
     grua.reset_angle(-350)
-    abrir_garra()
     bajar_garra()
     wait(100)
     cerrar_garra()
@@ -359,9 +357,9 @@ def segundo_apilar():
     print("bloque verde o azul capturado")
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     wait(100)
-    girar_rad(4)#izq
+    girar_rad(4,1)#izq
     movimiento_recto(right_motor, left_motor,8)
-    girar_rad(4,1)#der en frente del sig bloque
+    girar_rad(4)#der en frente del sig bloque
     movimiento_recto(right_motor, left_motor,1)
     #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
     reposar_bloque()#colocar block sobre otro #apilar_tres_bloques() 
@@ -374,9 +372,9 @@ def segundo_apilar():
     print("en camino al block amarillo")
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     wait(100)
-    girar_rad(4)#izq
+    girar_rad(4,1)#izq
     movimiento_recto(right_motor, left_motor,8)
-    girar_rad(4,1)#der en frente del bloque amarillo
+    girar_rad(4)#der en frente del bloque amarillo
     movimiento_recto(right_motor, left_motor,0.5)
     reposar_bloque()#apilar_tres_bloques()
     abrir_garra()
@@ -385,9 +383,9 @@ def segundo_apilar():
     cerrar_garra()
     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     wait(100)
-    girar_rad(4)#primer giro izq
+    girar_rad(4,1)#primer giro izq
     movimiento_recto(right_motor,left_motor,21)
-    girar_rad(4)#segundo giro izq
+    girar_rad(4,1)#segundo giro izq
     movimiento_recto(right_motor,left_motor,10)
     bajar_garra()
     abrir_garra()
@@ -395,8 +393,8 @@ def segundo_apilar():
 def bucle_azul_verde():
     subir_garra()
     retrocede_recto(right_motor,left_motor,10)
-    girar_rad(4,1)#primer giro der
-    girar_rad(4,1)#segundo giro der 
+    girar_rad(4)#primer giro der
+    girar_rad(4)#segundo giro der 
 
 
 #Ajustes
@@ -509,17 +507,19 @@ def bucle_azul_verde():
 # def encontrar_angulo():
 #     pass    
 
+
+#cubito largo 4.7 ancho 4.7 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
 def main(): 
-    recoger_escombro_1()#paso 1 recoger escombro
-    giroscopio.reset_angle(0)
-    primer_paso()#paaso 1.1
-    apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
-    segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
-    giroscopio.reset_angle(0)
+    # recoger_escombro_1()#paso 1 recoger escombro
+    # giroscopio.reset_angle(0)
+    # primer_paso()#paaso 1.1
+    # apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
+    # segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
+    # giroscopio.reset_angle(0)
     segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
-    bucle_azul_verde()
+    # bucle_azul_verde()
     #blocks_amarillo_verdeoazul_azuloverde_lado_derecho() sera con el if //Paso 5 y 6
     
 
