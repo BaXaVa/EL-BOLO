@@ -384,11 +384,6 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     retrocede_recto(right_motor, left_motor, 2)
     abrir_garra()
 
-
-    
-    #///////////////
-
-
 def segundo_escombro_por_linea_roja():
     girar_rad(4,1)
     girar_rad(4,1)
@@ -476,8 +471,10 @@ def escombros_punto_de_control ():
 
     #mods 15 julio
 def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
+    print("subimos la garra")
     subir_garra()
-    movimiento_recto(right_motor,left_motor,12)
+    movimiento_recto(right_motor,left_motor,13)
+    print("giro a la derecha")
     girar_rad(4,1)
     movimiento_recto(right_motor,left_motor,74)
     girar_rad(4,1)
@@ -488,7 +485,7 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     # abrir_garra()
     bajar_garra()
     wait(100)
-    movimiento_recto(right_motor,left_motor,1.5)
+    movimiento_recto(right_motor,left_motor,0.5)
     cerrar_garra()
     subir_garra()
     print("en camino al block 2")
@@ -498,9 +495,9 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     girar_rad(4,1)#der
     movimiento_recto(right_motor, left_motor,8)
     girar_rad(4)#izquierda en frente del sig bloque
-    movimiento_recto(right_motor, left_motor,1.5)
+    movimiento_recto(right_motor, left_motor,2)
     #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
-    reposar_bloque()
+    reposar_bloque()#colocar block sobre otro #apilar_tres_bloques() 
     abrir_garra() 
     posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
     mover_garra_angulo(-20)
@@ -513,8 +510,8 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     girar_rad(4,1)#der
     movimiento_recto(right_motor, left_motor,8)
     girar_rad(4)#izquierda en frente del sig bloque
-    movimiento_recto(right_motor, left_motor,3)#aqui
-    reposar_bloque()
+    movimiento_recto(right_motor, left_motor,1.1)
+    reposar_bloque()#apilar_tres_bloques()
     abrir_garra()
     posicionar_garra_desde_cero()
     mover_garra_angulo(-25)
@@ -524,12 +521,24 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     girar_rad(4,1)
     movimiento_recto(right_motor,left_motor,21)
     girar_rad(4,1)#derecha
-    movimiento_recto(right_motor,left_motor,18)
+    movimiento_recto(right_motor,left_motor,16)
     bajar_garra()
     abrir_garra()
-    #girar_rad(8,1)#giro completo? #verificar con alexander
-    #todos los giros estan mal
+                    #GIROS
+    #girar_rad(8,1)#45 grados a la derecha
+    #girar_rad(4,1)#90 grados derecha
+    #girar_rad(4)#90 grados izquierda
+    #girar_rad(2,1)#180 grados derecha
+    #girar_rad(2)#180 grados izquierda
+    #girar_rad(1)#360 grados izquierda
+    #girar_rad(1,1)#360 grados derecha
+
+    #Ajustes
     #necesito ajustar al bajar la garra
+    #motor3.run_target(150,-)x
+
+    #////////////////////////////////////////////////////////////////////////////////////////
+    #                                        SENSOR 4
     #sensor 4 para detectar color de bloque depnedecia de azul o verde
     #falta colocar sensor 4 al bobo
     #por si acaso
@@ -553,10 +562,13 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     #     reposar_bloque()
     #     abrir_garra()
     #     #fin
+    #////////////////////////////////////////////////////////////////////////////////////////
 
-    #def siguiente_paso :
+    #def siguiente_paso : 17 JULY
     #fin mods hoy :D
 
+
+    #////////////////////////////////////////////////////////////////////////////////////////
     # recoger_escombro_1()
     # giroscopio.reset_angle(0)
     # primer_paso()
@@ -581,12 +593,17 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     #     wait(100)
 
     # //////////////////////////////////////////
+
     # SECCION DE PRUEBA DE FUNCIONES:
 def main():
     blocks_amarillo_verdeoazul_azuloverde_lado_derecho()#probar
 main()
 # //////////////////////////////////////////
+
+#2 subir
+#3 cerrar
+#1
+#4
 # Llama a la función para girar 90 grados
 #El robot con esta funcion puede girar 90 grados
-# movimi
-# ento_recto(right_motor,left_motor)
+# movimiento_recto(right_motor,left_motor)
