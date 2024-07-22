@@ -16,10 +16,10 @@ ev3.screen.print("Hello UAM, Welcome to Robotics Class")
 
 left_motor = Motor(Port.C)
 right_motor = Motor(Port.B)
-garra = Motor(Port.D)
-grua = Motor(Port.A)
+garra = Motor(Port.D) #motor 3
+grua = Motor(Port.A) #motor 2
 sensor_1 = ColorSensor(Port.S1)
-sensor_2 = ColorSensor(Port.S2)
+sensor_color_bloque = ColorSensor(Port.S2)
 giroscopio = GyroSensor(Port.S3)
 
 # Inicialización del robot
@@ -46,6 +46,11 @@ def retroceder_robot(robot, tiempo = 1):
     
     wait(tiempo)
     robot.stop()
+
+def mover_garra_angulo(angulo_buscado):
+    grua.run_target(100,angulo_buscado,Stop.HOLD, True) 
+    print("finish subir garra")
+    print(grua.angle())
 
 # Función para bajar la garra
 def bajar_garra():
@@ -157,7 +162,7 @@ def recoger_escombro_1():
 
     #El robot avanza hacia el punto de inicio y se endereza
     
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.RED)
     wait(100)
     movimiento_recto(right_motor, left_motor, 10)
     wait(500)
@@ -186,7 +191,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     subir_garra()
     # print("paso 3")
     ev3.speaker.beep(3)
-    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     #///////////////
 
     #El robot gira y se alinea con el siguiente bloque
@@ -215,7 +220,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
     #///////////////
 
     #El robot retrocede hasta el area amarilla, gira deja los bloques y retrocede
-    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     wait(100)
     robot.turn(90)
     movimiento_recto(right_motor, left_motor, 9.10)
@@ -248,7 +253,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
 def segundo_escombro_por_linea_roja():
     robot.turn(90)
     robot.turn(90)
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.GREEN)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.GREEN)
     movimiento_recto(right_motor, left_motor, 2)
 
     cerrar_garra()
@@ -256,7 +261,7 @@ def segundo_escombro_por_linea_roja():
     movimiento_recto(right_motor, left_motor, 3)
 
     robot.turn(90)
-    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.RED)
     wait(200)
     #mods nuevas
     movimiento_recto(right_motor, left_motor, 3)
@@ -297,8 +302,8 @@ def segundo_escombro_por_linea_roja():
     #funcion para llevar escombor amarillo y gris a la vez
 def escombros_punto_de_control ():
     #en la funcion anterior bajar toda la garra
-    motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
-    motor2.reset_angle(-350)
+    garra.reset_angle(-200)#se establece el angulo interno de 0 a -350 EEs el garra
+    grua.reset_angle(-350) # Es el elevador
     abrir_garra()#abrir hasta q llegue a 0
     wait(100)
     movimiento_recto(right_motor,left_motor,0.5)
@@ -307,12 +312,12 @@ def escombros_punto_de_control ():
     wait(100)
     cerrar_garra()
     girar_rad(4,1)#4 es 1 es   2 mitad 4 es framento de 90 1 360 2 180 4 90 8 45
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     girar_rad(4) #4 izquierda y 4 1 derecha
     #detectar negro
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     girar_rad(4,1)#gira ala derecha
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.RED)
     movimiento_recto(right_motor,left_motor,35)
     girar_rad(4)
     movimiento_recto(right_motor,left_motor,2)
@@ -320,7 +325,7 @@ def escombros_punto_de_control ():
     print("volviendo al punto de control")
     retrocede_recto(right_motor,left_motor,7)
     girar_rad(4)
-    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.RED)
     movimiento_recto(right_motor,left_motor,10)
     girar_rad(4)
     retrocede_recto(right_motor, left_motor, 9.3)
@@ -352,7 +357,7 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     subir_garra()
     print("en camino al block 2")
     print("bloque verde o azul capturado")
-    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     wait(100)
     girar_rad(4,1)#der
     movimiento_recto(right_motor, left_motor,8)
@@ -367,7 +372,7 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     subir_garra()
     #apilar bloque 3 
     print("en camino al block amarillo")
-    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     wait(100)
     girar_rad(4,1)#der
     movimiento_recto(right_motor, left_motor,8)
@@ -378,7 +383,7 @@ def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
     posicionar_garra_desde_cero()
     mover_garra_angulo(-25)
     cerrar_garra()
-    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
     wait(100)
     girar_rad(4,1)
     movimiento_recto(right_motor,left_motor,21)
