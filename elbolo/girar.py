@@ -1,24 +1,73 @@
 from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import Motor
+from pybricks.ev3devices import Motor, GyroSensor
 from pybricks.parameters import Port
 from pybricks.tools import wait
 from math import pi
 
-# Define la velocidad constante
-velocidad = 100  # Velocidad en grados por segundo
+# Define the constant speed
+velocidad = 100  # Speed in degrees per second
+ev3 = EV3Brick()
 
-def girar_90_grados(radio_robot, radio_rueda, right_motor, left_motor,cuarto_de_circunferencia, velocidad = 100):
+giroscopio = GyroSensor(Port.S3)
+
+def girar_90_grados(diametro_de_robot, diametro_de_rueda, right_motor, left_motor, division_del_circulo, velocidad = 100):
     right_motor.reset_angle(0)
     left_motor.reset_angle(0)
 
-    # Calcula la distancia que cada rueda debe recorrer para girar 90 grados
-    circunferencia_robot = 2 * pi * radio_robot
-    distancia_giro_90 = circunferencia_robot / cuarto_de_circunferencia  # 90 grados es un cuarto de la circunferencia
+    # Calculate the distance each wheel needs to travel to turn 90 degrees
+    circunferencia_robot = pi * diametro_de_robot
+    distancia_a_recorrer = circunferencia_robot / division_del_circulo  # 90 degrees is a quarter of the circumference
     
-    # Calcula los grados que debe girar cada motor para recorrer la distancia_giro_90
-    circunferencia_rueda = 2 * pi * radio_rueda
-    grados_giro_motor = (distancia_giro_90 / circunferencia_rueda) * 360  # Convertir a grados
+    # Calculate the degrees each motor needs to turn to cover the distance_a_recorrer
+    circunferencia_rueda =  pi * diametro_de_rueda
+
+    threshold = 0.05  # Smaller threshold for finer correction
+    grados_giro_motor = round((distancia_a_recorrer / circunferencia_rueda) * 360)  # Convert to degrees
+
+    # Initialize motors for turning
+    right_motor.run_angle(velocidad, grados_giro_motor, wait=False)  # Turn in one direction (right)
+    left_motor.run_angle(-velocidad, grados_giro_motor, wait=True)  # Turn in the opposite direction
+    angulo_final_del_motor_d = right_motor.angle()
+    angulo_final_del_motor_i = left_motor.angle()
+
+    print("####################################### INITIATING TURN #######################################")
+    print("Motor should turn: ", grados_giro_motor, " Right motor turned: ", angulo_final_del_motor_d, " Left motor turned: ", angulo_final_del_motor_i)
+    print("#############################################################################################")
+    angd = right_motor.angle()
+    angi = left_motor.angle()
+
+    velocidad_correccion = 30  # Slower correction speed
+    i = 0
+    # New part added for correcting motor turn at the end.
+    while(abs(angulo_final_del_motor_d) != grados_giro_motor or abs(angulo_final_del_motor_i) != grados_giro_motor):
+        i += 1
+        if right_motor.angle() != grados_giro_motor or left_motor.angle() != -grados_giro_motor:
+            correccion_derecha = (-grados_giro_motor) - angulo_final_del_motor_d
+            correccion_izquierda = grados_giro_motor - abs(angulo_final_del_motor_i)
+
+            print("------------------- Correction #", i, " -------------------")
+            print("- Right correction: ", correccion_derecha, ", Left correction: ", correccion_izquierda)
+
+            right_motor.reset_angle(0)
+            left_motor.reset_angle(0)
+
+            if(abs(correccion_derecha) >= threshold): 
+                right_motor.run_angle(velocidad_correccion, correccion_derecha, wait=False)
+            else: 
+                print("!: Right correction not applied")
+
+            if(abs(correccion_izquierda) >= threshold): 
+                left_motor.run_angle(velocidad_correccion, correccion_izquierda, wait=True)
+            else: 
+                print("!: Left correction not applied")
+            
+            # Update final angles of motors  
+            angulo_final_del_motor_d += right_motor.angle()
+            angulo_final_del_motor_i += left_motor.angle()  
+
+        print("####################################### Corrected Turn #######################################\n")
+        print("Motor should turn: ", grados_giro_motor, " Right motor turned: ", angulo_final_del_motor_d, " Left motor turned: ", angulo_final_del_motor_i)
+        print("\n#############################################################################################")
     
-    # Inicializa los motores para el giro
-    right_motor.run_angle(velocidad, grados_giro_motor, wait=False)  # Gira en una dirección (derecha
-    left_motor.run_angle(-velocidad, grados_giro_motor, wait=True)  # Gira en la dirección opuesta
+    wait(200)
+    ev3.speaker.beep(2)
