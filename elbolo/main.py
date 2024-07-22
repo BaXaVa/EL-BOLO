@@ -392,8 +392,11 @@ def segundo_apilar():
     bajar_garra()
     abrir_garra()
 
-# def encontrar_angulo():
-#     pass     
+def bucle_azul_verde():
+    subir_garra()
+    retrocede_recto(right_motor,left_motor,10)
+    girar_rad(4,1)#primer giro der
+    girar_rad(4,1)#segundo giro der 
 
 
 #Ajustes
@@ -503,6 +506,9 @@ def segundo_apilar():
     #     girar_rad(4)
     #     wait(100)
 
+# def encontrar_angulo():
+#     pass    
+
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
 def main(): 
@@ -513,6 +519,7 @@ def main():
     segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
     giroscopio.reset_angle(0)
     segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
+    bucle_azul_verde()
     #blocks_amarillo_verdeoazul_azuloverde_lado_derecho() sera con el if //Paso 5 y 6
     
 
