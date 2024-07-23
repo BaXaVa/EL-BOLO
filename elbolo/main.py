@@ -344,8 +344,9 @@ def segundo_apilar():
     girar_rad(4)#derecha
     movimiento_recto(right_motor,left_motor,29)
     girar_rad(4,1)#izquierda
-    movimiento_recto(right_motor,left_motor,15)#esta de frente al bloque rojo 2
-    movimiento_recto(right_motor,left_motor,0.5)#bobo se acerca un poco
+    movimiento_recto(right_motor,left_motor,16)#esta de frente al bloque rojo 2
+    posicionar_garra_angulo(-150)
+    movimiento_recto(right_motor,left_motor,0.9)#bobo se acerca un poco
     wait(100)
     garra.reset_angle(-200)#se establece el angulo interno de 0 a -350
     grua.reset_angle(-350)
