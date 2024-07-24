@@ -571,21 +571,55 @@ if print == "Color.GREEN" :
         subir_garra()
 else :
         print(sensor_bloque_enfrente.color())
-
+        retrocede_recto(right_motor,left_motor,4)
+        robot.turn(-90)
+        robot.stop()
+        movimiento_recto(right_motor,left_motor,4)
+        robot.turn(90)
+        robot.stop()
+        movimiento_recto(right_motor,left_motor,0.5)
+        print(sensor_bloque_enfrente.color())
+        bajar_garra()
+        wait(100)
+        cerrar_garra()
+        subir_garra()
+        retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
+        robot.turn(-90)
+        robot.stop()
+        movimiento_recto(right_motor,left_motor,4)
+        robot.turn(90)
+        robot.stop()
+        reposar_bloque()#colocar block sobre otro #apilar_tres_bloques() 
+        abrir_garra() 
+        posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
+        mover_garra_angulo(-20)
+        cerrar_garra()
+        subir_garra()
+        print("En camino al bloque azul")
+        retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
+        robot.turn(90)
+        robot.stop()
+        movimiento_recto(right_motor,left_motor,8)
+        reposar_bloque()#apilar_tres_bloques()
+        abrir_garra()
+        posicionar_garra_desde_cero()
+        mover_garra_angulo(-25)
+        cerrar_garra()
+        retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
+        wait(100)
+        robot.turn(90)#derecha
+        robot.stop()
+        movimiento_recto(right_motor,left_motor,30)    
+        robot.turn(90)#derecha
+        robot.stop()
+        movimiento_recto(right_motor,left_motor,10)
+        abrir_garra()
+        retrocede_recto(right_motor,left_motor,10)
+        subir_garra() 
     #Ajustes
         #necesito ajustar al bajar la garra
         #motor3.run_target(150,-)x
-
-        # Giro 360
-        #    for i in range(16):
-        #     girar_rad(4)
-        #     wait(100)
-
-    # def encontrar_angulo():
-    #     pass    
-    
-
-    #cubito largo 4.7 ancho 4.7 
+        #cubito largo 4.7 ancho 4.7 
 def main(): 
         # recoger_escombro_1()#paso 1 recoger escombro
         # giroscopio.reset_angle(0)
@@ -593,11 +627,19 @@ def main():
         # apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
         # segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
         # giroscopio.reset_angle(0)
-        # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
+        segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
         # bucle_azul_verde() #paso final bucle
-        while True:
-            print(sensor_bloque_enfrente.color())
-            wait(2000)
+        
+        
+        # Verificar color
+        # while True:
+        #     print(sensor_bloque_enfrente.color())
+        #     wait(2000)
+
+        # Giro 360
+        #    for i in range(16):
+        #     girar_rad(4)
+        #     wait(100)
             
               
     # right_motor.reset_angle(0)
