@@ -58,6 +58,11 @@ def retroceder_robot(robot, tiempo = 1):
     giroscopio.reset_angle(0)
     print("Angulo 1: ",giroscopio.angle())   
 
+def mover_garra_angulo(angulo_buscado):
+    grua.run_target(100,angulo_buscado,Stop.HOLD, True) 
+    print("finish subir garra")
+    print(grua.angle())
+
 # Función para bajar la garra
 def bajar_garra():
     grua.run_target(100,0,Stop.HOLD, True)
@@ -192,7 +197,6 @@ def recoger_escombro_1():
 
     # bajar_garra()
     #///////////////
-
     
 def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde el amarillo hasta el rojo
     #El robot avanza y se alinea con el primer bloque
@@ -375,18 +379,240 @@ def segundo_escombro_por_linea_roja():
     giroscopio.reset_angle(0)
     print("Angulo 1: ",giroscopio.angle())   
 
+    #mods bobo 12 y 13 julio
+    #funcion para llevar escombor amarillo y gris a la vez
+def escombros_punto_de_control ():
+    #en la funcion anterior bajar toda la garra
+    garra.reset_angle(-200)#se establece el angulo interno de 0 a -350 EEs el garra
+    grua.reset_angle(-350) # Es el elevador
+    abrir_garra()#abrir hasta q llegue a 0
+    wait(100)
+    movimiento_recto(right_motor,left_motor,0.5)
+    wait(100)
+    bajar_garra()
+    wait(100)
+    cerrar_garra()
+    girar_rad(4,1)#4 es 1 es   2 mitad 4 es framento de 90 1 360 2 180 4 90 8 45
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+    girar_rad(4) #4 izquierda y 4 1 derecha
+    #detectar negro
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+    girar_rad(4,1)#gira ala derecha
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.RED)
+    movimiento_recto(right_motor,left_motor,35)
+    girar_rad(4)
+    movimiento_recto(right_motor,left_motor,2)
+    abrir_garra()
+    print("volviendo al punto de control")
+    retrocede_recto(right_motor,left_motor,7)
+    girar_rad(4)
+    avanzar_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.RED)
+    movimiento_recto(right_motor,left_motor,10)
+    girar_rad(4)
+    retrocede_recto(right_motor, left_motor, 9.3)
+    wait(500)
+    ev3.speaker.beep(4)
+    print("bobo llego al punto de control")
+    #fin mods hoy
+    #:D
+
+def segundo_apilar():
+    movimiento_recto(right_motor,left_motor,13)#avanza un poco haia adelante
+    girar_rad(4)#derecha
+    movimiento_recto(right_motor,left_motor,31)
+    girar_rad(4,1)#izquierda
+    movimiento_recto(right_motor,left_motor,52)
+    girar_rad(4)#derecha
+    movimiento_recto(right_motor,left_motor,29)
+    girar_rad(4,1)#izquierda
+    movimiento_recto(right_motor,left_motor,15)#esta de frente al bloque rojo 2
+    movimiento_recto(right_motor,left_motor,0.5)#bobo se acerca un poco
+    wait(100)
+    garra.reset_angle(-200)#se establece el angulo interno de 0 a -350
+    grua.reset_angle(-350)
+    bajar_garra()
+    wait(100)
+    cerrar_garra()
+    subir_garra()
+    print("en camino al block 1 rojo")
+    print("bloque verde o azul capturado")
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+    wait(100)
+    girar_rad(4,1)#izq
+    movimiento_recto(right_motor, left_motor,8)
+    girar_rad(4)#der en frente del sig bloque
+    movimiento_recto(right_motor, left_motor,1)
+    #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
+    reposar_bloque()#colocar block sobre otro #apilar_tres_bloques() 
+    abrir_garra() 
+    posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
+    mover_garra_angulo(-20)
+    cerrar_garra()
+    subir_garra()#pendiente
+    #apilar bloque 3 
+    print("en camino al block amarillo")
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+    wait(100)
+    girar_rad(4,1)#izq
+    movimiento_recto(right_motor, left_motor,8)
+    girar_rad(4)#der en frente del bloque amarillo
+    movimiento_recto(right_motor, left_motor,0.5)
+    reposar_bloque()#apilar_tres_bloques()
+    abrir_garra()
+    posicionar_garra_desde_cero()
+    mover_garra_angulo(-25)
+    cerrar_garra()
+    retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+    wait(100)
+    girar_rad(4,1)#primer giro izq
+    movimiento_recto(right_motor,left_motor,21)
+    girar_rad(4,1)#segundo giro izq
+    movimiento_recto(right_motor,left_motor,10)
+    bajar_garra()
+    abrir_garra()
+
+def bucle_azul_verde():
+    subir_garra()
+    retrocede_recto(right_motor,left_motor,10)
+    girar_rad(4)#primer giro der
+    girar_rad(4)#segundo giro der 
 
 
+#Ajustes
+    #necesito ajustar al bajar la garra
+    #motor3.run_target(150,-)x
+
+#Sensor 4
+ #////////////////////////////////////////////////////////////////////////////////////////
+    #                                        SENSOR 4
+
+    
+#mods 15 julio
+#modificar la 2do apilacion con el lado opuesto
+# def blocks_amarillo_verdeoazul_azuloverde_lado_derecho():
+#     print("subimos la garra")
+#     subir_garra()
+#     movimiento_recto(right_motor,left_motor,13)
+#     print("giro a la derecha")
+#     girar_rad(4,1)
+#     movimiento_recto(right_motor,left_motor,74)
+#     girar_rad(4,1)
+#     ev3.speaker.beep(4)
+#     wait(100)
+#     # motor3.reset_angle(-200)#se establece el angulo interno de 0 a -350
+#     # motor2.reset_angle(-350)
+#     # abrir_garra()
+#     bajar_garra()
+#     wait(100)
+#     movimiento_recto(right_motor,left_motor,0.5)
+#     cerrar_garra()
+#     subir_garra()
+#     print("en camino al block 2")
+#     print("bloque verde o azul capturado")
+#     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+#     wait(100)
+#     girar_rad(4,1)#der
+#     movimiento_recto(right_motor, left_motor,8)
+#     girar_rad(4)#izquierda en frente del sig bloque
+#     movimiento_recto(right_motor, left_motor,2)
+#     #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
+#     reposar_bloque()#colocar block sobre otro #apilar_tres_bloques() 
+#     abrir_garra() 
+#     posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
+#     mover_garra_angulo(-20)
+#     cerrar_garra()
+#     subir_garra()
+#     #apilar bloque 3 
+#     print("en camino al block amarillo")
+#     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+#     wait(100)
+#     girar_rad(4,1)#der
+#     movimiento_recto(right_motor, left_motor,8)
+#     girar_rad(4)#izquierda en frente del sig bloque
+#     movimiento_recto(right_motor, left_motor,1.1)
+#     reposar_bloque()#apilar_tres_bloques()
+#     abrir_garra()
+#     posicionar_garra_desde_cero()
+#     mover_garra_angulo(-25)
+#     cerrar_garra()
+#     retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_color_bloque, Color.BLACK)
+#     wait(100)
+#     girar_rad(4,1)
+#     movimiento_recto(right_motor,left_motor,21)
+#     girar_rad(4,1)#derecha
+#     movimiento_recto(right_motor,left_motor,16)
+#     bajar_garra()
+#     abrir_garra()
+
+    #sensor 4 para detectar color de bloque depnedecia de azul o verde
+    #falta colocar sensor 4 al bobo
+    #por si acaso
+    #bucle para ver si el primer block es azul o verde
+    # if :
+    #     print("El bloque es verde")
+    #     #apilar block 2 y 3
+    #     movimiento_recto(right_motor, left_motor,17)
+    #     wait(100)
+    #     reposar_bloque()
+    #     abrir_garra()
+    #     #fin
+    # else:
+    #     print("El bloque es azul")
+    #     #apilar block 2 y 3
+    #     girar_rad(4)#izq
+    #     movimiento_recto(right_motor, left_motor,3)
+    #     girar_rad(4,1)#der
+    #     movimiento_recto(right_motor, left_motor,17)
+    #     wait(100)
+    #     reposar_bloque()
+    #     abrir_garra()
+    #     #fin
+    #////////////////////////////////////////////////////////////////////////////////////////
+
+    #def siguiente_paso : 17 JULY
+    #fin mods hoy :D
+
+                    #GIROS
+    #girar_rad(8,1)#45 grados a la derecha
+    #girar_rad(4,1)#90 grados derecha
+    #girar_rad(4)#90 grados izquierda
+    #girar_rad(2,1)#180 grados derecha
+    #girar_rad(2)#180 grados izquierda
+    #girar_rad(1)#360 grados izquierda
+    #girar_rad(1,1)#360 grados derecha
+    # Giro 360
+    #    for i in range(16):
+    #     girar_rad(4)
+    #     wait(100)
+
+# def encontrar_angulo():
+#     pass    
+
+
+#cubito largo 4.7 ancho 4.7 
 # //////////////////////////////////////////
 # SECCION DE PRUEBA DE FUNCIONES:
 def main(): 
-    recoger_escombro_1()
-    giroscopio.reset_angle(0)
-    primer_paso()
-    apilar_tres_bloques()
-    segundo_escombro_por_linea_roja()
-    giroscopio.reset_angle(0)
+    # recoger_escombro_1()#paso 1 recoger escombro
+    # giroscopio.reset_angle(0)
+    # primer_paso()#paaso 1.1
+    # apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
+    # segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
+    # giroscopio.reset_angle(0)
+    segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
+    # bucle_azul_verde()
+    #blocks_amarillo_verdeoazul_azuloverde_lado_derecho() sera con el if //Paso 5 y 6
+    
 
 
-if __name__ == "__main__":
-    main()
+# right_motor.reset_angle(0)
+# right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
+# print(right_motor.angle())
+
+main()
+# //////////////////////////////////////////
+# Llama a la función para girar 90 grados
+
+#El robot con esta funcion puede girar 90 grados
+
+# movimiento_recto(right_motor,left_motor)
