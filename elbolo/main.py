@@ -422,19 +422,19 @@ def escombros_punto_de_control ():
 
 def segundo_apilar():
         movimiento_recto(right_motor,left_motor,13)#avanza un poco haia adelante
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         movimiento_recto(right_motor,left_motor,31)
-        robot.turn(-90)
+        robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor,left_motor,52)
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         movimiento_recto(right_motor,left_motor,29)
-        robot.turn(-90)
+        robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor,left_motor,15)#esta de frente al bloque rojo 2
@@ -450,11 +450,11 @@ def segundo_apilar():
         print("bloque verde o azul capturado")
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
         wait(100)
-        robot.turn(-90)
+        robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor, left_motor,8)
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         movimiento_recto(right_motor, left_motor,1)
@@ -469,11 +469,11 @@ def segundo_apilar():
         print("en camino al block amarillo")
         retroceder_hasta_color(right_motor, left_motor,  sensor_color_bloque, Color.BLACK)
         wait(100)
-        robot.turn(-90)
+        robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor, left_motor,8)
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         movimiento_recto(right_motor, left_motor,0.5)
@@ -484,11 +484,11 @@ def segundo_apilar():
         cerrar_garra()
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
         wait(100)
-        robot.turn(-90)
+        robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor,left_motor,21)
-        robot.turn(-90)
+        robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor,left_motor,10)
@@ -497,26 +497,26 @@ def segundo_apilar():
 
 def bucle_azul_verde():
         subir_garra()
+        abrir_garra()
         retrocede_recto(right_motor,left_motor,10)
-        robot.turn(90)
-        robot.stop()
-        #girar_rad(4)
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         robot.turn(-90)
         robot.stop()
+        #girar_rad(4)
+        robot.turn(90)
+        robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor,left_motor,8)
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         movimiento_recto(right_motor,left_motor,3)
-        avanzar_hasta_color(right_motor, left_motor, sensor_bloque_enfrente, Color.GREEN)
-        print("Es verde")
-if avanzar_hasta_color == "Es verde" :
+        print(sensor_bloque_enfrente.color())
+if print == "Color.GREEN" :
         retrocede_recto(right_motor,left_motor,8)
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         bajar_garra()
@@ -528,11 +528,11 @@ if avanzar_hasta_color == "Es verde" :
         print("bloque amarillo")
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
         wait(100)
-        robot.turn(-90)
+        robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
         movimiento_recto(right_motor, left_motor,4)
-        robot.turn(90)
+        robot.turn(-90)
         robot.stop()
         #girar_rad(4)
         movimiento_recto(right_motor,left_motor,0.5)
@@ -547,10 +547,10 @@ if avanzar_hasta_color == "Es verde" :
         print("en camino al block verde")
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
         wait(100)
-        robot.turn(90)#izquierda
+        robot.turn(-90)#izquierda
         robot.stop()
         movimiento_recto(right_motor,left_motor,5)
-        robot.turn(-90)#derecha
+        robot.turn(90)#derecha
         robot.stop()
         movimiento_recto(right_motor,left_motor,0.5)
         reposar_bloque()#apilar_tres_bloques()
@@ -560,66 +560,22 @@ if avanzar_hasta_color == "Es verde" :
         cerrar_garra()
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
         wait(100)
-        robot.turn(-90)#derecha
+        robot.turn(90)#derecha
         robot.stop()
         movimiento_recto(right_motor,left_motor,30)    
-        robot.turn(-90)#derecha
+        robot.turn(90)#derecha
         robot.stop()
         movimiento_recto(right_motor,left_motor,10)
         abrir_garra()
+        retrocede_recto(right_motor,left_motor,10)
         subir_garra()
-
-
+else :
+        print(sensor_bloque_enfrente.color())
 
     #Ajustes
         #necesito ajustar al bajar la garra
         #motor3.run_target(150,-)x
 
-
-    #   
-    #     girar_rad(4,1)
-    #     movimiento_recto(right_motor,left_motor,21)
-    #     girar_rad(4,1)#derecha
-    #     movimiento_recto(right_motor,left_motor,16)
-    #     bajar_garra()
-    #     abrir_garra()
-
-        #sensor 4 para detectar color de bloque depnedecia de azul o verde
-        #falta colocar sensor 4 al bobo
-        #por si acaso
-        #bucle para ver si el primer block es azul o verde
-        # if :
-        #     print("El bloque es verde")
-        #     #apilar block 2 y 3
-        #     movimiento_recto(right_motor, left_motor,17)
-        #     wait(100)
-        #     reposar_bloque()
-        #     abrir_garra()
-        #     #fin
-        # else:
-        #     print("El bloque es azul")
-        #     #apilar block 2 y 3
-        #     girar_rad(4)#izq
-        #     movimiento_recto(right_motor, left_motor,3)
-        #     girar_rad(4,1)#der
-        #     movimiento_recto(right_motor, left_motor,17)
-        #     wait(100)
-        #     reposar_bloque()
-        #     abrir_garra()
-        #     #fin
-        #////////////////////////////////////////////////////////////////////////////////////////
-
-        #def siguiente_paso : 17 JULY
-        #fin mods hoy :D
-
-                        #GIROS
-        #girar_rad(8,1)#45 grados a la derecha
-        #girar_rad(4,1)#90 grados derecha
-        #girar_rad(4)#90 grados izquierda
-        #girar_rad(2,1)#180 grados derecha
-        #girar_rad(2)#180 grados izquierda
-        #girar_rad(1)#360 grados izquierda
-        #girar_rad(1,1)#360 grados derecha
         # Giro 360
         #    for i in range(16):
         #     girar_rad(4)
@@ -627,28 +583,25 @@ if avanzar_hasta_color == "Es verde" :
 
     # def encontrar_angulo():
     #     pass    
-
+    
 
     #cubito largo 4.7 ancho 4.7 
-    # //////////////////////////////////////////
-    # SECCION DE PRUEBA DE FUNCIONES:
 def main(): 
         # recoger_escombro_1()#paso 1 recoger escombro
         # giroscopio.reset_angle(0)
-        # primer_paso()#paaso 1.1
+        # primer_paso()#paso 1.1
         # apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
         # segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
         # giroscopio.reset_angle(0)
-        segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
-        # bucle_azul_verde() #paso final
-        #blocks_amarillo_verdeoazul_azuloverde_lado_derecho() sera con el if //Paso 5 y 6
-        
-
-
+        # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
+        # bucle_azul_verde() #paso final bucle
+        while True:
+            print(sensor_bloque_enfrente.color())
+            wait(2000)
+            
+              
     # right_motor.reset_angle(0)
     # right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
     # print(right_motor.angle())
 
 main()
-# //////////////////////////////////////////
-# Llama a la función para girar 90 grados
