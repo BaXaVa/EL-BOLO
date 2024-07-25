@@ -1,4 +1,4 @@
-#!/usr/bin/env pybricks-micropython
+# !/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, GyroSensor
 from pybricks.parameters import Port, Color, Stop
@@ -8,12 +8,14 @@ from aceleration import movimiento_recto, retrocede_recto, avanzar_hasta_color, 
 from girar import girar_90_grados
 from testingBlockSensor import test_sensor_color
 
+import threading
+
 # Inicialización del brick EV3
 ev3 = EV3Brick()
 ev3.speaker.beep(1)
 ev3.screen.print("Hello UAM, Welcome to Robotics Class")
 
-
+ev3.speaker.play_file("Rammstein - Du Hast (Official 4K Video).wav")
 
 
 
@@ -610,7 +612,14 @@ def main():
 # right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
 # print(right_motor.angle())
 
-main()
+def second():
+    
+
+thread_1 = threading.Thread(target=main)
+thread_2 = threading.Thread(target=sencond)
+
+thread_1.start()
+thread_2.start()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 
