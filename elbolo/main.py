@@ -517,11 +517,16 @@ def bucle_azul_verde():
         movimiento_recto(right_motor,left_motor,17)
         robot.turn(-90)
         robot.stop()
-        movimiento_recto(right_motor,left_motor,50)
+        movimiento_recto(right_motor,left_motor,60)
         print("Lllegando al bloque de control")
         robot.turn(-90)
         robot.stop()
         bajar_garra()
+        posicionar_garra_desde_cero()
+        wait(100)
+        garra.reset_angle(-200)#se establece el angulo interno de 0 a -350
+        grua.reset_angle(-350)
+        movimiento_recto(right_motor,left_motor,3)
         print("Enfrente del bloque control")
         print(sensor_bloque_enfrente.color())
         # if print == "Color.GREEN" :###############################################################corregi
@@ -637,8 +642,8 @@ def main():
         # apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
         # segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
         # giroscopio.reset_angle(0)
-        #segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
-        bucle_azul_verde() #paso final bucle
+        segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
+        #bucle_azul_verde() #paso final bucle
         
         
         # Verificar color
