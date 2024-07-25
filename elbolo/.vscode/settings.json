@@ -4,5 +4,6 @@
 	"debug.openDebug": "neverOpen",
 	"python.linting.enabled": true,
 	"python.languageServer": "Default",
-	"git.ignoreLimitWarning": true
+	"git.ignoreLimitWarning": true,
+	"python.analysis.typeCheckingMode": "basic"
 }

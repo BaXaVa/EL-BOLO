@@ -1,4 +1,4 @@
-# !/usr/bin/env pybricks-micropython
+#!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, GyroSensor
 from pybricks.parameters import Port, Color, Stop
@@ -9,13 +9,11 @@ from girar import girar_90_grados
 from testingBlockSensor import test_sensor_color
 
 import threading
-
+from movimientoRecto2_conThreads import movimiento_recto2
 # Inicialización del brick EV3
 ev3 = EV3Brick()
 ev3.speaker.beep(1)
 ev3.screen.print("Hello UAM, Welcome to Robotics Class")
-
-ev3.speaker.play_file("Rammstein - Du Hast (Official 4K Video).wav")
 
 
 
@@ -30,13 +28,18 @@ giroscopio = GyroSensor(Port.S3)
 
 # # Inicialización del robot
 robot = DriveBase(left_motor, right_motor, 68.8, 124)
-robot.settings(100, 100, 180,45)
+robot.settings(100, 100, 69,276)
 print(robot.settings())
 usar_giro = True 
 
-# robot.heading_control()
 
-set
+def second():
+    print("entre en la cancio")
+    ev3.speaker.play_file("Rammstein - Du Hast (Official 4K Video).wav")
+
+print("Por aca ")
+
+
 ################################################
 
 def cerrar_garra():
@@ -117,7 +120,7 @@ def girar_rad(cuarto_de_circunferencia, dir = 0):
     ev3.speaker.beep(2)
 
 ##################################################################
-
+print("por aca 2 ")
 def primer_paso():
     #Posiciona la garra en un punto de referencia y retrocede hasta chocar con la pared, para despues avanzar 
     mover_grua_angulo(-40)
@@ -438,7 +441,7 @@ def segundo_apilar():
     subir_garra()
     print("en camino al block 1 rojo")
     print("bloque verde o azul capturado")
-    retroceder_hasta_color(right_motor, left_motor, sensor_color_linea, sensor_color_linea, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor, sensor_color_linea, Color.BLACK)
     wait(100)
     girar_rad(4,1)#izq
     movimiento_recto(right_motor, left_motor,8)
@@ -453,7 +456,7 @@ def segundo_apilar():
     subir_garra()#pendiente
     #apilar bloque 3 
     print("en camino al block amarillo")
-    retroceder_hasta_color(right_motor, left_motor, sensor_color_linea, sensor_color_linea, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor, sensor_color_linea, Color.BLACK)
     wait(100)
     girar_rad(4,1)#izq
     movimiento_recto(right_motor, left_motor,8)
@@ -464,7 +467,7 @@ def segundo_apilar():
     posicionar_garra_desde_cero()
     mover_garra_angulo(-25)
     cerrar_garra()
-    retroceder_hasta_color(right_motor, left_motor, sensor_color_linea, sensor_color_linea, Color.BLACK)
+    retroceder_hasta_color(right_motor, left_motor,  sensor_color_linea, Color.BLACK)
     wait(100)
     girar_rad(4,1)#primer giro izq
     movimiento_recto(right_motor,left_motor,21)
@@ -603,23 +606,19 @@ def main():
     # giroscopio.reset_angle(0)
     # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
     # bucle_azul_verde()
-    #blocks_amarillo_verdeoazul_azuloverde_lado_derecho() sera con el if //Paso 5 y 6
-    test_sensor_color(sensor_bloque)
-    
+    # # blocks_amarillo_verdeoazul_azuloverde_lado_derecho() sera con el if //Paso 5 y 6
+    # test_sensor_color(sensor_bloque)
+    # movimiento_recto(right_motor, left_motor, 10)
+    movimiento_recto2(right_motor, left_motor, 10)
 
+main()
  
 # right_motor.reset_angle(0)
 # right_motor.run_angle(50, 157, wait=True)  # Gira en una dirección (derecha
 # print(right_motor.angle())
 
-def second():
-    
 
-thread_1 = threading.Thread(target=main)
-thread_2 = threading.Thread(target=sencond)
 
-thread_1.start()
-thread_2.start()
 # //////////////////////////////////////////
 # Llama a la función para girar 90 grados
 

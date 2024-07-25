@@ -5,6 +5,8 @@ from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 from math import pi
 
+
+
 def avanzar_hasta_color(motor_b,motor_c,sensor_1,  target_color):
     desired = 0
     
@@ -73,10 +75,15 @@ def movimiento_recto(motor_b, motor_c, distancia):
     ki = 0.012
     kp = 0.00182
     kd = 0.000190
+    
+
+
     target_angle = ( distancia / (21.6) ) *360
     # print(target_angle)
     integral = 0
     speed = 1
+    correcion = 0
+
     while motor_b.angle() < target_angle:
         # print(motor_b.angle(), motor_c.angle())
         # print(motor_b.angle(), motor_c.angle())
@@ -89,6 +96,7 @@ def movimiento_recto(motor_b, motor_c, distancia):
 
         motor_b.run(speed + correcion)
         motor_c.run(speed - correcion)
+
 
         if speed < 140: 
             speed += 1
