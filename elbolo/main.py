@@ -683,9 +683,22 @@ def sieraverdevaporazul():
                 movimiento_recto(right_motor,left_motor,15)
                 abrir_garra()
 
-
 def escombro_final():
-        movimiento_recto()
+       retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
+       robot.turn(90)
+       robot.stop()
+       movimiento_recto(right_motor,left_motor,36)
+       robot.turn(-90)
+       robot.stop()
+       movimiento_recto(right_motor,left_motor,70)
+       cerrar_garra()
+       retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+       robot.turn(90)
+       robot.stop()
+       movimiento_recto(right_motor,left_motor,17)
+       robot.turn(90)
+       robot.stop()
+       abrir_garra()       
 
 def main(): 
         # recoger_escombro_1()#paso 1 recoger escombro
@@ -697,7 +710,7 @@ def main():
         # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
         #bucle_azul_verde() #bucle si es verde
         sieraverdevaporazul() # para agarrar el azul #probar
-        escombro_final()#paso final
+        escombro_final()#paso final #probar
 
         
 
