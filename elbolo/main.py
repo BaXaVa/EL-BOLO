@@ -629,17 +629,6 @@ color_3_bloque = sensor_bloque_enfrente.color()
 #                 robot.stop()
 #                 retrocede_recto(right_motor,left_motor,5) 
 
- 
-def main(): 
-        
-        recoger_escombro_1()  
-        
-        primer_paso()
-        apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
-        segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
-        escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
-        segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
-        bucle_azul_verde()                   #paso final bucle
 
 # def sieraverdevaporazul():
 #         robot.turn(-90)
@@ -738,6 +727,9 @@ def main():
 #                 retrocede_recto(right_motor,left_motor,40)
 #                 abrir_garra()
 
+def condicional_definitivo():
+        mover_grua_angulo()
+
 def escombro_final(): #condicional de control
         color_bloque_final_lineal = sensor_bloque_enfrente.color()
         if color_bloque_final_lineal == Color.BLUE:
@@ -777,11 +769,17 @@ def escombro_final(): #condicional de control
                 robot.turn(90)
                 robot.stop()
                 abrir_garra() 
-        
-def condicional_definitivo():
-        mover_grua_angulo()
 
-
+def main(): 
         
+        recoger_escombro_1()  
+        primer_paso()
+        apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
+        segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
+        escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
+        segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
+        # bucle_azul_verde()                   #paso final bucle
+        condicional_definitivo()
+        escombro_final()  
 
 main()
