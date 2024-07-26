@@ -697,10 +697,30 @@ def condicional_definitivo():
                         escombro_final()
         else :
                 print("es diferente entonces vamos por el apliamiento doble azul")
-                
+                retrocede_recto(right_motor,left_motor,4)
+                abrir_garra()
+                posicionar_garra_desde_cero()
+                movimiento_recto(right_motor,left_motor,4)
+                cerrar_garra()
+                retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
+                robot.turn(-88)
+                robot.stop()
+                movimiento_recto(right_motor,left_motor,9.6)
+                robot.turn(88)
+                robot.stop()
+                subir_garra()
+                reposar_bloque()
+                print("apilacion triple completada")
+                print("azul, amarillo, verde")
+                retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
                 robot.turn(-90)
                 robot.stop()
-                retrocede_recto(right_motor,left_motor,5) 
+                movimiento_recto(right_motor,left_motor,38)
+                robot.turn(-90)
+                robot.stop()
+                movimiento_recto()
+
+                
 
 
 #         else:
