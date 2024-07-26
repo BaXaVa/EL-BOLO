@@ -635,7 +635,6 @@ def bucle_azul_verde():
 def sieraverdevaporazul():
         robot.turn(-90)
         robot.stop()
-        subir_garra()
         movimiento_recto(right_motor,left_motor,20)
         posicionar_garra_desde_cero()
         movimiento_recto(right_motor,left_motor,0.5)
@@ -673,6 +672,7 @@ def sieraverdevaporazul():
         color_bloque_final_lineal = sensor_bloque_enfrente.color()
         print(sensor_bloque_enfrente.color())
         if color_bloque_final_lineal == Color.BLUE:
+                print("era azul")
                 cerrar_garra()
                 retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
                 robot.turn(-90)
@@ -682,7 +682,52 @@ def sieraverdevaporazul():
                 robot.stop()
                 movimiento_recto(right_motor,left_motor,15)
                 abrir_garra()
-
+        else:
+                robot.turn(90)
+                robot.stop() 
+                movimiento_recto(right_motor,left_motor,20)
+                robot.turn(-90)
+                robot.stop() 
+                movimiento_recto(right_motor,left_motor,15)
+                robot.turn(90)
+                robot.stop() 
+                posicionar_garra_desde_cero()
+                movimiento_recto(right_motor,left_motor,0.5)
+                cerrar_garra()
+                print("bloque amarillo capturado")
+                retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
+                robot.turn(90)
+                robot.stop()
+                movimiento_recto(right_motor,left_motor,6)
+                robot.turn(-90)
+                robot.stop()
+                movimiento_recto(0.5)
+                reposar_bloque()
+                retrocede_recto(right_motor,left_motor,4)
+                abrir_garra()
+                posicionar_garra_desde_cero()
+                mover_grua_angulo(-25)
+                movimiento_recto(right_motor,left_motor,4)
+                cerrar_garra()
+                print("bloque 2 capturado")
+                retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
+                robot.turn(90)
+                robot.stop()
+                movimiento_recto(right_motor,left_motor,6)
+                robot.turn(-90)
+                robot.stop()
+                movimiento_recto(0.5)
+                reposar_bloque()
+                retrocede_recto(right_motor,left_motor,4)
+                abrir_garra()
+                posicionar_garra_desde_cero()
+                bajar_garra()
+                movimiento_recto(right_motor,left_motor,4)
+                print("verificando color")
+                color_bloque_final_lineal = sensor_bloque_enfrente.color()
+                print("era verde")
+                retrocede_recto(right_motor,left_motor,40)
+                abrir_garra()
 def escombro_final():
        retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
        robot.turn(90)
@@ -710,7 +755,7 @@ def main():
         # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
         #bucle_azul_verde() #bucle si es verde
         sieraverdevaporazul() # para agarrar el azul #probar
-        escombro_final()#paso final #probar
+        #escombro_final()#paso final #probar
 
         
 
