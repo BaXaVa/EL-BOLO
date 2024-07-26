@@ -639,10 +639,7 @@ def main():
         # giroscopio.reset_angle(0)
         # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
         bucle_azul_verde() #paso final bucle
-        while True: 
-            print(sensor_bloque_enfrente.color())   
-            wait(1000)
-        
+
         
 
 main()
