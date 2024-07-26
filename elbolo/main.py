@@ -99,7 +99,7 @@ def posicionar_garra_desde_cero():
         """
         garra.reset_angle(0) #Creo que esta linea de codigo no es necesariaE
 
-        garra.run_target(150, -140, Stop.HOLD, True)
+        garra.run_target(150, -120, Stop.HOLD, True)
 
 def posicionar_garra_angulo(angle):
         """Parametros admitidos para el angulo: -350 a 0
@@ -116,7 +116,7 @@ def abrir_garra(esperar = True):
         """
         garra.stop()
         print("hola ")
-        garra.run_target(150, -50, Stop.HOLD, esperar)
+        garra.run_target(150, 0, Stop.HOLD, esperar)
         print("Como estas?")
 
 def girar_rad(cuarto_de_circunferencia, dir = 0):
@@ -134,8 +134,12 @@ def girar_rad(cuarto_de_circunferencia, dir = 0):
         ev3.speaker.beep(2)
 
 def primer_paso():
+        """
+        El robot se ubica en el punto de inicio, osea el cuadro rojo. Y avanza hasta ubicarse en la linea horizontal
+        paralela a los bloques
+        """
         #Posiciona la garra en un punto de referencia y retrocede hasta chocar con la pared, para despues avanzar 
-        mover_grua_angulo(-40)
+        mover_grua_angulo(-30)
         
         posicionar_garra_desde_cero()
 
@@ -166,7 +170,8 @@ def recoger_escombro_1():
 
         #El robot retrocede hasta llegar al borde del punto de control y se direcciona hacia la pipa
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
-        retrocede_recto(right_motor, left_motor, 2)
+        retrocede_recto(right_motor, left_motor, 1.5 )
+
         wait(500)
         robot.turn(88)
         robot.stop()
@@ -184,7 +189,7 @@ def recoger_escombro_1():
         robot.stop()
         giroscopio.reset_angle(0)
         print("Angulo 1: ",giroscopio.angle())   
-        retrocede_recto(right_motor, left_motor, 21)
+        retrocede_recto(right_motor, left_motor, 25)
         movimiento_recto(right_motor, left_motor, 2)
         wait(100)
 
@@ -219,25 +224,24 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         #El robot avanza y se alinea con el primer bloque
         
         ######################### MEJORA PENDIENDTE: Ajustar la distancia para que se posicione con la linea roja #@@@@@@@@@@2
-        movimiento_recto(right_motor, left_motor, 10)
-        print("Paso para ver color: ", sensor_color_bloque.color())  
+        movimiento_recto(right_motor, left_motor, 6)
+        
+        avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque,  Color.RED)
+
         ev3.speaker.beep(4)
-        avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque,  Color.BLACK)
-        ev3.speaker.beep(4)
-        movimiento_recto(right_motor, left_motor, 34)
+        
+        movimiento_recto(right_motor, left_motor, 26)
         ev3.speaker.beep(2) 
 
-        #El robot gira y se acerca a los bloques
-        # print("girar hacia los bloques")
         
         wait(100)
-        giroscopio.reset_angle(0)
+       
         robot.turn(-88)
         robot.stop()
         
-        print("Angulo 1: ",giroscopio.angle())   
         ev3.speaker.beep(4)
         wait(100)
+
         movimiento_recto(right_motor, left_motor, 6.1)
         #///////////////
 
@@ -255,8 +259,6 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         ev3.speaker.beep(4)
         robot.turn(-88)
         robot.stop()
-        giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
         
         wait(200)
         ev3.speaker.beep(4)
@@ -268,11 +270,13 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         giroscopio.reset_angle(0)
         print("Angulo 1: ",giroscopio.angle())   
         wait(200)
-        movimiento_recto(right_motor, left_motor, 2.3)
+        movimiento_recto(right_motor, left_motor, 1.3)
         #///////////////
 
         #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
         reposar_bloque()
+
+        #FALLA EN ESTA LINEA DE CODIGO
         abrir_garra() # se comento esta funcion por mejor funcionamiento
         
         posicionar_garra_desde_cero() #Esta funcion sirve para que la garra no choque con los bloques
@@ -286,8 +290,6 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         wait(100)
         robot.turn(-88)
         robot.stop()
-        giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
         wait(100)
         movimiento_recto(right_motor, left_motor, 9.10)
         wait(100)
@@ -296,7 +298,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         giroscopio.reset_angle(0)
         print("Angulo 1: ",giroscopio.angle())   
         wait(100)
-        movimiento_recto(right_motor, left_motor, 2.3)
+        movimiento_recto(right_motor, left_motor, 0.5)
 
         reposar_bloque()
         abrir_garra()
@@ -310,10 +312,9 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         robot.turn(-88)
         robot.stop()
         giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
-        # retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.YELLOW)
-        retrocede_recto(right_motor, left_motor, 2)
+        retrocede_recto(right_motor, left_motor, 3)
         abrir_garra()
+        retrocede_recto(right_motor, left_motor, 6)
 
 
         
@@ -321,20 +322,19 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
 
 
 def segundo_escombro_por_linea_roja():
-        robot.turn(-88)
+        robot.turn(-90)
         robot.stop()
-        giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
-        robot.turn(-88)
+        wait(100) 
+
+        robot.turn(-90)
         robot.stop()
-        giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
+
         avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque,  Color.GREEN)
         movimiento_recto(right_motor, left_motor, 2)
 
         cerrar_garra()
         
-        movimiento_recto(right_motor, left_motor, 8)
+        movimiento_recto(right_motor, left_motor, 10)
 
         robot.turn(-88)
         robot.stop()
@@ -342,66 +342,59 @@ def segundo_escombro_por_linea_roja():
         print("Angulo 1: ",giroscopio.angle())   
 
         retrocede_recto(right_motor, left_motor, 50)
-        # retroceder_hasta_color(right_motor, left_motor, sensor_1, sensor_2, Color.RED)
-        movimiento_recto(right_motor, left_motor, 10)
 
         avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque,  Color.RED)
         wait(200)
+
         #mods nuevas
         # movimiento_recto(right_motor, left_motor, 3) Cambio por retrocede recto, al parecer la distancia no cuadra
         retrocede_recto(right_motor, left_motor, 2)
         wait(100)
         robot.turn(88)
         robot.stop()
+  
 
-        print("Angulo 1: ",giroscopio.angle())   
-
-        movimiento_recto(right_motor, left_motor, 15) # ajustar distancia 45.5
-        mover_grua_angulo(-75)
+        movimiento_recto(right_motor, left_motor, 17.5) # ajustar distancia 45.5
+        reposar_bloque()
         movimiento_recto(right_motor, left_motor, 7)
         
-        reposar_bloque()
         abrir_garra()
         mover_grua_angulo(-35)
         cerrar_garra()
         
-        giroscopio.reset_angle(0)
-        robot.turn(-88)
+        robot.turn(-90)
         robot.stop()
         
-        print("Angulo 1: ",giroscopio.angle())   
-
         movimiento_recto(right_motor, left_motor, 7)
         abrir_garra()
 
         subir_garra()
-        robot.turn(-88)
+        robot.turn(88)
         robot.stop()
-        giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
 
         bajar_garra()
         
         posicionar_garra_angulo(-150) # Especificar angulo
         
-        movimiento_recto(right_motor, left_motor, 16.5)
+        movimiento_recto(right_motor, left_motor, 17)
         subir_garra()
-        girar_rad(8,1)
-        wait(100)
-        girar_rad(8)
+        girar_rad(2)
+ 
 
-        retrocede_recto(right_motor, left_motor, 16.5)
-        robot.turn(-88)
+        movimiento_recto(right_motor, left_motor, 17)
+        robot.turn(88)
         robot.stop()
-        giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
+        
+         
 
         #mods bobo 12 y 13 julio
         #funcion para llevar escombor amarillo y gris a la vez
 def escombros_punto_de_control ():
         #en la funcion anterior bajar toda la garra
-        garra.reset_angle(-200)#se establece el angulo interno de 0 a -350 EEs el garra
-        grua.reset_angle(-350) # Es el elevador
+        # garra.reset_angle(-200)#se establece el angulo interno de 0 a -350 EEs el garra
+        # grua.reset_angle(-350) # Es el elevador
+
+        """Comente lo anterior porque estamos en fase de pruebas final"""
         abrir_garra()#abrir hasta q llegue a 0
         wait(100)
         movimiento_recto(right_motor,left_motor,0.5)
@@ -522,7 +515,7 @@ def segundo_apilar(): #casi listo
         bajar_garra()
         abrir_garra()
 
-color_3_bloque = sensor_bloque_enfrente()
+color_3_bloque = sensor_bloque_enfrente.color()
 
 def bucle_azul_verde():
         """
@@ -630,15 +623,18 @@ def bucle_azul_verde():
                 robot.turn(-90)
                 robot.stop()
                 retrocede_recto(right_motor,left_motor,5) 
+
+ 
 def main(): 
-        # recoger_escombro_1()#paso 1 recoger escombro
-        # giroscopio.reset_angle(0)
-        # primer_paso()#paso 1.1
-        # apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
-        # segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
-        # giroscopio.reset_angle(0)
-        # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
-        bucle_azul_verde() #paso final bucle
+        
+        recoger_escombro_1()  
+        
+        primer_paso()
+        apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
+        segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
+        escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
+        segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
+        bucle_azul_verde()                   #paso final bucle
 
         
 

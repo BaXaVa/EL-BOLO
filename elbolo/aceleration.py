@@ -5,11 +5,11 @@ from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 from math import pi
 
-def avanzar_hasta_color(motor_b,motor_c,sensor_1, sensor_2 , target_color):
+def avanzar_hasta_color(motor_b,motor_c,sensor_1,  target_color):
     desired = 0
     print("jeje")
-    motor_b.reset_angle()
-    motor_c.reset_angle()
+    motor_b.reset_angle(0)
+    motor_c.reset_angle(0)
     print("hola")
     ki = 0.001
     kp = 0.3
@@ -18,7 +18,7 @@ def avanzar_hasta_color(motor_b,motor_c,sensor_1, sensor_2 , target_color):
     
     integral = 0
     speed = 10
-    while sensor_1.color() != target_color and sensor_2.color() != target_color:
+    while sensor_1.color() != target_color :
         print("new")
         # print(motor_b.angle(), motor_c.angle())
         # print(sensor_1.color(), sensor_2.color())
