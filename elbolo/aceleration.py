@@ -38,7 +38,7 @@ def avanzar_hasta_color(motor_b,motor_c,sensor_1, sensor_2 , target_color):
     motor_b.stop()
     motor_c.stop() 
 
-def retroceder_hasta_color(motor_b,motor_c,sensor_1, sensor_2 , target_color):
+def retroceder_hasta_color(motor_b,motor_c,sensor_1, target_color):
     desired = 0
     motor_b.reset_angle(0)
     motor_c.reset_angle(0)
@@ -49,7 +49,7 @@ def retroceder_hasta_color(motor_b,motor_c,sensor_1, sensor_2 , target_color):
     
     integral = 0
     speed = -10
-    while sensor_1.color() != target_color and sensor_2.color() != target_color:
+    while sensor_1.color() != target_color :
         # print(motor_b.angle(), motor_c.angle())
         # print(motor_b.angle(), motor_c.angle())
         # print("speed 1 =", speed)
