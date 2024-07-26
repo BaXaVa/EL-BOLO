@@ -390,11 +390,15 @@ def segundo_escombro_por_linea_roja():
         #mods bobo 12 y 13 julio
         #funcion para llevar escombor amarillo y gris a la vez
 def escombros_punto_de_control ():
+        """
+        Descripcion
+        """
         #en la funcion anterior bajar toda la garra
         # garra.reset_angle(-200)#se establece el angulo interno de 0 a -350 EEs el garra
         # grua.reset_angle(-350) # Es el elevador
 
         """Comente lo anterior porque estamos en fase de pruebas final"""
+        
         abrir_garra()#abrir hasta q llegue a 0
         wait(100)
         movimiento_recto(right_motor,left_motor,0.5)
