@@ -522,7 +522,7 @@ def segundo_apilar(): #casi listo
         bajar_garra()
         abrir_garra()
 
-color_3_bloque = sensor_bloque_enfrente()
+color_3_bloque = sensor_bloque_enfrente.color()
 
 def bucle_azul_verde():
         """
@@ -768,6 +768,9 @@ def escombro_final(): #condicional de control
                 robot.turn(90)
                 robot.stop()
                 abrir_garra() 
+        
+def condicional_definitivo():
+        mover_grua_angulo()
 def main(): 
         # recoger_escombro_1()#paso 1 recoger escombro
         # giroscopio.reset_angle(0)
@@ -775,10 +778,15 @@ def main():
         # apilar_tres_bloques()#paso 2 apilar bloques en cuadrito rojo
         # segundo_escombro_por_linea_roja()#paso 3 escombro 2 y 3 + palanca 1 y 2
         # giroscopio.reset_angle(0)
-        # segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
-        #bucle_azul_verde() #bucle si es verde
+        segundo_apilar() #paso 4 fila opuesta amarillo base, rojo , rojo
+        bucle_azul_verde() #bucle si es verde
         sieraverdevaporazul() # para agarrar el azul #probar
         #escombro_final()#paso final #probar
+
+#derecha verde
+#izquierda azul
+#hacer verde zul y azul y verde
+#hacer prob si es verde verde y azul azul
 
         
 
