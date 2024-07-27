@@ -835,4 +835,8 @@ def main():
         #condicional_definitivo()             #paso 5 y 6 condicional con todas las probabilidades + escombro final
         escombro_final()
 
+        #funciones al 100%
+        
+        #segundo_apilar()
+
 main()
