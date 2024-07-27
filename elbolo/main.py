@@ -101,13 +101,13 @@ def posicionar_garra_desde_cero():
 
         garra.run_target(150, -120, Stop.HOLD, True)
 
-def posicionar_garra_angulo(angle):
+def posicionar_garra_angulo(angle, bool = True):
         """Parametros admitidos para el angulo: -350 a 0
         Se le puede pasar un angulo para determinar una agarre mejor
         """
         # garra.reset_angle(0)
         print("reseteado")
-        garra.run_target(150, angle, Stop.HOLD, True)
+        garra.run_target(150, angle, Stop.HOLD, bool)
         print("posicionada")
 
 def abrir_garra(esperar = True):
@@ -143,9 +143,9 @@ def primer_paso():
         
         posicionar_garra_desde_cero()
 
-        retrocede_recto(right_motor, left_motor, 27)
+        retrocede_recto(right_motor, left_motor, 10)
         giroscopio.reset_angle(0)
-        wait(100)
+        wait(20300)
         movimiento_recto(right_motor, left_motor, 18) # cambio de 18.1  a 18 para ajustar la distancia hacia el bloque amarilo 
 
         # acelerar(robot, 1800)
@@ -170,25 +170,17 @@ def recoger_escombro_1():
 
         #El robot retrocede hasta llegar al borde del punto de control y se direcciona hacia la pipa
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
-        retrocede_recto(right_motor, left_motor, 1)
+        retrocede_recto(right_motor, left_motor, 2) # de 1 a 1.3 a 1.5
 
         robot.turn(88)
         robot.stop()
-        movimiento_recto(right_motor, left_motor, 38)
-        robot.turn(88)
-        robot.stop()
-        movimiento_recto(right_motor, left_motor, 10)
-
-        abrir_garra()
-        posicionar_garra_angulo(-90)
-        retrocede_recto(right_motor, left_motor, 5)
+        movimiento_recto(right_motor, left_motor, 45) # de 44 a 44.5 a 44.8
+        subir_garra()
         robot.turn(-88)
         robot.stop()
+        
 
-        subir_garra()
-        robot.turn(-180)
-        avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
-
+        
         # DESDE AQUI COMENTE TODO
 
         # mover_grua_angulo(-100)
@@ -209,29 +201,28 @@ def recoger_escombro_1():
         # robot.stop()
         # giroscopio.reset_angle(0)
         # print("Angulo 1: ",giroscopio.angle())   
-        # retrocede_recto(right_motor, left_motor, 25)
-        # movimiento_recto(right_motor, left_motor, 2)
-        # wait(100)
+        retrocede_recto(right_motor, left_motor, 25)
+        movimiento_recto(right_motor, left_motor, 2)
+        wait(100)
 
-        # robot.turn(88)
-        # robot.stop()
-        # giroscopio.reset_angle(0)
-        # print("Angulo 1: ",giroscopio.angle())   
-        # retrocede_recto(right_motor, left_motor, 2)
-        # abrir_garra(False)
-        # wait(100)
+        robot.turn(88)
+        robot.stop()
+        giroscopio.reset_angle(0)
+        print("Angulo 1: ",giroscopio.angle())   
+        retrocede_recto(right_motor, left_motor, 2)
+        abrir_garra(False)
+        wait(100)
 
-        # retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
-        # retrocede_recto(right_motor, left_motor, 15)
+        retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
+        retrocede_recto(right_motor, left_motor, 15)
 
-        # #///////////////
+        #///////////////
 
-        # #El robot avanza hacia el punto de inicio y se endereza
-        # robot.turn(-88)
-        # robot.stop()
+        #El robot avanza hacia el punto de inicio y se endereza
+        robot.turn(-88)
+        robot.stop()
         
-        # print("Angulo 1: ",giroscopio.angle())   
-        # wait(100)
+
 
 
         # # grua.reset_angle(0)
@@ -260,11 +251,11 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         robot.stop()
         
         ev3.speaker.beep(4)
-        wait(100)
+        wait(300)
 
         movimiento_recto(right_motor, left_motor, 7.5) # De 7 a 7.5 
         #///////////////
-
+        wait(300)
         #El robot agarra el primer bloque rojo, lo sube y retrocede
         cerrar_garra()
         subir_garra()
@@ -287,8 +278,6 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
 
         robot.turn(88)
         robot.stop()
-        giroscopio.reset_angle(0)
-        print("Angulo 1: ",giroscopio.angle())   
         wait(200)
         movimiento_recto(right_motor, left_motor, 1.3)
         #///////////////
