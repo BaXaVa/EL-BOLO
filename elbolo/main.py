@@ -97,7 +97,7 @@ def posicionar_garra_desde_cero():
         
 
         """
-        garra.reset_angle(0) #Creo que esta linea de codigo no es necesariaE
+        # garra.reset_angle(0) #Creo que esta linea de codigo no es necesariaE
 
         garra.run_target(150, -120, Stop.HOLD, True)
 
@@ -581,11 +581,11 @@ def condicional_definitivo():
         retrocede_recto(right_motor,left_motor,17)
         robot.turn(88)
         robot.stop()
-        print("en camino al checkpoint")
         avanzar_hasta_color(right_motor, left_motor,  sensor_color_bloque, Color.RED)
         robot.turn(-88)
         robot.stop()
         retrocede_recto(right_motor,left_motor,20)
+        print("en el checkpoint")
         movimiento_recto(right_motor,left_motor,18)
         robot.turn(-88)
         robot.stop()
@@ -593,49 +593,50 @@ def condicional_definitivo():
         print("Lllegando al bloque amarillo")
         robot.turn(-88)
         robot.stop()
+        retrocede_recto(right_motor,left_motor,4)
         posicionar_garra_desde_cero()
         wait(100)
-        movimiento_recto(right_motor,left_motor, 6.1)
+        movimiento_recto(right_motor,left_motor,8.8)
         bajar_garra()
         cerrar_garra()
-        mover_grua_angulo(-90)
+        subir_garra()
         print("amarillo capturado")
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
         wait(200)
-        robot.turn(-88)
-        robot.stop()
-        wait(100)
-        movimiento_recto(right_motor,left_motor, 9.6)
         robot.turn(88)
         robot.stop()
         wait(100)
-        movimiento_recto(right_motor,left_motor, 2.3)
+        movimiento_recto(right_motor,left_motor, 9.8)
+        robot.turn(-88)
+        robot.stop()
+        wait(100)
+        movimiento_recto(right_motor,left_motor, 1)
         reposar_bloque()
         print("apilacion doble completada")
+        abrir_garra()
         retrocede_recto(right_motor,left_motor,4)
         bajar_garra()
+        posicionar_garra_desde_cero()
+        movimiento_recto(right_motor,left_motor,5)
         print("verificando color")
         color_bloque_final_lineal = sensor_bloque_enfrente.color()
         print(sensor_bloque_enfrente.color())
+        print("guardamos el color del bloque 1")      
         retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque, Color.BLACK)
         robot.turn(88)
         robot.stop()
         wait(100)
-        movimiento_recto(right_motor,left_motor,9.6)
+        movimiento_recto(right_motor,left_motor,10)
         robot.turn(-88)
         robot.stop()
-        movimiento_recto(right_motor,left_motor,2.3)
+        movimiento_recto(right_motor,left_motor,1.5)
         print("en frente al segundo bloque")
         print("verificando color")
         color_bloque_tercero = sensor_bloque_enfrente.color()
         print(sensor_bloque_enfrente.color())
-        if color_bloque_final_lineal == Color.VERDE and color_bloque_tercero == Color.AZUL:
+        print("guardamos el color del segundo bloque")
+        if color_bloque_final_lineal == Color.GREEN and color_bloque_tercero == Color.BLUE:
                 #esto es para bloque 2 es verde y bloque 3 es azul
-                retrocede_recto(right_motor,left_motor,4)
-                abrir_garra()
-                posicionar_garra_desde_cero()
-                movimiento_recto(right_motor,left_motor,4)
-                cerrar_garra()
                 retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
                 robot.turn(-88)
                 robot.stop()
@@ -787,12 +788,12 @@ def condicional_definitivo():
 
 def main(): 
         
-        recoger_escombro_1()  
-        primer_paso()
-        apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
-        segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
-        escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
-        segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
+        # recoger_escombro_1()  
+        # primer_paso()
+        # apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
+        # segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
+        # escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
+        # segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
         condicional_definitivo()             #paso 5 y 6 condicional con todas las probabilidades + escombro final
 
 main()
