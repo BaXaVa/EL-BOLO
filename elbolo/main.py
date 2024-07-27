@@ -170,7 +170,8 @@ def recoger_escombro_1():
 
         #El robot retrocede hasta llegar al borde del punto de control y se direcciona hacia la pipa
         retroceder_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
-        retrocede_recto(right_motor, left_motor, 1.5 )
+        retrocede_recto(right_motor, left_motor, 5)
+        bajar_garra()
 
         wait(500)
         robot.turn(88)
@@ -242,7 +243,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
         ev3.speaker.beep(4)
         wait(100)
 
-        movimiento_recto(right_motor, left_motor, 6.1)
+        movimiento_recto(right_motor, left_motor, 7) # De 6.1 a 6.7
         #///////////////
 
         #El robot agarra el primer bloque rojo, lo sube y retrocede
@@ -389,6 +390,7 @@ def segundo_escombro_por_linea_roja():
 
         #mods bobo 12 y 13 julio
         #funcion para llevar escombor amarillo y gris a la vez
+
 def escombros_punto_de_control ():
         """
         Descripcion
@@ -398,9 +400,10 @@ def escombros_punto_de_control ():
         # grua.reset_angle(-350) # Es el elevador
 
         """Comente lo anterior porque estamos en fase de pruebas final"""
-        
+        print("abriendo la garra")
         abrir_garra()#abrir hasta q llegue a 0
         wait(100)
+        print("moviendo hacia los bloques")
         movimiento_recto(right_motor,left_motor,0.5)
         wait(100)
         bajar_garra()
@@ -416,12 +419,14 @@ def escombros_punto_de_control ():
         robot.turn(-90)
         robot.stop()#girar_rad(4,1)#gira ala derecha
         avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
-        movimiento_recto(right_motor,left_motor,35)
+        movimiento_recto(right_motor,left_motor,47)
         robot.turn(90)
         robot.stop()
         #girar_rad(4)
-        movimiento_recto(right_motor,left_motor,2)
+        movimiento_recto(right_motor,left_motor, 5)
         abrir_garra()
+        subir_garra()
+
         print("volviendo al punto de control")
         retrocede_recto(right_motor,left_motor,7)
         robot.turn(90)
@@ -440,7 +445,6 @@ def escombros_punto_de_control ():
         #:D
 
 def segundo_apilar(): #casi listo
-        subir_garra()
         movimiento_recto(right_motor,left_motor,13)#avanza un poco haia adelante
         robot.turn(-90)
         robot.stop()
