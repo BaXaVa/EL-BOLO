@@ -548,47 +548,62 @@ def escombro_final(): #condicional de control
                 robot.stop()
                 robot.turn(88)
                 robot.stop()
-                retrocede_recto(right_motor,left_motor,28)
-                robot.turn(-88)
+                robot.turn(-90)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,40)
+                movimiento_recto(right_motor,left_motor,63)
                 posicionar_garra_desde_cero()
                 cerrar_garra()
+                retrocede_recto(right_motor,left_motor,10)
                 robot.turn(88)
                 robot.stop()
                 avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
                 robot.turn(-88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,25)
+                movimiento_recto(right_motor,left_motor,35)
                 robot.turn(88)
                 robot.stop()
+                movimiento_recto(right_motor,left_motor,10)
                 abrir_garra()
-
-
-           
+                retrocede_recto(right_motor,left_motor,10)
+                robot.turn(88)
+                robot.stop()
+                avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+                robot.turn(88)
+                robot.stop()
+                retrocede_recto(right_motor,left_motor,20)
         else:
                 print("estamos frente la pila verde")
                 print("posicion arriba de verde")
                 retrocede_recto(right_motor,left_motor,30)
-                robot.turn(-88)
+                robot.turn(-90)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,40)
+                movimiento_recto(right_motor,left_motor,63)
                 posicionar_garra_desde_cero()
                 cerrar_garra()
+                retrocede_recto(right_motor,left_motor,10)
                 robot.turn(88)
                 robot.stop()
                 avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
                 robot.turn(-88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,25)
+                movimiento_recto(right_motor,left_motor,35)
                 robot.turn(88)
                 robot.stop()
+                movimiento_recto(right_motor,left_motor,10)
                 abrir_garra()
+                retrocede_recto(right_motor,left_motor,10)
+                robot.turn(88)
+                robot.stop()
+                avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+                robot.turn(88)
+                robot.stop()
+                retrocede_recto(right_motor,left_motor,20)
+
 
 #variable global
 color_3_bloque = sensor_bloque_enfrente.color()
 
-def condicional_definitivo():
+def condicional_definitivo(): #condicional para apilamiento de verde y azul
         print("estamos en frente de la 2da apilacion")
         retrocede_recto(right_motor,left_motor,17)
         robot.turn(88)
@@ -817,6 +832,7 @@ def main():
         # segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
         # escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
         # segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
-        condicional_definitivo()             #paso 5 y 6 condicional con todas las probabilidades + escombro final
+        #condicional_definitivo()             #paso 5 y 6 condicional con todas las probabilidades + escombro final
+        escombro_final()
 
 main()
