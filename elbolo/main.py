@@ -25,7 +25,7 @@ giroscopio = GyroSensor(Port.S3)
 
     # # Inicialización del robot
 robot = DriveBase(left_motor, right_motor, 68.8, 124)
-robot.settings(100, 100, 69,300) # de 276 a 300
+robot.settings(100, 100, 69,276)
 print(robot.settings())
 usar_giro = True 
 
@@ -145,7 +145,7 @@ def primer_paso():
 
         retrocede_recto(right_motor, left_motor, 10)
         giroscopio.reset_angle(0)
-        wait(2030)
+        wait(20300)
         movimiento_recto(right_motor, left_motor, 18) # cambio de 18.1  a 18 para ajustar la distancia hacia el bloque amarilo 
 
         # acelerar(robot, 1800)
@@ -241,7 +241,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
 
         ev3.speaker.beep(4)
         
-        movimiento_recto(right_motor, left_motor, 26, 200)
+        movimiento_recto(right_motor, left_motor, 26)
         ev3.speaker.beep(2) 
 
         
@@ -366,8 +366,7 @@ def segundo_escombro_por_linea_roja():
         movimiento_recto(right_motor, left_motor, 17.5) # ajustar distancia 45.5
         reposar_bloque()
         movimiento_recto(right_motor, left_motor, 7)
-        retrocede_recto(right_motor, left_motor, 4)
-
+        
         abrir_garra()
         mover_grua_angulo(-35)
         cerrar_garra()
@@ -537,41 +536,54 @@ def escombro_final(): #condicional de control
         color_bloque_final_lineal = sensor_bloque_enfrente.color()
         if color_bloque_final_lineal == Color.BLUE:
                 print("estamos frente la pila azul")
+                print("posicion abajo de azul")
                 retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
-                robot.turn(90)
+                robot.turn(-88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,36)
-                robot.turn(-90)
+                movimiento_recto(right_motor,left_motor,30)
+                robot.turn(88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,70)
-                cerrar_garra()
-                retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
-                robot.turn(90)
+                avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+                robot.turn(88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,17)
-                robot.turn(90)
+                robot.turn(88)
                 robot.stop()
-                abrir_garra()       
-        else:
-                print("estamos frente la pila verde")
-                retrocede_recto(right_motor,left_motor,30)
-                movimiento_recto(right_motor,left_motor,17)
-                robot.turn(-90)
+                retrocede_recto(right_motor,left_motor,28)
+                robot.turn(-88)
                 robot.stop()
                 movimiento_recto(right_motor,left_motor,40)
-                robot.turn(90)
-                robot.stop()
-                print("en frente al escombro final")
-                abrir_garra()
-                movimiento_recto(0.5)
+                posicionar_garra_desde_cero()
                 cerrar_garra()
-                retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
-                robot.turn(90)
+                robot.turn(88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,17)
-                robot.turn(90)
+                avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+                robot.turn(-88)
                 robot.stop()
-                abrir_garra() 
+                movimiento_recto(right_motor,left_motor,25)
+                robot.turn(88)
+                robot.stop()
+                abrir_garra()
+
+
+           
+        else:
+                print("estamos frente la pila verde")
+                print("posicion arriba de verde")
+                retrocede_recto(right_motor,left_motor,30)
+                robot.turn(-88)
+                robot.stop()
+                movimiento_recto(right_motor,left_motor,40)
+                posicionar_garra_desde_cero()
+                cerrar_garra()
+                robot.turn(88)
+                robot.stop()
+                avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+                robot.turn(-88)
+                robot.stop()
+                movimiento_recto(right_motor,left_motor,25)
+                robot.turn(88)
+                robot.stop()
+                abrir_garra()
 
 #variable global
 color_3_bloque = sensor_bloque_enfrente.color()
@@ -621,7 +633,7 @@ def condicional_definitivo():
         print("verificando color")
         color_bloque_final_lineal = sensor_bloque_enfrente.color()
         print(sensor_bloque_enfrente.color())
-        print("guardamos el color del bloque 1")      
+        print("guardamos el color del bloque 2")      
         retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque, Color.BLACK)
         robot.turn(88)
         robot.stop()
@@ -634,27 +646,38 @@ def condicional_definitivo():
         print("verificando color")
         color_bloque_tercero = sensor_bloque_enfrente.color()
         print(sensor_bloque_enfrente.color())
-        print("guardamos el color del segundo bloque")
+        print("guardamos el color del tercer bloque")
         if color_bloque_final_lineal == Color.GREEN and color_bloque_tercero == Color.BLUE:
                 #esto es para bloque 2 es verde y bloque 3 es azul
+                cerrar_garra()
+                subir_garra()
                 retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
                 robot.turn(-88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,9.6)
+                movimiento_recto(right_motor,left_motor,9.8)
                 robot.turn(88)
                 robot.stop()
-                subir_garra()
                 reposar_bloque()
                 print("apilacion triple completada")
                 print("verde, amarillo, azul")
+                retrocede_recto(right_motor,left_motor,4)
+                bajar_garra()
+                posicionar_garra_desde_cero()
+                movimiento_recto(right_motor,left_motor,4)
+                cerrar_garra()
                 retroceder_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.BLACK)
-                robot.turn(-90)
+                robot.turn(-88)
                 robot.stop()
-                movimiento_recto(right_motor,left_motor,57)
-                robot.turn(-90)
+                movimiento_recto(right_motor,left_motor,60)
+                robot.turn(-88)
                 robot.stop()
                 movimiento_recto(right_motor,left_motor,20)
-                print("Punto de control para el bucle")
+                print("cuadrito verde")
+                abrir_garra()
+
+
+
+
                 robot.turn(90)
                 robot.stop()
                 abrir_garra()
