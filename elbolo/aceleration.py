@@ -68,7 +68,7 @@ def retroceder_hasta_color(motor_b,motor_c,sensor_1, target_color):
     motor_b.stop()
     motor_c.stop() 
 
-def movimiento_recto(motor_b, motor_c, distancia):
+def movimiento_recto(motor_b, motor_c, distancia, velocidad_max = 140):
 
     desired = 0
     motor_b.reset_angle(0)
@@ -93,7 +93,7 @@ def movimiento_recto(motor_b, motor_c, distancia):
         motor_b.run(speed + correcion)
         motor_c.run(speed - correcion)
 
-        if speed < 140: 
+        if speed < velocidad_max: 
             speed += 1
     motor_b.stop()
     motor_c.stop()

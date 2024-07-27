@@ -25,7 +25,7 @@ giroscopio = GyroSensor(Port.S3)
 
     # # Inicialización del robot
 robot = DriveBase(left_motor, right_motor, 68.8, 124)
-robot.settings(100, 100, 69,276)
+robot.settings(100, 100, 69,300) # de 276 a 300
 print(robot.settings())
 usar_giro = True 
 
@@ -145,7 +145,7 @@ def primer_paso():
 
         retrocede_recto(right_motor, left_motor, 10)
         giroscopio.reset_angle(0)
-        wait(20300)
+        wait(2030)
         movimiento_recto(right_motor, left_motor, 18) # cambio de 18.1  a 18 para ajustar la distancia hacia el bloque amarilo 
 
         # acelerar(robot, 1800)
@@ -241,7 +241,7 @@ def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde 
 
         ev3.speaker.beep(4)
         
-        movimiento_recto(right_motor, left_motor, 26)
+        movimiento_recto(right_motor, left_motor, 26, 200)
         ev3.speaker.beep(2) 
 
         
@@ -366,7 +366,8 @@ def segundo_escombro_por_linea_roja():
         movimiento_recto(right_motor, left_motor, 17.5) # ajustar distancia 45.5
         reposar_bloque()
         movimiento_recto(right_motor, left_motor, 7)
-        
+        retrocede_recto(right_motor, left_motor, 4)
+
         abrir_garra()
         mover_grua_angulo(-35)
         cerrar_garra()
