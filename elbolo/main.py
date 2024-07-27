@@ -574,7 +574,7 @@ def escombro_final(): #condicional de control
         else:
                 print("estamos frente la pila verde")
                 print("posicion arriba de verde")
-                retrocede_recto(right_motor,left_motor,30)
+                retrocede_recto(right_motor,left_motor,35)
                 robot.turn(-90)
                 robot.stop()
                 movimiento_recto(right_motor,left_motor,63)
