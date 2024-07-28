@@ -497,47 +497,21 @@ def llegar_a_segundo_apilar():
         avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
 
         pass
-def segundo_apilar(): #casi listo   
-        movimiento_recto(right_motor,left_motor,13)#avanza un poco haia adelante
+
+def segundo_apilar(): 
+        # despues de acomodarse gira ala derecha luego derecha y ya
+        movimiento_recto(right_motor,left_motor,18)
         robot.turn(-90)
         robot.stop()
-        #girar_rad(4)
-        movimiento_recto(right_motor,left_motor,31)
-        robot.turn(88)
+        movimiento_recto(right_motor,left_motor,7)
+        movimiento_recto(right_motor,left_motor,17.5)
+        robot.turn(-90)
         robot.stop()
-        #girar_rad(4,1)
-        movimiento_recto(right_motor,left_motor,60)
-        robot.turn(-88)
-        robot.stop()
-        #girar_rad(4)
-        avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
-        
-        movimiento_recto(right_motor,left_motor,15)
-        robot.turn(-88)
-        retrocede_recto(right_motor,left_motor,20)
-
-        # movimiento_recto(right_motor,left_motor,15)
-        # robot.turn(-88)
-        # wait(100)
-        # retrocede_recto(right_motor,left_motor,18)
-
-
-
-
-
-        # ACAAAA
-        wait(100)
-        robot.turn(88)
-        robot.stop()
-        #girar_rad(4,1)
         posicionar_garra_desde_cero()
-        avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
-        movimiento_recto(right_motor,left_motor,7)#esta de frente al bloque rojo 1 fila 2 
         wait(100)
-         # garra.reset_angle(-200)#se establece el angulo interno de 0 a -350
-         # grua.reset_angle(-350)
         bajar_garra()
         wait(100)
+        movimiento_recto(right_motor,left_motor,7)#esta de frente al bloque rojo 1 fila 2 
         cerrar_garra()
         subir_garra()
         print("en camino al block 1 rojo")
@@ -546,12 +520,12 @@ def segundo_apilar(): #casi listo
         robot.turn(88)
         robot.stop()
         #girar_rad(4,1)
-        movimiento_recto(right_motor, left_motor,9.5)
+        movimiento_recto(right_motor, left_motor,10)
         robot.turn(-88)
         robot.stop()
         #girar_rad(4)
         print("en frente rojo 2")
-        movimiento_recto(right_motor, left_motor,0.5)
+        movimiento_recto(right_motor, left_motor,2)
         #Deja reposar el bloque, baja la garra, abre su garra y recoge ambos bloques
         print("colocando rojo en rojo")
         reposar_bloque()#colocar block sobre otro #apilar_tres_bloques() 
@@ -570,11 +544,11 @@ def segundo_apilar(): #casi listo
         robot.turn(90)
         robot.stop()
         #girar_rad(4,1)
-        movimiento_recto(right_motor, left_motor,8.5)
+        movimiento_recto(right_motor, left_motor,10.5)
         robot.turn(-90)
         robot.stop()
         #girar_rad(4)
-        movimiento_recto(right_motor, left_motor,1)
+        movimiento_recto(right_motor, left_motor,2)
         reposar_bloque()#apilar_tres_bloques()
         abrir_garra()
         posicionar_garra_desde_cero()
@@ -585,7 +559,7 @@ def segundo_apilar(): #casi listo
         robot.turn(92)
         robot.stop()
         #girar_rad(4,1)
-        movimiento_recto(right_motor,left_motor,10)
+        movimiento_recto(right_motor,left_motor,13)
         robot.turn(89)
         robot.stop()
         #girar_rad(4,1)
@@ -1196,20 +1170,17 @@ def izq_iguales_verde_der_enmedio_azul():
 
 def main(): 
         
-        # recoger_escombro_1()  
-        # primer_paso()
-        # apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
-        # segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
-
-        # escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
+        recoger_escombro_1()  
+        primer_paso()
+        apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
+        segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
+        escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
+        llegar_a_segundo_apilar()            #paso 5 llegar a la segunda apilacion
         segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
-        condicional_definitivo()             #paso 5 y 6 condicional con todas las probabilidades + escombro final
-        # escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
-        # segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
-        izq_iguales_verde_der_enmedio_azul()
-        izq_iguales_verde_der_secuencial_azul()
-        izq_secuencial_verde_der_enmedio_azul()
-        izq_secuencial_verde_der_secuencial_azul()
+        # izq_iguales_verde_der_enmedio_azul()
+        # izq_iguales_verde_der_secuencial_azul()
+        # izq_secuencial_verde_der_enmedio_azul()
+        # izq_secuencial_verde_der_secuencial_azul()
 
         #Falta:
         #iguales + iguales + arriba
