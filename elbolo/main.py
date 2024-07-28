@@ -480,8 +480,24 @@ def escombros_punto_de_control ():
         #fin mods hoy
         #:D
 
+def llegar_a_segundo_apilar():
+        movimiento_recto(right_motor,left_motor,13)
+        robot.turn(-90)
+        robot.stop()
+        
+        movimiento_recto(right_motor,left_motor,31)
 
-def segundo_apilar(): #casi listo  
+        robot.turn(88)
+        robot.stop()
+
+        movimiento_recto(right_motor,left_motor,60)
+        robot.turn(-88)
+        robot.stop()
+
+        avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+
+        pass
+def segundo_apilar(): #casi listo   
         movimiento_recto(right_motor,left_motor,13)#avanza un poco haia adelante
         robot.turn(-90)
         robot.stop()
@@ -490,11 +506,15 @@ def segundo_apilar(): #casi listo
         robot.turn(88)
         robot.stop()
         #girar_rad(4,1)
-        movimiento_recto(right_motor,left_motor,54)
+        movimiento_recto(right_motor,left_motor,60)
         robot.turn(-88)
         robot.stop()
         #girar_rad(4)
         avanzar_hasta_color(right_motor,left_motor,sensor_color_bloque,Color.RED)
+        
+        movimiento_recto(right_motor,left_motor,15)
+        robot.turn(-88)
+        retrocede_recto(right_motor,left_motor,20)
 
         # movimiento_recto(right_motor,left_motor,15)
         # robot.turn(-88)
@@ -808,7 +828,8 @@ def main():
         # primer_paso()
         # apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
         # segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
-        escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
+
+        # escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
         segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
         condicional_definitivo()             #paso 5 y 6 condicional con todas las probabilidades + escombro final
 
