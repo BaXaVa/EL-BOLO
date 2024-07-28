@@ -1175,7 +1175,7 @@ def main():
         apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
         segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
         escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
-        llegar_a_segundo_apilar()            #paso 5 llegar a la segunda apilacion
+        llegar_a_segundo_apilar()            #paso 5 llegar a la segunda 
         segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
         # izq_iguales_verde_der_enmedio_azul()
         # izq_iguales_verde_der_secuencial_azul()
