@@ -79,6 +79,7 @@ def reposar_bloque():
         # print("finish reposar bloque")
         # print(grua.angle())
 
+
 def mover_grua_angulo(angulo_buscado):
         """Se le puede pasar un angulo a la grua para determinar la altura a la que queda"""
         grua.run_target(100,angulo_buscado,Stop.HOLD, True) 
@@ -96,6 +97,7 @@ def posicionar_garra_desde_cero():
 
         garra.run_target(150, -135, Stop.HOLD, True)
 
+
 def posicionar_garra_angulo(angle, bool = True):
         """Parametros admitidos para el angulo: -350 a 0
         Se le puede pasar un angulo para determinar una agarre mejor
@@ -105,6 +107,7 @@ def posicionar_garra_angulo(angle, bool = True):
         garra.run_target(150, angle, Stop.HOLD, bool)
         print("posicionada")
 
+
 def abrir_garra(esperar = True):
         """
         Abre la garra totalmente
@@ -113,6 +116,7 @@ def abrir_garra(esperar = True):
         print("hola ")
         garra.run_target(150, 0, Stop.HOLD, esperar)
         print("Como estas?")
+
 
 def girar_rad(cuarto_de_circunferencia, dir = 0):
         radio_robot = 12.4  # de de 12.15 a 
@@ -127,6 +131,7 @@ def girar_rad(cuarto_de_circunferencia, dir = 0):
         right_motor.stop()
         wait(100)
         ev3.speaker.beep(2)
+
 
 def primer_paso():
         """
@@ -150,6 +155,7 @@ def primer_paso():
         robot.stop()
         giroscopio.reset_angle(0)
         print("Angulo 1: ",giroscopio.angle())   
+
 
 def recoger_escombro_1():
         #El robot retrocede hasta chocar con la pared para despues avanzar hacia el primer escombro
@@ -225,7 +231,8 @@ def recoger_escombro_1():
 
         # # bajar_garra()
         # #///////////////
-        
+
+
 def apilar_tres_bloques():#Esta funcion lo que hace es apilar los bloques desde el amarillo hasta el rojo1
         #El robot avanza y se alinea con el primer bloque
         
@@ -344,14 +351,15 @@ def segundo_escombro_por_linea_roja():
         robot.turn(-90)
         robot.stop()
 
+        bajar_garra()
         avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque,Color.GREEN)
         print("llego al: ", sensor_color_bloque.color())
 
-        movimiento_recto(right_motor, left_motor, 2)
+        # movimiento_recto(right_motor, left_motor, 2)
 
         cerrar_garra()
         
-        movimiento_recto(right_motor, left_motor, 10)
+        movimiento_recto(right_motor, left_motor, 12)
 
         robot.turn(-88)
         robot.stop()
@@ -375,13 +383,14 @@ def segundo_escombro_por_linea_roja():
         wait(100)
         reposar_bloque()
         wait(100)
-        movimiento_recto(right_motor, left_motor, 7)
+        movimiento_recto(right_motor, left_motor, 6.5)
 
         abrir_garra()
 
         retrocede_recto(right_motor, left_motor, 2, 50)
 
-        mover_grua_angulo(-35)
+        # mover_grua_angulo(-35)
+        bajar_garra()
         cerrar_garra()
         
         robot.turn(-90)
@@ -439,22 +448,23 @@ def escombros_punto_de_control ():
         robot.turn(-90)
         robot.stop()
         avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
+        retrocede_recto(right_motor, left_motor, 10)
         robot.turn(90)
         robot.stop() #girar_rad(4) #4 izquierda y 4 1 derecha
         avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.BLACK)
         robot.turn(-90)
         robot.stop()#girar_rad(4,1)#gira ala derecha
         avanzar_hasta_color(right_motor, left_motor, sensor_color_bloque, Color.RED)
-        movimiento_recto(right_motor,left_motor,47)
+        movimiento_recto(right_motor,left_motor,57)
         robot.turn(90)
         robot.stop()
         #girar_rad(4)
-        movimiento_recto(right_motor,left_motor, 5)
+        movimiento_recto(right_motor,left_motor, 6)
         abrir_garra()
         subir_garra()
 
         print("volviendo al punto de control")
-        retrocede_recto(right_motor,left_motor,7)
+        retrocede_recto(right_motor,left_motor,5)
         robot.turn(90)
         robot.stop()
         #girar_rad(4)
@@ -469,6 +479,7 @@ def escombros_punto_de_control ():
         print("bobo llego al punto de control")
         #fin mods hoy
         #:D
+
 
 def segundo_apilar(): #casi listo  
         movimiento_recto(right_motor,left_motor,13)#avanza un poco haia adelante
@@ -561,6 +572,7 @@ def segundo_apilar(): #casi listo
         movimiento_recto(right_motor,left_motor,7)
         bajar_garra()
         abrir_garra()
+
 
 def escombro_final(): #condicional de control
         color_bloque_final_lineal = sensor_bloque_enfrente.color()
@@ -793,9 +805,9 @@ def condicional_definitivo():
 def main(): 
         
         # recoger_escombro_1()  
-        primer_paso()
-        apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
-        segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
+        # primer_paso()
+        # apilar_tres_bloques()                #paso 2 apilar bloques en cuadrito 
+        # segundo_escombro_por_linea_roja()    #paso 3 escombro 2 y 3 + palanca 1 y 2
         escombros_punto_de_control()         #paso 4 llevar escombro amarillo y gris a la vez
         segundo_apilar()                     #paso 4 fila opuesta amarillo base, rojo , rojo
         condicional_definitivo()             #paso 5 y 6 condicional con todas las probabilidades + escombro final
